@@ -1,0 +1,97 @@
+{
+    "$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+    "version": 3,
+    "settings": {
+        "appearanceTools": true,
+        "layout": {
+            "contentSize": "100%",
+            "wideSize": "100%"
+        },
+        "spacing": {
+            "blockGap": false
+        },
+        "typography": {
+            "fontFamilies": [
+                {
+                    "fontFamily": "Ubuntu, sans-serif",
+                    "name": "Ubuntu",
+                    "slug": "ubuntu"
+                },
+                {
+                    "fontFamily": "'Science Gothic', sans-serif",
+                    "name": "Science Gothic",
+                    "slug": "science-gothic"
+                }
+            ]
+        },
+        "color": {
+            "palette": [
+                {
+                    "slug": "primary",
+                    "color": "#ff6b00",
+                    "name": "Mobirise Orange"
+                },
+                {
+                    "slug": "primary-hover",
+                    "color": "#a84700",
+                    "name": "Primary Hover"
+                },
+                {
+                    "slug": "secondary",
+                    "color": "#00c2ff",
+                    "name": "Secondary"
+                },
+                {
+                    "slug": "secondary-hover",
+                    "color": "#0080a8",
+                    "name": "Secondary Hover"
+                },
+                {
+                    "slug": "background",
+                    "color": "#f8fafc",
+                    "name": "Background"
+                },
+                {
+                    "slug": "text",
+                    "color": "#0b1221",
+                    "name": "Text"
+                },
+                {
+                    "slug": "black",
+                    "color": "#000000",
+                    "name": "Black"
+                }
+            ]
+        }
+    },
+    "styles": {
+        "spacing": {
+            "blockGap": "0px",
+            "padding": {
+                "top": "0px",
+                "bottom": "0px",
+                "left": "0px",
+                "right": "0px"
+            }
+        },
+        "elements": {
+            "link": {
+                "typography": {
+                    "textDecoration": "none"
+                }
+            }
+        }
+    },
+    "templateParts": [
+    {
+        "area": "header",
+        "name": "header",
+        "title": "Restatify Base-Header"
+    },
+    {
+        "area": "footer",
+        "name": "footer",
+        "title": "Restatify Base-Footer"
+    }
+]
+}
