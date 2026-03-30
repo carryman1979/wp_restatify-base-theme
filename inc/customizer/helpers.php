@@ -59,3 +59,46 @@ function restatify_sanitize_optional_line_height($value) {
 
     return restatify_sanitize_line_height($value);
 }
+
+function restatify_sanitize_footer_url($value) {
+    return esc_url_raw(trim((string) $value));
+}
+
+function restatify_sanitize_footer_phone($value) {
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+
+    return preg_replace('/[^0-9\+\s\-\(\)\.\/]/', '', $value);
+}
+
+function restatify_get_tel_href($value) {
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+
+    $value = preg_replace('/[^0-9\+]/', '', $value);
+    if ($value === '') {
+        return '';
+    }
+
+    return 'tel:' . $value;
+}
+
+function restatify_translate_polylang_string($value) {
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+
+    if (function_exists('pll__')) {
+        $translated = pll__($value);
+        if (is_string($translated) && $translated !== '') {
+            return $translated;
+        }
+    }
+
+    return $value;
+}

@@ -1,11 +1,13 @@
 <?php
 
+
 $restatify_includes = [
     '/inc/theme-setup.php',
     '/inc/assets.php',
     '/inc/navigation-walker.php',
     '/inc/customizer.php',
     '/inc/polylang.php',
+    '/inc/blocks.php', // Block-Registrierung
 ];
 
 foreach ($restatify_includes as $restatify_file) {

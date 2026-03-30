@@ -1,0 +1,46 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/hero",
+  "title": "Hero Section",
+  "category": "design",
+  "icon": "cover",
+  "description": "Ein flexibler Hero-Block mit Parallax, Fullscreen, Buttons usw.",
+  "keywords": ["hero", "parallax", "fullscreen", "section"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 40 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "tagline": { "type": "string", "default": "" },
+    "heading": { "type": "string", "default": "" },
+    "text": { "type": "string", "default": "" },
+    "btn1Label": { "type": "string", "default": "" },
+    "btn1Url": { "type": "string", "default": "" },
+    "btn2Label": { "type": "string", "default": "" },
+    "btn2Url": { "type": "string", "default": "" }
+  },
+  "example": {
+    "attributes": {
+      "tagline": "Build Better",
+      "heading": "Hero Block Vorschau",
+      "text": "Das ist die Vorschau im Block-Inserter.",
+      "btn1Label": "Starten",
+      "btn1Url": "#",
+      "btn2Label": "Mehr erfahren",
+      "btn2Url": "#",
+      "backgroundImageUrl": "",
+      "overlayEnabled": false,
+      "overlayColor": "#0b1221",
+      "overlayOpacity": 40,
+      "parallax": false,
+      "fullscreen": false
+    }
+  }
+}

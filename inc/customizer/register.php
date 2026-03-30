@@ -250,5 +250,305 @@ function restatify_customize_register($wp_customize) {
         'section'     => 'title_tagline',
         'type'        => 'text',
     ]);
+
+    $wp_customize->add_section('restatify_footer', [
+        'title'       => __('Footer Content', 'restatify-base'),
+        'priority'    => 32,
+        'description' => __('Manage dynamic footer text, quick contact links, social URLs, trust badges and vCard.', 'restatify-base'),
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_title', [
+        'default'           => __('Strategie, die mit Ihrem Unternehmen mitwaechst.', 'restatify-base'),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_title', [
+        'label'       => __('Footer slogan', 'restatify-base'),
+        'description' => __('Main headline in the footer title area.', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_description', [
+        'default'           => __('Wir unterstuetzen Sie bei Positionierung, Wachstum und Umsetzung - strukturiert, messbar und hands-on.', 'restatify-base'),
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_description', [
+        'label'       => __('Footer description', 'restatify-base'),
+        'description' => __('Descriptive paragraph below the footer slogan.', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_phone', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_phone',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_phone', [
+        'label'       => __('Quick contact phone', 'restatify-base'),
+        'description' => __('Example: +49 123 456789', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_email', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_email',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_email', [
+        'label'       => __('Quick contact email', 'restatify-base'),
+        'description' => __('Example: hello@example.com', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'email',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_fax', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_phone',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_fax', [
+        'label'       => __('Company fax', 'restatify-base'),
+        'description' => __('Example: +49 123 456790', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_social_linkedin', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_social_linkedin', [
+        'label'       => __('LinkedIn URL', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_social_xing', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_social_xing', [
+        'label'       => __('Xing URL', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_social_facebook', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_social_facebook', [
+        'label'       => __('Facebook URL', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_vcard_url', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_vcard_url', [
+        'label'       => __('vCard URL', 'restatify-base'),
+        'description' => __('Paste the URL to your downloadable vCard.', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_vcard_text', [
+        'default'           => __('vCard Gruender', 'restatify-base'),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_vcard_text', [
+        'label'       => __('vCard link text', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_1', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_1', [
+        'label'       => __('Trust badge 1', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'settings'    => 'restatify_footer_trust_badge_1',
+        'mime_type'   => 'image',
+    ]));
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_1_url', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_trust_badge_1_url', [
+        'label'       => __('Trust badge 1 link URL (optional)', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_2', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_2', [
+        'label'       => __('Trust badge 2', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'settings'    => 'restatify_footer_trust_badge_2',
+        'mime_type'   => 'image',
+    ]));
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_2_url', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_trust_badge_2_url', [
+        'label'       => __('Trust badge 2 link URL (optional)', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_3', [
+        'default'           => 0,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_3', [
+        'label'       => __('Trust badge 3', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'settings'    => 'restatify_footer_trust_badge_3',
+        'mime_type'   => 'image',
+    ]));
+
+    $wp_customize->add_setting('restatify_footer_trust_badge_3_url', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_footer_trust_badge_3_url', [
+        'label'       => __('Trust badge 3 link URL (optional)', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'type'        => 'url',
+    ]);
+    // ── Hero Section ────────────────────────────────────────────────────────
+    $wp_customize->add_section( 'restatify_hero', [
+        'title'       => __( 'Hero Section', 'restatify-base' ),
+        'priority'    => 30,
+        'description' => __( 'Texts and button links for the hero block on the homepage.', 'restatify-base' ),
+    ] );
+
+    // Parallax background toggle
+    $wp_customize->add_setting( 'restatify_hero_parallax', [
+        'default'           => false,
+        'sanitize_callback' => 'restatify_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_parallax', [
+        'label'       => __( 'Parallax-Effekt für Hintergrundbild aktivieren', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'checkbox',
+    ] );
+
+    // Fullscreen toggle
+    $wp_customize->add_setting( 'restatify_hero_fullscreen', [
+        'default'           => false,
+        'sanitize_callback' => 'restatify_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_fullscreen', [
+        'label'       => __( 'Hero-Block immer Fullscreen anzeigen (100vw/100vh)', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'checkbox',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_tagline', [
+        'default'           => __( 'Strategic guidance turning complexity into sustainable business growth', 'restatify-base' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_tagline', [
+        'label'       => __( 'Tagline (small text above heading)', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_heading', [
+        'default'           => __( 'Business Consultant', 'restatify-base' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_heading', [
+        'label'       => __( 'Main heading (H2)', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_text', [
+        'default'           => __( 'A Business Consultant partners with organizations to clarify vision, solve complex challenges, and unlock new opportunities.', 'restatify-base' ),
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_text', [
+        'label'       => __( 'Body text below heading', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'textarea',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_btn1_label', [
+        'default'           => __( 'Start now', 'restatify-base' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_btn1_label', [
+        'label'       => __( 'Primary button label', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_btn1_url', [
+        'default'           => '#',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_btn1_url', [
+        'label'       => __( 'Primary button URL', 'restatify-base' ),
+        'description' => __( 'Internal anchor (e.g. #pricing01-k) or full URL.', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_btn2_label', [
+        'default'           => __( 'Contact now', 'restatify-base' ),
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_btn2_label', [
+        'label'       => __( 'Secondary button label', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
+
+    $wp_customize->add_setting( 'restatify_hero_btn2_url', [
+        'default'           => '#',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ] );
+    $wp_customize->add_control( 'restatify_hero_btn2_url', [
+        'label'       => __( 'Secondary button URL', 'restatify-base' ),
+        'description' => __( 'Internal anchor (e.g. #contacts01-c) or full URL.', 'restatify-base' ),
+        'section'     => 'restatify_hero',
+        'type'        => 'text',
+    ] );
 }
 add_action('customize_register', 'restatify_customize_register');

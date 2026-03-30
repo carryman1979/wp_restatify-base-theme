@@ -1,0 +1,8 @@
+/* Editor-Styles für Hero-Block */
+.restatify-hero-block {
+	outline: 1px dashed #aaa;
+	background: #f8fafc;
+}
+.restatify-hero-block.is-fullscreen {
+	min-height: 60vh;
+}

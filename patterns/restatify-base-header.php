@@ -191,6 +191,28 @@ if (!empty($dark_logo_src)) {
                     <?php endif; ?>
                 </div>
 
+                <details class="restatify-theme-switch">
+                    <summary class="restatify-theme-toggle" aria-label="<?php esc_attr_e('Theme appearance', 'restatify-base'); ?>">
+                        <span class="restatify-theme-current-icon imind imind-sun" data-theme-current-icon aria-hidden="true"></span>
+                        <span class="restatify-theme-caret" aria-hidden="true"></span>
+                        <span class="screen-reader-text"><?php esc_html_e('Change color theme', 'restatify-base'); ?></span>
+                    </summary>
+                    <div class="restatify-theme-menu" role="menu" aria-label="<?php esc_attr_e('Theme mode', 'restatify-base'); ?>">
+                        <button type="button" class="restatify-theme-option" data-theme-choice="auto" role="menuitemradio" aria-label="<?php esc_attr_e('Automatic theme', 'restatify-base'); ?>" aria-pressed="false">
+                            <span class="imind imind-auto-flash" aria-hidden="true"></span>
+                            <span class="screen-reader-text"><?php esc_html_e('Automatic theme', 'restatify-base'); ?></span>
+                        </button>
+                        <button type="button" class="restatify-theme-option" data-theme-choice="light" role="menuitemradio" aria-label="<?php esc_attr_e('Light theme', 'restatify-base'); ?>" aria-pressed="false">
+                            <span class="imind imind-sun" aria-hidden="true"></span>
+                            <span class="screen-reader-text"><?php esc_html_e('Light theme', 'restatify-base'); ?></span>
+                        </button>
+                        <button type="button" class="restatify-theme-option" data-theme-choice="dark" role="menuitemradio" aria-label="<?php esc_attr_e('Dark theme', 'restatify-base'); ?>" aria-pressed="false">
+                            <span class="imind imind-half-moon" aria-hidden="true"></span>
+                            <span class="screen-reader-text"><?php esc_html_e('Dark theme', 'restatify-base'); ?></span>
+                        </button>
+                    </div>
+                </details>
+
                 <?php if (!empty($language_items)) : ?>
                     <details class="restatify-lang-switch">
                         <summary class="restatify-lang-toggle" aria-label="<?php esc_attr_e('Language switcher', 'restatify-base'); ?>">

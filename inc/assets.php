@@ -26,6 +26,7 @@ function restatify_theme_assets() {
     // Styles (Mobirise order)
     wp_enqueue_style('mobirise-icons', $uri . '/web/assets/mobirise-icons2/mobirise2.css', [], null);
     wp_enqueue_style('icon54-v2', $uri . '/icon54-v2/style.css', [], null);
+    wp_enqueue_style('iconsmind', $uri . '/iconsMind/style.css', [], filemtime(get_template_directory() . '/assets/iconsMind/style.css'));
     wp_enqueue_style('bootstrap', $uri . '/bootstrap/css/bootstrap.min.css', [], null);
     wp_enqueue_style('dropdown', $uri . '/dropdown/css/style.css', ['bootstrap'], null);
     wp_enqueue_style('socicon', $uri . '/socicon/css/styles.css', [], null);
@@ -38,6 +39,7 @@ function restatify_theme_assets() {
     // Scripts
     wp_enqueue_script('bootstrap-js', $uri . '/bootstrap/js/bootstrap.bundle.min.js', [], null, true);
     wp_enqueue_script('dropdown-js', $uri . '/dropdown/js/navbar-dropdown.js', ['bootstrap-js'], null, true);
+    wp_enqueue_script('restatify-theme-mode-switcher', $uri . '/theme/js/theme-mode-switcher.js', ['dropdown-js'], filemtime(get_template_directory() . '/assets/theme/js/theme-mode-switcher.js'), true);
 
     if ($consent_state === 'accepted') {
         wp_enqueue_script('embla-js', $uri . '/embla/embla.min.js', [], null, true);
