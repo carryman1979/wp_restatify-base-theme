@@ -1,54 +1,22 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	TextControl,
 	TextareaControl,
-	ToggleControl,
 	Button,
-	ColorPicker,
-	RangeControl
+	ToggleControl
 } from '@wordpress/components';
 import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
+import { BackgroundLayoutPanel, getBackgroundStyle, getOverlayStyle } from '../shared/background-layout-controls';
+import { getUrlFromLinkValue } from '../shared/link-utils';
 import './editor.css';
 import './style.css';
 
-function clampOverlayOpacity(value) {
-	const numberValue = Number(value);
-
-	if (!Number.isFinite(numberValue)) {
-		return 0;
-	}
-
-	return Math.min(100, Math.max(0, Math.round(numberValue)));
-}
-
-function getOverlayStyle(overlayEnabled, overlayColor, overlayOpacity) {
-	if (!overlayEnabled) {
-		return undefined;
-	}
-
-	return {
-		backgroundColor: overlayColor || '#0b1221',
-		opacity: clampOverlayOpacity(overlayOpacity) / 100
-	};
-}
-
-function getUrlFromLinkValue(value) {
-	if (typeof value === 'string') {
-		return value;
-	}
-
-	if (value && typeof value.url === 'string') {
-		return value.url;
-	}
-
-	return '';
-}
-
 function Edit({ attributes, setAttributes }) {
 	const {
+		backgroundImageEnabled,
 		backgroundImageUrl,
 		overlayEnabled,
 		overlayColor,
@@ -56,89 +24,29 @@ function Edit({ attributes, setAttributes }) {
 		parallax,
 		fullscreen,
 		tagline,
+		showTagline,
 		heading,
+		showHeading,
 		text,
+		showText,
 		btn1Label,
+		showBtn1,
 		btn1Url,
 		btn2Label,
+		showBtn2,
 		btn2Url
 	} = attributes;
-	const heroStyle = backgroundImageUrl ? { backgroundImage: `url(${backgroundImageUrl})` } : undefined;
+	const heroStyle = getBackgroundStyle(backgroundImageEnabled, backgroundImageUrl);
 	const overlayStyle = getOverlayStyle(overlayEnabled, overlayColor, overlayOpacity);
-	const normalizedOverlayOpacity = clampOverlayOpacity(overlayOpacity);
 	const heroClassName = [
 		'restatify-hero-block',
-		parallax ? 'is-parallax' : '',
+		backgroundImageEnabled !== false && parallax ? 'is-parallax' : '',
 		fullscreen ? 'is-fullscreen' : ''
 	].join(' ');
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls>
-				<PanelBody title={__('Background & layout', 'restatify-base')} initialOpen={true}>
-					<MediaUploadCheck>
-						<MediaUpload
-							onSelect={(media) => setAttributes({ backgroundImageUrl: media?.url || '' })}
-							allowedTypes={['image']}
-							value={backgroundImageUrl}
-							render={({ open }) => (
-								<Button variant="secondary" onClick={open}>
-									{backgroundImageUrl
-										? __('Replace background image', 'restatify-base')
-										: __('Choose background image from media library', 'restatify-base')}
-								</Button>
-							)}
-						/>
-					</MediaUploadCheck>
-					{backgroundImageUrl && (
-						<Button
-							variant="link"
-							onClick={() => setAttributes({ backgroundImageUrl: '' })}
-						>
-							{__('Use theme default background', 'restatify-base')}
-						</Button>
-					)}
-					<ToggleControl
-						label={__('Parallax effect', 'restatify-base')}
-						checked={!!parallax}
-						onChange={v => setAttributes({ parallax: !!v })}
-					/>
-					<ToggleControl
-						label={__('Fullscreen', 'restatify-base')}
-						checked={!!fullscreen}
-						onChange={v => setAttributes({ fullscreen: !!v })}
-					/>
-					<ToggleControl
-						label={__('Enable background overlay', 'restatify-base')}
-						checked={!!overlayEnabled}
-						onChange={v => setAttributes({ overlayEnabled: !!v })}
-					/>
-					{overlayEnabled && (
-						<>
-							<p>{__('Overlay color', 'restatify-base')}</p>
-							<ColorPicker
-								color={overlayColor || '#0b1221'}
-								onChangeComplete={(value) => setAttributes({ overlayColor: value?.hex || '#0b1221' })}
-								disableAlpha={true}
-							/>
-							<RangeControl
-								label={__('Overlay opacity (%)', 'restatify-base')}
-								value={normalizedOverlayOpacity}
-								onChange={(value) => setAttributes({ overlayOpacity: clampOverlayOpacity(value) })}
-								min={0}
-								max={100}
-							/>
-							<TextControl
-								label={__('Overlay opacity value', 'restatify-base')}
-								type="number"
-								min={0}
-								max={100}
-								step={1}
-								value={normalizedOverlayOpacity}
-								onChange={(value) => setAttributes({ overlayOpacity: clampOverlayOpacity(value) })}
-							/>
-						</>
-					)}
-				</PanelBody>
+				<BackgroundLayoutPanel attributes={attributes} setAttributes={setAttributes} />
 
 				<PanelBody title={__('Content', 'restatify-base')} initialOpen={false}>
 					<TextControl
@@ -191,9 +99,37 @@ function Edit({ attributes, setAttributes }) {
 						settings={[]}
 					/>
 				</PanelBody>
+
+				<PanelBody title={__('Content visibility', 'restatify-base')} initialOpen={false}>
+					<ToggleControl
+						label={__('Show tagline', 'restatify-base')}
+						checked={showTagline !== false}
+						onChange={(v) => setAttributes({ showTagline: !!v })}
+					/>
+					<ToggleControl
+						label={__('Show heading', 'restatify-base')}
+						checked={showHeading !== false}
+						onChange={(v) => setAttributes({ showHeading: !!v })}
+					/>
+					<ToggleControl
+						label={__('Show text', 'restatify-base')}
+						checked={showText !== false}
+						onChange={(v) => setAttributes({ showText: !!v })}
+					/>
+					<ToggleControl
+						label={__('Show button 1', 'restatify-base')}
+						checked={showBtn1 !== false}
+						onChange={(v) => setAttributes({ showBtn1: !!v })}
+					/>
+					<ToggleControl
+						label={__('Show button 2', 'restatify-base')}
+						checked={showBtn2 !== false}
+						onChange={(v) => setAttributes({ showBtn2: !!v })}
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<div className={ heroClassName } style={ heroStyle }>
-				{overlayEnabled && <div className="restatify-hero-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
+				{backgroundImageEnabled !== false && overlayEnabled && <div className="restatify-hero-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
 				<div className="container">
 					<div className="row justify-content-center">
 						<div className="col-12 col-lg-11">
@@ -203,24 +139,30 @@ function Edit({ attributes, setAttributes }) {
 								<div className="content-wrap card-wrap middle-radius">
 									<div className="title-wrapper">
 										<div className="title-wrap">
-											<div className="desc-wrapper">
-												<p className="mbr-desc card-wrap mbr-fonts-style display-4">{tagline || __('Add your tagline', 'restatify-base')}</p>
-											</div>
-											<h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading || __('Hero heading', 'restatify-base')}</strong></h2>
-											<div className="text-wrapper">
-												<p className="mbr-text mbr-fonts-style display-7">{text || __('Add a short supporting text for your offer.', 'restatify-base')}</p>
-											</div>
+											{showTagline !== false && (
+												<div className="desc-wrapper">
+													<p className="mbr-desc card-wrap mbr-fonts-style display-4">{tagline || __('Add your tagline', 'restatify-base')}</p>
+												</div>
+											)}
+											{showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading || __('Hero heading', 'restatify-base')}</strong></h2>}
+											{showText !== false && (
+												<div className="text-wrapper">
+													<p className="mbr-text mbr-fonts-style display-7">{text || __('Add a short supporting text for your offer.', 'restatify-base')}</p>
+												</div>
+											)}
 											<div className="frame-wrapper card-bg middle-radius frame_1"><div className="frame-wrap"></div></div>
 											<div className="frame-wrapper card-bg middle-radius frame_2"><div className="frame-wrap"></div></div>
 										</div>
 									</div>
 									<div className="card-box">
 										<div className="mbr-section-btn">
-											<a className="btn btn-black display-7" href={btn1Url || '#'}>{btn1Label || __('Primary action', 'restatify-base')}</a>
-											<a className="btn btn-black-outline display-7" href={btn2Url || '#'}>
-												<span className="mobi-mbri mobi-mbri-right mbr-iconfont mbr-iconfont-btn"></span>
-												{btn2Label || __('Secondary action', 'restatify-base')}
-											</a>
+											{showBtn1 !== false && <a className="btn btn-black display-7" href={btn1Url || '#'}>{btn1Label || __('Primary action', 'restatify-base')}</a>}
+											{showBtn2 !== false && (
+												<a className="btn btn-black-outline display-7" href={btn2Url || '#'}>
+													<span className="mobi-mbri mobi-mbri-right mbr-iconfont mbr-iconfont-btn"></span>
+													{btn2Label || __('Secondary action', 'restatify-base')}
+												</a>
+											)}
 										</div>
 									</div>
 									<div className="line-wrap card-wrap"></div>
@@ -236,6 +178,7 @@ function Edit({ attributes, setAttributes }) {
 
 function Save({ attributes }) {
 	const {
+		backgroundImageEnabled,
 		backgroundImageUrl,
 		overlayEnabled,
 		overlayColor,
@@ -243,26 +186,31 @@ function Save({ attributes }) {
 		parallax,
 		fullscreen,
 		tagline,
+		showTagline,
 		heading,
+		showHeading,
 		text,
+		showText,
 		btn1Label,
+		showBtn1,
 		btn1Url,
 		btn2Label,
+		showBtn2,
 		btn2Url
 	} = attributes;
 	const overlayStyle = getOverlayStyle(overlayEnabled, overlayColor, overlayOpacity);
 	const blockProps = useBlockProps.save({
 		className: [
 			'restatify-hero-block',
-			parallax ? 'is-parallax' : '',
+			backgroundImageEnabled !== false && parallax ? 'is-parallax' : '',
 			fullscreen ? 'is-fullscreen' : ''
 		].join(' '),
-		style: backgroundImageUrl ? { backgroundImage: `url(${backgroundImageUrl})` } : undefined
+		style: getBackgroundStyle(backgroundImageEnabled, backgroundImageUrl)
 	});
 
 	return (
 		<div {...blockProps}>
-			{overlayEnabled && <div className="restatify-hero-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
+			{backgroundImageEnabled !== false && overlayEnabled && <div className="restatify-hero-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="col-12 col-lg-11">
@@ -272,21 +220,25 @@ function Save({ attributes }) {
 							<div className="content-wrap card-wrap middle-radius">
 								<div className="title-wrapper">
 									<div className="title-wrap">
-										<div className="desc-wrapper">
-											<p className="mbr-desc card-wrap mbr-fonts-style display-4">{tagline}</p>
-										</div>
-										<h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading}</strong></h2>
-										<div className="text-wrapper">
-											<p className="mbr-text mbr-fonts-style display-7">{text}</p>
-										</div>
+										{showTagline !== false && (
+											<div className="desc-wrapper">
+												<p className="mbr-desc card-wrap mbr-fonts-style display-4">{tagline}</p>
+											</div>
+										)}
+										{showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading}</strong></h2>}
+										{showText !== false && (
+											<div className="text-wrapper">
+												<p className="mbr-text mbr-fonts-style display-7">{text}</p>
+											</div>
+										)}
 										<div className="frame-wrapper card-bg middle-radius frame_1"><div className="frame-wrap"></div></div>
 										<div className="frame-wrapper card-bg middle-radius frame_2"><div className="frame-wrap"></div></div>
 									</div>
 								</div>
 								<div className="card-box">
 									<div className="mbr-section-btn">
-										{btn1Label && <a className="btn btn-black display-7" href={btn1Url || '#'}>{btn1Label}</a>}
-										{btn2Label && (
+										{showBtn1 !== false && btn1Label && <a className="btn btn-black display-7" href={btn1Url || '#'}>{btn1Label}</a>}
+										{showBtn2 !== false && btn2Label && (
 											<a className="btn btn-black-outline display-7" href={btn2Url || '#'}>
 												<span className="mobi-mbri mobi-mbri-right mbr-iconfont mbr-iconfont-btn"></span>
 												{btn2Label}

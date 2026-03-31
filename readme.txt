@@ -4,19 +4,78 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
+Version: 1.0.0
+Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-blocks, full-site-editing, business
 
 
 == Description ==
 
-The base theme of the Restatify UG (haftungsbeschränkt) company.
+Restatify Base is the custom WordPress base theme for Restatify UG (haftungsbeschraenkt).
+
+The theme ships with a custom Gutenberg block library and section-focused layouts for modern business pages.
+
+Included custom blocks:
+
+* Hero
+* Services
+* Studies
+* Testimonials
+* Mission
+* Metrics
+* Insight
+* Gallery
+* FAQ
+* Pricing
+* Contact
+* Clients
+
+
+== Installation ==
+
+1. Copy the theme folder to /wp-content/themes/wp_restatify-base-theme.
+2. Activate Restatify Base in Appearance -> Themes.
+3. Open the Site Editor and insert Restatify blocks as needed.
+
+
+== Development ==
+
+This theme includes block sources in /src and compiled assets in /build.
+
+1. Run npm install in the theme directory.
+2. Run npm run build for production assets.
+3. Run npm run start for watch mode during development.
+
+Block registration and runtime block style variables are handled in /inc/blocks.php.
+
+
+== Frequently Asked Questions ==
+
+= Which editor is supported? =
+
+The theme targets the block editor (Gutenberg) and site editing workflows.
+
+= Do I need to run a build before using the theme in production? =
+
+Yes. Build assets with npm run build after source changes in /src.
+
+= Where are default block backgrounds and CSS variables configured? =
+
+Default block background variables are injected in /inc/blocks.php.
+
+= Is there a German documentation file? =
+
+Yes. See /README.de.md for the German theme documentation.
 
 
 == Changelog ==
 
 = 1.0.0 =
-* Initial release
+* Initial public release.
+* Added Restatify custom Gutenberg block library.
+* Added shared background/layout control integration for sections.
 
 
 == Copyright ==

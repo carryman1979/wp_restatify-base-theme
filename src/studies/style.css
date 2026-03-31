@@ -1,0 +1,169 @@
+/* studies block */
+.restatify-studies-block {
+  position: relative;
+  --rs-studies-surface: var(--rs-color-menu-panel, rgba(255, 255, 255, 0.88));
+  --rs-studies-border: color-mix(in srgb, var(--rs-color-text, #0b1221) 12%, transparent);
+  --rs-studies-text: var(--rs-color-text, #0b1221);
+  --rs-studies-muted: color-mix(in srgb, var(--rs-color-text, #0b1221) 60%, transparent);
+  --rs-studies-link: var(--rs-color-primary, #ff6b00);
+  --rs-studies-link-hover: var(--rs-color-secondary, #00c2ff);
+  --rs-studies-line-start: #d8de4d;
+  --rs-studies-line-end: #1f6aff;
+  background-image: var(--rs-studies-default-background, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.restatify-studies-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.restatify-studies-block > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.restatify-studies-block .content-wrapper {
+  background: var(--rs-studies-surface);
+  border-radius: 22px;
+  padding: 1rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.restatify-studies-block .mbr-section-title,
+.restatify-studies-block .item-title,
+.restatify-studies-block .item-title a,
+.restatify-studies-block .item-title a:visited,
+.restatify-studies-block .btn {
+  color: var(--rs-studies-text);
+}
+
+.restatify-studies-block .mbr-text,
+.restatify-studies-block .item-text {
+  color: var(--rs-studies-muted);
+}
+
+.restatify-studies-block .card-wrapper {
+  margin-top: 1.35rem;
+  border-radius: 16px;
+  border: 1px solid var(--rs-studies-border);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--rs-studies-surface) 95%, transparent);
+}
+
+.restatify-studies-block .items-wrapper {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.restatify-studies-block .item {
+  padding: 0.75rem;
+}
+
+.restatify-studies-block .item-wrapper {
+  border: 1px solid var(--rs-studies-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--rs-studies-surface) 96%, transparent);
+  overflow: hidden;
+  height: 100%;
+}
+
+.restatify-studies-block .item-img {
+  min-height: 210px;
+}
+
+.restatify-studies-block .item-img img,
+.restatify-studies-block .item-img .image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.restatify-studies-block .item-img .image-placeholder {
+  min-height: 210px;
+  background: color-mix(in srgb, var(--rs-color-background, #f8fafc) 82%, var(--rs-color-text, #0b1221) 18%);
+}
+
+.restatify-studies-block .card-box {
+  padding: 1rem 1rem 1.1rem;
+}
+
+.restatify-studies-block .item-title {
+  margin: 0;
+}
+
+.restatify-studies-block .item-title a {
+  text-decoration: none;
+}
+
+.restatify-studies-block .item-text {
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+}
+
+.restatify-studies-block .item-btn {
+  margin-top: 0.95rem;
+}
+
+.restatify-studies-block .item-btn .btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--rs-studies-link);
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.restatify-studies-block .item-btn .btn:hover,
+.restatify-studies-block .item-btn .btn:focus,
+.restatify-studies-block .item-title a:hover,
+.restatify-studies-block .item-title a:focus {
+  color: var(--rs-studies-link-hover);
+}
+
+.restatify-studies-block .line-wrapper {
+  height: 5px;
+  background: linear-gradient(90deg, var(--rs-studies-line-start) 0%, var(--rs-studies-line-end) 100%);
+}
+
+.restatify-studies-block.is-fullscreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.restatify-studies-block.is-parallax {
+  background-attachment: fixed;
+}
+
+@media (max-width: 992px) {
+  .restatify-studies-block {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .restatify-studies-block .item {
+    padding: 0.55rem;
+  }
+
+  .restatify-studies-block .item-img,
+  .restatify-studies-block .item-img .image-placeholder {
+    min-height: 180px;
+  }
+
+  .restatify-studies-block.is-fullscreen {
+    min-height: 80vh;
+  }
+
+  .restatify-studies-block.is-parallax {
+    background-attachment: scroll;
+  }
+}
+

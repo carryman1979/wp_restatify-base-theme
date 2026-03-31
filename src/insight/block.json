@@ -1,0 +1,32 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/insight",
+  "title": "Insight Section",
+  "category": "design",
+  "icon": "lightbulb",
+  "description": "Why-it-matters section with CTA.",
+  "keywords": ["insight", "cta", "article"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "label": { "type": "string", "default": "WHY IT MATTERS" },
+    "showLabel": { "type": "boolean", "default": true },
+    "heading": { "type": "string", "default": "Efficiency Through Expert Guidance" },
+    "showHeading": { "type": "boolean", "default": true },
+    "buttonLabel": { "type": "string", "default": "Contact now" },
+    "showButton": { "type": "boolean", "default": true },
+    "buttonUrl": { "type": "string", "default": "" },
+    "imageUrl": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/image20.webp" },
+    "showImage": { "type": "boolean", "default": true }
+  }
+}

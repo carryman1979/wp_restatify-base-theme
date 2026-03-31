@@ -1,0 +1,31 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/clients",
+  "title": "Clients Section",
+  "category": "design",
+  "icon": "groups",
+  "description": "Client logos section.",
+  "keywords": ["clients", "logos", "brands"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "label": { "type": "string", "default": "VERIFIED COMPANIES" },
+    "showLabel": { "type": "boolean", "default": true },
+    "logo1Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/1.webp" },
+    "logo2Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/2.webp" },
+    "logo3Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/3.webp" },
+    "logo4Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/4.webp" },
+    "logo5Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/5.webp" },
+    "logo6Url": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/6.webp" }
+  }
+}

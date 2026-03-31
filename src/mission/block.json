@@ -1,0 +1,31 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/mission",
+  "title": "Mission Section",
+  "category": "design",
+  "icon": "text-page",
+  "description": "Mission headline section with image.",
+  "keywords": ["mission", "headline", "image"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "heading": { "type": "string", "default": "The Core Mission of a Business Consultant" },
+    "showHeading": { "type": "boolean", "default": true },
+    "subheading": { "type": "string", "default": "Aligning Strategy, Execution, and Growth to Drive Lasting" },
+    "showSubheading": { "type": "boolean", "default": true },
+    "text": { "type": "string", "default": "" },
+    "showText": { "type": "boolean", "default": false },
+    "imageUrl": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/image18.webp" },
+    "showImage": { "type": "boolean", "default": true }
+  }
+}

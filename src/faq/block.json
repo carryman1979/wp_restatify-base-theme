@@ -1,0 +1,33 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/faq",
+  "title": "FAQ Section",
+  "category": "design",
+  "icon": "editor-help",
+  "description": "Frequently asked questions section.",
+  "keywords": ["faq", "questions", "accordion"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "heading": { "type": "string", "default": "Frequently Asked Questions" },
+    "showHeading": { "type": "boolean", "default": true },
+    "q1": { "type": "string", "default": "What does a Business Consultant do?" },
+    "a1": { "type": "string", "default": "They analyze business operations, identify challenges, and provide strategies to improve efficiency, growth, and profitability." },
+    "q2": { "type": "string", "default": "Who can benefit from a Business Consultant?" },
+    "a2": { "type": "string", "default": "Startups, SMEs, and large corporations seeking guidance to optimize processes, enter new markets, or improve performance." },
+    "q3": { "type": "string", "default": "How long does consulting usually take?" },
+    "a3": { "type": "string", "default": "Projects vary; some may last a few weeks, while others take several months depending on complexity." },
+    "q4": { "type": "string", "default": "How do consultants charge for their services?" },
+    "a4": { "type": "string", "default": "Common models include hourly rates, fixed project fees, or ongoing retainer agreements." }
+  }
+}

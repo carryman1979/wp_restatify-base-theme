@@ -1,0 +1,32 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/contact",
+  "title": "Contact Section",
+  "category": "design",
+  "icon": "phone",
+  "description": "Contact details section.",
+  "keywords": ["contact", "phone", "email"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+    "label": { "type": "string", "default": "GET IN TOUCH" },
+    "heading": { "type": "string", "default": "Connect with Your Business Consultant Today" },
+    "phoneLabel": { "type": "string", "default": "Phone" },
+    "phoneValue": { "type": "string", "default": "+1 234 567 8901" },
+    "emailLabel": { "type": "string", "default": "Email" },
+    "emailValue": { "type": "string", "default": "mobirise@email.com" },
+    "locationLabel": { "type": "string", "default": "Location" },
+    "locationValue": { "type": "string", "default": "125 Business Avenue, NY 10001, USA" },
+    "imageUrl": { "type": "string", "default": "/wp-content/themes/wp_restatify-base-theme/assets/images/image22.webp" }
+  }
+}
