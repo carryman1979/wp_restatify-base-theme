@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.0, getestet bis WordPress 6.9.
+Stand: Version 1.0.1, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -66,6 +66,11 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.1
+
+- Reproduzierbarer Release-ZIP-Workflow hinzugefuegt.
+- Hinweise fuer externe Installation mit produktionsfaehigem Paket ergaenzt.
 
 ### 1.0.0
 

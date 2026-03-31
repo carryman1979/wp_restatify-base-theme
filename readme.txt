@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.0
+Version: 1.0.1
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -85,6 +85,10 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Added reproducible release ZIP packaging workflow.
+* Added external installation guidance for production-ready packages.
 
 = 1.0.0 =
 * Initial public release.
