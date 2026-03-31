@@ -39,6 +39,8 @@ Included custom blocks:
 2. Activate Restatify Base in Appearance -> Themes.
 3. Open the Site Editor and insert Restatify blocks as needed.
 
+For external installations, use a release ZIP package that contains compiled /build assets.
+
 
 == Development ==
 
@@ -68,6 +70,18 @@ Default block background variables are injected in /inc/blocks.php.
 = Is there a German documentation file? =
 
 Yes. See /README.de.md for the German theme documentation.
+
+= Can I install directly from a GitHub source ZIP? =
+
+For this theme, prefer a release ZIP package generated from the repository workspace.
+GitHub source ZIP archives can miss required compiled block assets.
+
+Generate a release package with:
+
+1. npm install
+2. npm run package
+
+The ZIP is created in /release.
 
 
 == Changelog ==

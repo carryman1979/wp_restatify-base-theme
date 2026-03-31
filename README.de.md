@@ -27,6 +27,8 @@ Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte La
 2. In WordPress unter Design > Themes das Theme Restatify Base aktivieren.
 3. Site Editor oeffnen und die Restatify-Blocks einfuegen.
 
+Fuer externe Installationen sollte ein Release-ZIP mit kompilierten /build-Assets genutzt werden.
+
 ## Entwicklung
 
 Das Theme nutzt Quellcode unter /src und gebaute Assets unter /build.
@@ -50,6 +52,18 @@ Ja. Nach Aenderungen unter /src sollten Assets mit npm run build neu erzeugt wer
 ### Wo sind die Default-Hintergruende und Variablen definiert?
 
 Die Standard-Hintergrundvariablen pro Block werden in /inc/blocks.php injiziert.
+
+### Kann ich direkt ein GitHub-Source-ZIP installieren?
+
+Beim Theme bitte bevorzugt ein Release-ZIP verwenden, das aus dem Workspace erzeugt wurde.
+Ein reines Source-ZIP kann erforderliche kompilierte Block-Assets nicht enthalten.
+
+Release-ZIP erzeugen:
+
+1. npm install
+2. npm run package
+
+Das ZIP liegt danach unter /release.
 
 ## Changelog
 
