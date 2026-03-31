@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.1
+Version: 1.0.2
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,22 @@ Included custom blocks:
 * Pricing
 * Contact
 * Clients
+* Oracle
+
+
+== Oracle Block ==
+
+Oracle is a futuristic word-pair animation section with periodic logo reveal.
+
+Configurable options include:
+
+* Word pairs (one pair per line, separated by "|").
+* Word cycle duration.
+* Logo reveal interval and visible duration.
+* Position drift range for animated movement.
+* Word colors, glow color, and shell gradient colors.
+* Optional fallback logo image (used when no site logo is detected).
+* Standard background/layout controls (background image, overlay, parallax, fullscreen).
 
 
 == Installation ==
@@ -85,6 +101,11 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.2 =
+* Added new Oracle custom block with futuristic word-pair animation.
+* Added configurable sequence mode (ordered or random), animation timing, and logo overlay timing.
+* Added Oracle block color tuning and improved pair transition behavior.
 
 = 1.0.1 =
 * Added reproducible release ZIP packaging workflow.

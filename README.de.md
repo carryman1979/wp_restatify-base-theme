@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.1, getestet bis WordPress 6.9.
+Stand: Version 1.0.2, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -20,6 +20,21 @@ Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte La
 - Pricing
 - Contact
 - Clients
+- Oracle
+
+## Oracle Block
+
+Oracle ist eine futuristische Wortpaar-Animation mit periodischem Logo-Overlay.
+
+Konfigurierbar sind unter anderem:
+
+- Wortpaare (pro Zeile ein Paar, getrennt mit "|").
+- Zyklusdauer der Wortanimation.
+- Intervall und Sichtdauer des Logo-Overlays.
+- Drift-Range fuer die animierte Positionsverschiebung.
+- Wortfarben, Glow-Farbe und Shell-Gradientfarben.
+- Optionales Fallback-Logo (wenn kein Site-Logo erkannt wird).
+- Standard-Background/Layout-Optionen (Bild, Overlay, Parallax, Fullscreen).
 
 ## Installation
 
@@ -66,6 +81,12 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.2
+
+- Neuer Oracle-Block mit futuristischer Wortpaar-Animation hinzugefuegt.
+- Sequenzmodus (Reihenfolge/Zufall), Timing und Logo-Overlay-Intervall konfigurierbar gemacht.
+- Farbtuning und Paar-Transitionsverhalten des Oracle-Blocks verbessert.
 
 ### 1.0.1
 
