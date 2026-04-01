@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.2, getestet bis WordPress 6.9.
+Stand: Version 1.0.3, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -81,6 +81,12 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.3
+
+- SVG/SVGZ-Upload fuer Administratoren um Sanitizing-Hardening erweitert.
+- Upload- und Sideload-Prefilter fuer SVG-Dateien hinzugefuegt (inkl. WP-CLI/Import-Pfade).
+- MIME- und Dateityp-Validierung fuer SVG in WordPress-Uploadchecks beibehalten.
 
 ### 1.0.2
 

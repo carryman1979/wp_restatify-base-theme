@@ -1,6 +1,6 @@
 {
   "name": "wp_restatify-base-theme",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Custom WordPress Theme with Gutenberg Block Library",
   "main": "index.js",
   "scripts": {
