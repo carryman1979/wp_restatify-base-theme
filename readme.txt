@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.3
+Version: 1.0.4
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,13 @@ Default block background variables are injected in /inc/blocks.php.
 
 Yes. See /README.de.md for the German theme documentation.
 
+= Where are important vs optional customizer settings now? =
+
+Footer customizer settings are split into:
+
+1. Footer Core (Recommended) for important contact/slogan fields.
+2. Footer Expert Settings (Optional) for social links, trust badges and vCard.
+
 = Can I install directly from a GitHub source ZIP? =
 
 For this theme, prefer a release ZIP package generated from the repository workspace.
@@ -101,6 +108,11 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.4 =
+* Improved customizer UX by separating Footer Core (recommended) and Footer Expert (optional) settings.
+* Promoted key footer contact fields to the primary section and added required email input attributes.
+* Updated documentation for revised settings hierarchy.
 
 = 1.0.3 =
 * Added admin-scoped SVG/SVGZ upload sanitization in theme setup.

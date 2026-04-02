@@ -251,10 +251,16 @@ function restatify_customize_register($wp_customize) {
         'type'        => 'text',
     ]);
 
-    $wp_customize->add_section('restatify_footer', [
-        'title'       => __('Footer Content', 'restatify-base'),
+    $wp_customize->add_section('restatify_footer_core', [
+        'title'       => __('Footer Core (Recommended)', 'restatify-base'),
         'priority'    => 32,
-        'description' => __('Manage dynamic footer text, quick contact links, social URLs, trust badges and vCard.', 'restatify-base'),
+        'description' => __('Start here: slogan and primary contact information used prominently in the footer.', 'restatify-base'),
+    ]);
+
+    $wp_customize->add_section('restatify_footer', [
+        'title'       => __('Footer Expert Settings (Optional)', 'restatify-base'),
+        'priority'    => 33,
+        'description' => __('Optional social links, trust badges and vCard controls.', 'restatify-base'),
     ]);
 
     $wp_customize->add_setting('restatify_footer_title', [
@@ -265,7 +271,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_title', [
         'label'       => __('Footer slogan', 'restatify-base'),
         'description' => __('Main headline in the footer title area.', 'restatify-base'),
-        'section'     => 'restatify_footer',
+        'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
 
@@ -277,7 +283,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_description', [
         'label'       => __('Footer description', 'restatify-base'),
         'description' => __('Descriptive paragraph below the footer slogan.', 'restatify-base'),
-        'section'     => 'restatify_footer',
+        'section'     => 'restatify_footer_core',
         'type'        => 'textarea',
     ]);
 
@@ -289,7 +295,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_phone', [
         'label'       => __('Quick contact phone', 'restatify-base'),
         'description' => __('Example: +49 123 456789', 'restatify-base'),
-        'section'     => 'restatify_footer',
+        'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
 
@@ -301,8 +307,12 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_email', [
         'label'       => __('Quick contact email', 'restatify-base'),
         'description' => __('Example: hello@example.com', 'restatify-base'),
-        'section'     => 'restatify_footer',
+        'section'     => 'restatify_footer_core',
         'type'        => 'email',
+        'input_attrs' => [
+            'required' => 'required',
+            'placeholder' => 'hello@example.com',
+        ],
     ]);
 
     $wp_customize->add_setting('restatify_footer_fax', [
@@ -313,7 +323,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_fax', [
         'label'       => __('Company fax', 'restatify-base'),
         'description' => __('Example: +49 123 456790', 'restatify-base'),
-        'section'     => 'restatify_footer',
+        'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
 

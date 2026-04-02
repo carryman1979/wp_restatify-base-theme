@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.3, getestet bis WordPress 6.9.
+Stand: Version 1.0.4, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -68,6 +68,13 @@ Ja. Nach Aenderungen unter /src sollten Assets mit npm run build neu erzeugt wer
 
 Die Standard-Hintergrundvariablen pro Block werden in /inc/blocks.php injiziert.
 
+### Wo finde ich wichtige und optionale Footer-Einstellungen?
+
+Im Customizer sind Footer-Einstellungen jetzt getrennt:
+
+- Footer Core (Recommended): zentrale Slogan- und Kontaktfelder.
+- Footer Expert Settings (Optional): soziale Links, Trust-Badges, vCard.
+
 ### Kann ich direkt ein GitHub-Source-ZIP installieren?
 
 Beim Theme bitte bevorzugt ein Release-ZIP verwenden, das aus dem Workspace erzeugt wurde.
@@ -81,6 +88,12 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.4
+
+- Customizer-UX verbessert: Trennung zwischen Footer-Core und optionalen Expert-Einstellungen.
+- Wichtige Footer-Kontaktfelder prominenter positioniert, inkl. Pflicht-Attribut fuer E-Mail.
+- Dokumentation zur neuen Einstellungsstruktur aktualisiert.
 
 ### 1.0.3
 
