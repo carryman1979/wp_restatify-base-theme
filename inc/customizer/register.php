@@ -5,9 +5,9 @@
 
 function restatify_customize_register($wp_customize) {
     $wp_customize->add_section('restatify_typography', [
-        'title'       => __('Typography', 'restatify-base'),
+        'title'       => __('Typografie', 'restatify-base'),
         'priority'    => 31,
-        'description' => __('Control website fonts and sizes. Reminder: mobile fields inherit desktop values when left empty.', 'restatify-base'),
+        'description' => __('Steuere Schriftarten und Groessen der Website. Hinweis: Mobile Felder uebernehmen Desktop-Werte, wenn sie leer bleiben.', 'restatify-base'),
     ]);
 
     $wp_customize->add_setting('restatify_font_body', [
@@ -16,7 +16,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_font_body', [
-        'label'   => __('Body font', 'restatify-base'),
+        'label'   => __('Fliesstext-Schrift', 'restatify-base'),
         'section' => 'restatify_typography',
         'type'    => 'select',
         'choices' => restatify_get_font_choices(),
@@ -28,7 +28,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_font_headings', [
-        'label'   => __('Headings font (H1-H6)', 'restatify-base'),
+        'label'   => __('Ueberschriften-Schrift (H1-H6)', 'restatify-base'),
         'section' => 'restatify_typography',
         'type'    => 'select',
         'choices' => restatify_get_font_choices(),
@@ -40,7 +40,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_font_paragraph', [
-        'label'   => __('Paragraph font (p, li)', 'restatify-base'),
+        'label'   => __('Absatz-Schrift (p, li)', 'restatify-base'),
         'section' => 'restatify_typography',
         'type'    => 'select',
         'choices' => restatify_get_font_choices(),
@@ -52,7 +52,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_font_links', [
-        'label'   => __('Links & buttons font', 'restatify-base'),
+        'label'   => __('Links- und Button-Schrift', 'restatify-base'),
         'section' => 'restatify_typography',
         'type'    => 'select',
         'choices' => restatify_get_font_choices(),
@@ -64,8 +64,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_body', [
-        'label'       => __('Body size', 'restatify-base'),
-        'description' => __('Examples: 16px, 1rem, 1.05rem', 'restatify-base'),
+        'label'       => __('Fliesstext-Groesse', 'restatify-base'),
+        'description' => __('Beispiele: 16px, 1rem, 1.05rem', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -76,8 +76,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h1', [
-        'label'       => __('H1 size', 'restatify-base'),
-        'description' => __('Examples: 52px, 3.2rem', 'restatify-base'),
+        'label'       => __('H1-Groesse', 'restatify-base'),
+        'description' => __('Beispiele: 52px, 3.2rem', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -88,8 +88,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h2', [
-        'label'       => __('H2 size', 'restatify-base'),
-        'description' => __('Examples: 38px, 2.4rem', 'restatify-base'),
+        'label'       => __('H2-Groesse', 'restatify-base'),
+        'description' => __('Beispiele: 38px, 2.4rem', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -100,8 +100,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h3', [
-        'label'       => __('H3 size', 'restatify-base'),
-        'description' => __('Examples: 30px, 1.8rem', 'restatify-base'),
+        'label'       => __('H3-Groesse', 'restatify-base'),
+        'description' => __('Beispiele: 30px, 1.8rem', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -112,8 +112,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_links', [
-        'label'       => __('Links & buttons size', 'restatify-base'),
-        'description' => __('Examples: 16px, 1rem, 0.95rem', 'restatify-base'),
+        'label'       => __('Links- und Button-Groesse', 'restatify-base'),
+        'description' => __('Beispiele: 16px, 1rem, 0.95rem', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -124,8 +124,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_line_height_base', [
-        'label'       => __('Base line-height', 'restatify-base'),
-        'description' => __('Number only, e.g. 1.45, 1.5, 1.6', 'restatify-base'),
+        'label'       => __('Basis-Zeilenhoehe', 'restatify-base'),
+        'description' => __('Nur Zahl, z.B. 1.45, 1.5, 1.6', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -136,8 +136,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_body_mobile', [
-        'label'       => __('Body size (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop Body size.', 'restatify-base'),
+        'label'       => __('Fliesstext-Groesse (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-Fliesstext-Groesse zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -148,8 +148,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h1_mobile', [
-        'label'       => __('H1 size (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop H1 size.', 'restatify-base'),
+        'label'       => __('H1-Groesse (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-H1-Groesse zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -160,8 +160,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h2_mobile', [
-        'label'       => __('H2 size (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop H2 size.', 'restatify-base'),
+        'label'       => __('H2-Groesse (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-H2-Groesse zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -172,8 +172,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_h3_mobile', [
-        'label'       => __('H3 size (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop H3 size.', 'restatify-base'),
+        'label'       => __('H3-Groesse (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-H3-Groesse zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -184,8 +184,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_size_links_mobile', [
-        'label'       => __('Links & buttons size (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop Links & buttons size.', 'restatify-base'),
+        'label'       => __('Links- und Button-Groesse (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-Links- und Button-Groesse zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -196,8 +196,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_line_height_base_mobile', [
-        'label'       => __('Base line-height (mobile, empty = desktop)', 'restatify-base'),
-        'description' => __('Optional override. Leave empty to automatically use desktop Base line-height.', 'restatify-base'),
+        'label'       => __('Basis-Zeilenhoehe (mobil, leer = Desktop)', 'restatify-base'),
+        'description' => __('Optionale Ueberschreibung. Leer lassen, um automatisch die Desktop-Basis-Zeilenhoehe zu verwenden.', 'restatify-base'),
         'section'     => 'restatify_typography',
         'type'        => 'text',
     ]);
@@ -208,8 +208,8 @@ function restatify_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_dark_logo', [
-        'label'      => __('Dark Mode Logo', 'restatify-base'),
-        'description'=> __('Used automatically when the visitor prefers dark mode.', 'restatify-base'),
+        'label'      => __('Dark-Mode-Logo', 'restatify-base'),
+        'description'=> __('Wird automatisch verwendet, wenn Besucher den Dunkelmodus bevorzugen.', 'restatify-base'),
         'section'    => 'title_tagline',
         'mime_type'  => 'image',
     ]));
@@ -220,8 +220,8 @@ function restatify_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_dark_site_icon', [
-        'label'       => __('Dark Mode Site Icon', 'restatify-base'),
-        'description' => __('Used as browser tab icon when the visitor prefers dark mode.', 'restatify-base'),
+        'label'       => __('Dark-Mode-Site-Icon', 'restatify-base'),
+        'description' => __('Wird als Browser-Tab-Icon verwendet, wenn Besucher den Dunkelmodus bevorzugen.', 'restatify-base'),
         'section'     => 'title_tagline',
         'mime_type'   => 'image',
     ]));
@@ -232,35 +232,35 @@ function restatify_customize_register($wp_customize) {
     ]);
 
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_dark_mask_icon', [
-        'label'       => __('Dark Mask Icon (SVG)', 'restatify-base'),
-        'description' => __('Used for Safari pinned tabs in dark mode. SVG recommended.', 'restatify-base'),
+        'label'       => __('Dunkles Masken-Icon (SVG)', 'restatify-base'),
+        'description' => __('Wird fuer Safari angeheftete Tabs im Dunkelmodus verwendet. SVG empfohlen.', 'restatify-base'),
         'section'     => 'title_tagline',
         'mime_type'   => 'image',
     ]));
 
     $wp_customize->add_setting('restatify_cta_button_label', [
-        'default'           => __('Start now', 'restatify-base'),
+        'default'           => __('Jetzt starten', 'restatify-base'),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ]);
 
     $wp_customize->add_control('restatify_cta_button_label', [
-        'label'       => __('CTA Button Label', 'restatify-base'),
-        'description' => __('Text shown on the header action button.', 'restatify-base'),
+        'label'       => __('CTA-Button-Beschriftung', 'restatify-base'),
+        'description' => __('Text, der auf dem Aktionsbutton im Header angezeigt wird.', 'restatify-base'),
         'section'     => 'title_tagline',
         'type'        => 'text',
     ]);
 
     $wp_customize->add_section('restatify_footer_core', [
-        'title'       => __('Footer Core (Recommended)', 'restatify-base'),
+        'title'       => __('Footer Kernbereich (empfohlen)', 'restatify-base'),
         'priority'    => 32,
-        'description' => __('Start here: slogan and primary contact information used prominently in the footer.', 'restatify-base'),
+        'description' => __('Hier starten: Slogan und primaere Kontaktinformationen, die im Footer prominent verwendet werden.', 'restatify-base'),
     ]);
 
     $wp_customize->add_section('restatify_footer', [
-        'title'       => __('Footer Expert Settings (Optional)', 'restatify-base'),
+        'title'       => __('Footer Experteneinstellungen (optional)', 'restatify-base'),
         'priority'    => 33,
-        'description' => __('Optional social links, trust badges and vCard controls.', 'restatify-base'),
+        'description' => __('Optionale Social-Links, Trust-Badges und vCard-Einstellungen.', 'restatify-base'),
     ]);
 
     $wp_customize->add_setting('restatify_footer_title', [
@@ -269,8 +269,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_title', [
-        'label'       => __('Footer slogan', 'restatify-base'),
-        'description' => __('Main headline in the footer title area.', 'restatify-base'),
+        'label'       => __('Footer-Slogan', 'restatify-base'),
+        'description' => __('Hauptueberschrift im Footer-Titelbereich.', 'restatify-base'),
         'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
@@ -281,8 +281,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_description', [
-        'label'       => __('Footer description', 'restatify-base'),
-        'description' => __('Descriptive paragraph below the footer slogan.', 'restatify-base'),
+        'label'       => __('Footer-Beschreibung', 'restatify-base'),
+        'description' => __('Beschreibender Absatz unter dem Footer-Slogan.', 'restatify-base'),
         'section'     => 'restatify_footer_core',
         'type'        => 'textarea',
     ]);
@@ -293,8 +293,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_phone', [
-        'label'       => __('Quick contact phone', 'restatify-base'),
-        'description' => __('Example: +49 123 456789', 'restatify-base'),
+        'label'       => __('Telefon fuer Schnellkontakt', 'restatify-base'),
+        'description' => __('Beispiel: +49 123 456789', 'restatify-base'),
         'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
@@ -305,13 +305,13 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_email', [
-        'label'       => __('Quick contact email', 'restatify-base'),
-        'description' => __('Example: hello@example.com', 'restatify-base'),
+        'label'       => __('E-Mail fuer Schnellkontakt', 'restatify-base'),
+        'description' => __('Beispiel: kontakt@example.com', 'restatify-base'),
         'section'     => 'restatify_footer_core',
         'type'        => 'email',
         'input_attrs' => [
             'required' => 'required',
-            'placeholder' => 'hello@example.com',
+            'placeholder' => 'kontakt@example.com',
         ],
     ]);
 
@@ -321,8 +321,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_fax', [
-        'label'       => __('Company fax', 'restatify-base'),
-        'description' => __('Example: +49 123 456790', 'restatify-base'),
+        'label'       => __('Fax', 'restatify-base'),
+        'description' => __('Beispiel: +49 123 456790', 'restatify-base'),
         'section'     => 'restatify_footer_core',
         'type'        => 'text',
     ]);
@@ -367,7 +367,7 @@ function restatify_customize_register($wp_customize) {
     ]);
     $wp_customize->add_control('restatify_footer_vcard_url', [
         'label'       => __('vCard URL', 'restatify-base'),
-        'description' => __('Paste the URL to your downloadable vCard.', 'restatify-base'),
+        'description' => __('Fuege die URL zu deiner herunterladbaren vCard ein.', 'restatify-base'),
         'section'     => 'restatify_footer',
         'type'        => 'url',
     ]);
@@ -378,7 +378,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_vcard_text', [
-        'label'       => __('vCard link text', 'restatify-base'),
+        'label'       => __('vCard-Linktext', 'restatify-base'),
         'section'     => 'restatify_footer',
         'type'        => 'text',
     ]);
@@ -389,7 +389,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_1', [
-        'label'       => __('Trust badge 1', 'restatify-base'),
+        'label'       => __('Trust-Badge 1', 'restatify-base'),
         'section'     => 'restatify_footer',
         'settings'    => 'restatify_footer_trust_badge_1',
         'mime_type'   => 'image',
@@ -401,7 +401,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_trust_badge_1_url', [
-        'label'       => __('Trust badge 1 link URL (optional)', 'restatify-base'),
+        'label'       => __('Link-URL Trust-Badge 1 (optional)', 'restatify-base'),
         'section'     => 'restatify_footer',
         'type'        => 'url',
     ]);
@@ -412,7 +412,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_2', [
-        'label'       => __('Trust badge 2', 'restatify-base'),
+        'label'       => __('Trust-Badge 2', 'restatify-base'),
         'section'     => 'restatify_footer',
         'settings'    => 'restatify_footer_trust_badge_2',
         'mime_type'   => 'image',
@@ -424,7 +424,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_trust_badge_2_url', [
-        'label'       => __('Trust badge 2 link URL (optional)', 'restatify-base'),
+        'label'       => __('Link-URL Trust-Badge 2 (optional)', 'restatify-base'),
         'section'     => 'restatify_footer',
         'type'        => 'url',
     ]);
@@ -435,7 +435,7 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'restatify_footer_trust_badge_3', [
-        'label'       => __('Trust badge 3', 'restatify-base'),
+        'label'       => __('Trust-Badge 3', 'restatify-base'),
         'section'     => 'restatify_footer',
         'settings'    => 'restatify_footer_trust_badge_3',
         'mime_type'   => 'image',
@@ -447,15 +447,15 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ]);
     $wp_customize->add_control('restatify_footer_trust_badge_3_url', [
-        'label'       => __('Trust badge 3 link URL (optional)', 'restatify-base'),
+        'label'       => __('Link-URL Trust-Badge 3 (optional)', 'restatify-base'),
         'section'     => 'restatify_footer',
         'type'        => 'url',
     ]);
     // ── Hero Section ────────────────────────────────────────────────────────
     $wp_customize->add_section( 'restatify_hero', [
-        'title'       => __( 'Hero Section', 'restatify-base' ),
+        'title'       => __( 'Hero-Bereich', 'restatify-base' ),
         'priority'    => 30,
-        'description' => __( 'Texts and button links for the hero block on the homepage.', 'restatify-base' ),
+        'description' => __( 'Texte und Button-Links fuer den Hero-Block auf der Startseite.', 'restatify-base' ),
     ] );
 
     // Parallax background toggle
@@ -483,45 +483,45 @@ function restatify_customize_register($wp_customize) {
     ] );
 
     $wp_customize->add_setting( 'restatify_hero_tagline', [
-        'default'           => __( 'Strategic guidance turning complexity into sustainable business growth', 'restatify-base' ),
+        'default'           => __( 'Strategische Begleitung, die Komplexitaet in nachhaltiges Wachstum verwandelt', 'restatify-base' ),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_tagline', [
-        'label'       => __( 'Tagline (small text above heading)', 'restatify-base' ),
+        'label'       => __( 'Tagline (kleiner Text ueber der Ueberschrift)', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
 
     $wp_customize->add_setting( 'restatify_hero_heading', [
-        'default'           => __( 'Business Consultant', 'restatify-base' ),
+        'default'           => __( 'Unternehmensberatung', 'restatify-base' ),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_heading', [
-        'label'       => __( 'Main heading (H2)', 'restatify-base' ),
+        'label'       => __( 'Hauptueberschrift (H2)', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
 
     $wp_customize->add_setting( 'restatify_hero_text', [
-        'default'           => __( 'A Business Consultant partners with organizations to clarify vision, solve complex challenges, and unlock new opportunities.', 'restatify-base' ),
+        'default'           => __( 'Eine Unternehmensberatung unterstuetzt Organisationen dabei, Visionen zu schaerfen, komplexe Herausforderungen zu loesen und neue Chancen zu erschliessen.', 'restatify-base' ),
         'sanitize_callback' => 'sanitize_textarea_field',
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_text', [
-        'label'       => __( 'Body text below heading', 'restatify-base' ),
+        'label'       => __( 'Fliesstext unter der Ueberschrift', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'textarea',
     ] );
 
     $wp_customize->add_setting( 'restatify_hero_btn1_label', [
-        'default'           => __( 'Start now', 'restatify-base' ),
+        'default'           => __( 'Jetzt starten', 'restatify-base' ),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_btn1_label', [
-        'label'       => __( 'Primary button label', 'restatify-base' ),
+        'label'       => __( 'Beschriftung primaerer Button', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
@@ -532,19 +532,19 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_btn1_url', [
-        'label'       => __( 'Primary button URL', 'restatify-base' ),
-        'description' => __( 'Internal anchor (e.g. #pricing01-k) or full URL.', 'restatify-base' ),
+        'label'       => __( 'URL primaerer Button', 'restatify-base' ),
+        'description' => __( 'Interner Anker (z.B. #pricing01-k) oder vollstaendige URL.', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
 
     $wp_customize->add_setting( 'restatify_hero_btn2_label', [
-        'default'           => __( 'Contact now', 'restatify-base' ),
+        'default'           => __( 'Jetzt Kontakt aufnehmen', 'restatify-base' ),
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_btn2_label', [
-        'label'       => __( 'Secondary button label', 'restatify-base' ),
+        'label'       => __( 'Beschriftung sekundaerer Button', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
@@ -555,8 +555,8 @@ function restatify_customize_register($wp_customize) {
         'transport'         => 'refresh',
     ] );
     $wp_customize->add_control( 'restatify_hero_btn2_url', [
-        'label'       => __( 'Secondary button URL', 'restatify-base' ),
-        'description' => __( 'Internal anchor (e.g. #contacts01-c) or full URL.', 'restatify-base' ),
+        'label'       => __( 'URL sekundaerer Button', 'restatify-base' ),
+        'description' => __( 'Interner Anker (z.B. #contacts01-c) oder vollstaendige URL.', 'restatify-base' ),
         'section'     => 'restatify_hero',
         'type'        => 'text',
     ] );
