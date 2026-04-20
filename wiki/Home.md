@@ -1,19 +1,42 @@
-# Restatify Base Theme
+# Restatify Base Theme - Wiki (DE)
 
-Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschränkt).
+Stand: Version 1.0.5, getestet bis WordPress 6.9.
 
-Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte Layouts für moderne Business-Websites mit. Es ist auf den Block-Editor und Site Editing ausgelegt und dient als gestalterische Grundlage für die Restatify-Projekte.
+Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
-## Kernfunktionen
+## Inhaltsverzeichnis
 
-- Full Site Editing auf Basis eines eigenen Block-Themes
-- Eigene Gutenberg-Blockbibliothek für Marketing- und Business-Seiten
-- Theme-weite Farb- und Layout-Variablen
-- Eigene Sektionen für Hero, Services, Studies, Testimonials, FAQ, Pricing und weitere Inhalte
-- Futuristischer Oracle-Block mit Wortpaar-Animation und Logo-Overlay
-- Getrennte Footer-Konfiguration für wichtige Basiswerte und optionale Experteneinstellungen
+- Zweck und Architektur
+- Enthaltene Blöcke
+- Schnellstart Installation
+- Externe Installation mit Release-ZIP
+- Entwicklung lokal
+- Build und Assets
+- Block-Hintergründe und Variablen
+- Customizer und Footer-Struktur
+- Troubleshooting
+- Release-Workflow
+- Verlinkte Projektdokumente
 
-## Enthaltene Custom Blocks
+---
+
+## Zweck und Architektur
+
+Restatify Base ist ein Custom-WordPress-Theme mit Fokus auf Gutenberg, Site Editor und einer eigenen section-basierten Blockbibliothek.
+
+Technische Eckpunkte:
+
+- Blockbasierte Architektur über `/src` für Quellen und `/build` für kompilierte Assets
+- Automatische Block-Registrierung über `inc/blocks.php`
+- Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
+- Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
+- Klare Trennung zwischen inhaltlicher Block-Entwicklung und deploybaren Build-Artefakten
+
+---
+
+## Enthaltene Blöcke
+
+Das Theme enthält aktuell:
 
 - Hero
 - Services
@@ -29,27 +52,195 @@ Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte La
 - Clients
 - Oracle
 
-## Theme-Ausrichtung
+Der Oracle-Block ergänzt die Bibliothek um eine futuristische Wortpaar-Animation mit periodischem Logo-Overlay und erweiterten Layout-Optionen.
 
-Das Theme ist auf moderne, abschnittsbasierte Unternehmensseiten ausgelegt. Inhaltliche Bausteine sollen sich im Site Editor schnell kombinieren lassen, ohne dass jedes Layout individuell per Custom Code gebaut werden muss.
+---
 
-## Customizer und Footer
+## Schnellstart Installation
 
-Die Footer-Konfiguration ist bewusst in zwei Bereiche getrennt:
+### Option A: Theme manuell installieren
 
-- Footer Core: zentrale und regelmäßig gepflegte Kontakt- und Basisangaben
-- Footer Expert Settings: optionale soziale Links, Trust-Elemente und erweiterte Einstellungen
+1. Theme als ZIP in WordPress hochladen.
+2. Unter Design > Themes aktivieren.
+3. Site Editor öffnen und Restatify-Blöcke einsetzen.
 
-Dadurch bleiben die wichtigsten Felder im Alltag schneller erreichbar und weniger wichtige Optionen stören die Grundkonfiguration nicht.
+### Option B: Theme-Ordner kopieren
 
-## Entwicklung
+1. Theme nach `wp-content/themes/wp_restatify-base-theme` kopieren.
+2. Theme aktivieren.
+3. Site Editor verwenden.
 
-Das Theme nutzt Quellcode unter `/src` und gebaute Assets unter `/build`.
+---
 
-Für Entwicklung und Release gilt in der Regel:
+## Externe Installation mit Release-ZIP
 
-- `npm install`
-- `npm run build` für Produktions-Assets
-- `npm run start` für den Watch-Modus während der Entwicklung
+Für externe Installationen sollte ein Release-ZIP mit kompilierten Assets verwendet werden.
 
-Für externe Installationen sollte bevorzugt ein Release-ZIP mit kompilierten Assets verwendet werden.
+### ZIP erzeugen
+
+1. Im Theme-Ordner Abhängigkeiten installieren:
+
+```bash
+npm install
+```
+
+2. Paket bauen:
+
+```bash
+npm run package
+```
+
+3. Das Ergebnis liegt unter `release/wp_restatify-base-theme-<version>.zip`.
+
+Hinweis:
+
+- Für dieses Theme nicht auf ein reines Source-ZIP verlassen, da für Gutenberg die kompilierten Assets aus `/build` benötigt werden.
+
+---
+
+## Entwicklung lokal
+
+1. Abhängigkeiten installieren:
+
+```bash
+npm install
+```
+
+2. Entwicklung mit Watch:
+
+```bash
+npm run start
+```
+
+3. Produktionsbuild erzeugen:
+
+```bash
+npm run build
+```
+
+4. Paket für Deployment bauen:
+
+```bash
+npm run package
+```
+
+---
+
+## Build und Assets
+
+Struktur:
+
+- `/src` enthält Block-Quellcode, Styles und Block-Metadaten
+- `/build` enthält kompilierte, deploybare Assets
+- `inc/blocks.php` registriert Blöcke aus dem Build-Verzeichnis
+
+Wichtig:
+
+- Ohne gültigen Build können Blöcke in externer Installation nicht korrekt geladen werden.
+- Änderungen unter `/src` sollten vor Tests außerhalb des lokalen Setups immer neu gebaut werden.
+
+---
+
+## Block-Hintergründe und Variablen
+
+Das Theme injiziert Default-Hintergrundvariablen für Blöcke zur Laufzeit.
+
+Relevant:
+
+- Registrierung und Variablen-Handling in `inc/blocks.php`
+- Theme-Tokens in `style.css`, zum Beispiel Farben, Oberflächen und Zustände
+- Gemeinsame Background- und Layout-Logik in `src/shared/*`
+
+Empfehlung:
+
+- Für neue Blöcke denselben Variablen- und Naming-Standard beibehalten, damit sich die Blöcke konsistent in das Theme-System einfügen.
+
+---
+
+## Customizer und Footer-Struktur
+
+Die jüngeren Theme-Anpassungen haben die Footer-Konfiguration klarer gegliedert.
+
+Aufteilung:
+
+- Footer Core: wichtige Slogan-, Kontakt- und Basisangaben für die tägliche Pflege
+- Footer Expert Settings: optionale soziale Links, Trust-Badges, vCard und erweiterte Details
+
+Ziel dieser Struktur:
+
+- schnellere Pflege der wichtigsten Inhalte
+- weniger Unordnung im Customizer
+- bessere deutsche Beschriftungen und klarere Orientierung im Backend
+
+---
+
+## Troubleshooting
+
+### Blöcke erscheinen nicht im Editor
+
+Prüfen:
+
+- Theme aktiv?
+- Build vorhanden unter `/build/*/block.json`?
+- Nach Änderungen `npm run build` ausgeführt?
+
+### Styles fehlen im Frontend
+
+Prüfen:
+
+- Kompilierte Assets in `/build` aktuell?
+- Block korrekt in `inc/blocks.php` registriert?
+
+### Hintergrundbild oder Overlay verhält sich unerwartet
+
+Prüfen:
+
+- Block-Attribute für Background und Overlay gesetzt?
+- CSS-Variablen in den Theme-Styles verfügbar?
+- Theme-Modus light oder dark korrekt gesetzt?
+
+### Externe Installation zeigt Fehler
+
+Prüfen:
+
+- Wurde ein Release-ZIP aus `npm run package` verwendet?
+- Wurde nicht versehentlich ein Source-ZIP ohne Build genutzt?
+
+---
+
+## Release-Workflow
+
+1. Versionsstände aktualisieren:
+	- `style.css`
+	- `package.json`
+	- `readme.txt`
+	- optional `README.de.md`
+2. Changelog pflegen.
+3. Produktionsbuild validieren:
+
+```bash
+npm run build
+```
+
+4. Release-ZIP erzeugen:
+
+```bash
+npm run package
+```
+
+5. Smoke-Test in externer WordPress-Testinstanz durchführen.
+6. Commit, Tag und Push ausführen.
+7. GitHub Release Notes ergänzen.
+
+Aktuelle release-spezifische Zusammenfassung:
+
+- [Release 1.0.5](Release-1.0.5)
+
+---
+
+## Verlinkte Projektdokumente
+
+- EN Readme
+- DE Readme
+- Release-Tags in GitHub
+- Packaging-Skript `scripts/create-release-zip.ps1`
