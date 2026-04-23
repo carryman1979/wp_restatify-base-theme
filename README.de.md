@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.4, getestet bis WordPress 6.9.
+Stand: Version 1.0.6, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -88,6 +88,13 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.6
+
+- LightStart-Integration fuer Wartungsseiten verfeinert: Header/Footer wechseln jetzt statusabhaengig zwischen Minimal-Chrome (Wartung aktiv) und vollem Theme-Chrome (Wartung deaktiviert).
+- Doppelte Head-Ausgaben auf Block-Themes bei deaktiviertem Wartungsmodus beseitigt.
+- Wartungsbezogene Rechtsseiten-Fallbacks und Kompatibilitaetsweiterleitungen ergaenzt.
+- Dokumentation und Konfigurationspfade fuer Wartungs-/Rechtslinks erweitert.
 
 ### 1.0.4
 

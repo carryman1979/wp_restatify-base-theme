@@ -104,6 +104,15 @@ function restatify_render_cookie_banner() {
         return;
     }
 
+    if (
+        function_exists('restatify_is_lightstart_maintenance_request')
+        && restatify_is_lightstart_maintenance_request()
+        && function_exists('restatify_should_show_cookie_banner_in_maintenance')
+        && !restatify_should_show_cookie_banner_in_maintenance()
+    ) {
+        return;
+    }
+
     $banner = $GLOBALS['restatify_cookie_banner_data'];
     $is_pending = ($banner['state'] ?? 'pending') === 'pending';
     ?>

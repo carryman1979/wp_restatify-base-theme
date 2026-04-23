@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.5, getestet bis WordPress 6.9.
+Stand: Version 1.0.6, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -218,6 +218,14 @@ Prüfen:
 2. Changelog pflegen.
 3. Produktionsbuild validieren:
 
+---
+
+## Letzte Aenderungen (1.0.6)
+
+- LightStart-Wartungsvorlage schaltet jetzt korrekt zwischen Minimal- und Voll-Theme-Chrome.
+- Doppelte Head-/Localize-Ausgaben in Block-Themes bei deaktivierter Wartung wurden entfernt.
+- Wartungsbezogene Rechtsseiten/Fallbacks wurden in Theme und Doku vereinheitlicht.
+- Release- und Wiki-Dokumentation fuer den Wartungs-Workflow wurde erweitert.
 ```bash
 npm run build
 ```

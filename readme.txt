@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.4
+Version: 1.0.6
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,12 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.6 =
+* Added robust LightStart template integration to switch header/footer by maintenance status.
+* Prevented duplicate head/localized script output on block themes when LightStart maintenance is disabled.
+* Added maintenance-focused legal fallback pages and root-level compatibility redirects.
+* Extended maintenance customizer options for legal/imprint links and improved documentation coverage.
 
 = 1.0.4 =
 * Improved customizer UX by separating Footer Core (recommended) and Footer Expert (optional) settings.

@@ -64,6 +64,49 @@ function restatify_sanitize_footer_url($value) {
     return esc_url_raw(trim((string) $value));
 }
 
+function restatify_sanitize_link_target($value) {
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+
+    if (preg_match('#^(https?:)?//#i', $value)) {
+        return esc_url_raw($value);
+    }
+
+    if (preg_match('#^(mailto:|tel:)#i', $value)) {
+        return esc_url_raw($value);
+    }
+
+    // Relative file/path from WordPress installation root.
+    return ltrim($value, '/');
+}
+
+function restatify_resolve_link_target($value) {
+    $value = trim((string) $value);
+    if ($value === '') {
+        return '';
+    }
+
+    if (preg_match('#^(https?:)?//#i', $value) || preg_match('#^(mailto:|tel:)#i', $value)) {
+        return esc_url($value);
+    }
+
+    $relative = ltrim($value, '/');
+
+    // Prefer file paths that actually exist in WordPress root.
+    if (defined('ABSPATH') && is_file(trailingslashit(ABSPATH) . $relative)) {
+        return esc_url(home_url('/' . $relative));
+    }
+
+    // Fallback: if the file lives in the current theme root, resolve to theme URL.
+    if (function_exists('get_theme_file_path') && function_exists('get_theme_file_uri') && is_file(get_theme_file_path('/' . $relative))) {
+        return esc_url(get_theme_file_uri('/' . $relative));
+    }
+
+    return esc_url(home_url('/' . $relative));
+}
+
 function restatify_sanitize_footer_phone($value) {
     $value = trim((string) $value);
     if ($value === '') {
@@ -101,4 +144,31 @@ function restatify_translate_polylang_string($value) {
     }
 
     return $value;
+}
+
+function restatify_sanitize_checkbox($value) {
+    return !empty($value);
+}
+
+function restatify_is_lightstart_available(): bool {
+    if (! defined('WP_PLUGIN_DIR')) {
+        return false;
+    }
+
+    $plugin_file = WP_PLUGIN_DIR . '/wp-maintenance-mode/wp-maintenance-mode.php';
+    if (! file_exists($plugin_file)) {
+        return false;
+    }
+
+    $active_plugins = (array) get_option('active_plugins', []);
+    if (in_array('wp-maintenance-mode/wp-maintenance-mode.php', $active_plugins, true)) {
+        return true;
+    }
+
+    if (is_multisite()) {
+        $network_plugins = (array) get_site_option('active_sitewide_plugins', []);
+        return isset($network_plugins['wp-maintenance-mode/wp-maintenance-mode.php']);
+    }
+
+    return false;
 }

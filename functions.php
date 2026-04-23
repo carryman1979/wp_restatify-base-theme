@@ -4,6 +4,7 @@
 $restatify_includes = [
     '/inc/theme-setup.php',
     '/inc/assets.php',
+    '/inc/maintenance-layout.php',
     '/inc/navigation-walker.php',
     '/inc/customizer.php',
     '/inc/polylang.php',

@@ -263,6 +263,161 @@ function restatify_customize_register($wp_customize) {
         'description' => __('Optionale Social-Links, Trust-Badges und vCard-Einstellungen.', 'restatify-base'),
     ]);
 
+    if (function_exists('restatify_is_lightstart_available') && restatify_is_lightstart_available()) {
+        $wp_customize->add_section('restatify_maintenance_mode', [
+            'title'       => __('Wartungsmodus', 'restatify-base'),
+            'priority'    => 34,
+            'description' => __('Texte und rechtliche Angaben für den minimalen Header/Footer auf der LightStart-Wartungsseite. Link-Felder akzeptieren absolute URLs (https://...) und relative Pfade (z.B. /impressum, impressum.html, wp-content/uploads/datei.pdf).', 'restatify-base'),
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_header_text', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_header_text', [
+            'label'       => __('Header-Schriftzug neben Logo', 'restatify-base'),
+            'description' => __('Wenn leer, wird die Unterzeile/Tagline der Website als Fallback verwendet.', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_company_name', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_company_name', [
+            'label'       => __('Firmenname / Rechtsform', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_represented_by', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_represented_by', [
+            'label'       => __('Vertreten durch', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_address', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_address', [
+            'label'       => __('Anschrift (mehrzeilig)', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'textarea',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_register_info', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_register_info', [
+            'label'       => __('Registerangaben', 'restatify-base'),
+            'description' => __('z.B. Amtsgericht + Handelsregister-Nummer', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_vat_id', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_vat_id', [
+            'label'       => __('USt-IdNr. (optional)', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_contact_email', [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_email',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_contact_email', [
+            'label'       => __('Kontakt-E-Mail', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'email',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_contact_phone', [
+            'default'           => '',
+            'sanitize_callback' => 'restatify_sanitize_footer_phone',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_contact_phone', [
+            'label'       => __('Kontakt-Telefon (optional)', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_disclaimer', [
+            'default'           => __('Dies ist eine vorübergehende Wartungsseite. Inhalte und Funktionen stehen nach Abschluss der Wartung wieder vollständig zur Verfügung.', 'restatify-base'),
+            'sanitize_callback' => 'sanitize_textarea_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_disclaimer', [
+            'label'       => __('Disclaimer-Text', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'textarea',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_show_imprint_link', [
+            'default'           => false,
+            'sanitize_callback' => 'restatify_sanitize_checkbox',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_show_imprint_link', [
+            'label'       => __('Link für Impressum anzeigen', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'checkbox',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_imprint_url', [
+            'default'           => 'wp-content/themes/wp_restatify-base-theme/fallback_imprint.html',
+            'sanitize_callback' => 'restatify_sanitize_link_target',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_imprint_url', [
+            'label'       => __('Impressum-Link (URL oder relativer Pfad)', 'restatify-base'),
+            'description' => __('Beispiele: https://example.com/impressum, /impressum, impressum.html, wp-content/uploads/impressum.pdf. Leer = Theme-Standard.', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_show_privacy_link', [
+            'default'           => false,
+            'sanitize_callback' => 'restatify_sanitize_checkbox',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_show_privacy_link', [
+            'label'       => __('Link für Datenschutz anzeigen', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'checkbox',
+        ]);
+
+        $wp_customize->add_setting('restatify_maintenance_privacy_url', [
+            'default'           => 'wp-content/themes/wp_restatify-base-theme/fallback_privacy.html',
+            'sanitize_callback' => 'restatify_sanitize_link_target',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control('restatify_maintenance_privacy_url', [
+            'label'       => __('Datenschutz-Link (URL oder relativer Pfad)', 'restatify-base'),
+            'description' => __('Beispiele: https://example.com/datenschutz, /datenschutz, privacy.html, wp-content/uploads/privacy.pdf. Leer = WordPress-Datenschutzseite/Theme-Fallback.', 'restatify-base'),
+            'section'     => 'restatify_maintenance_mode',
+            'type'        => 'text',
+        ]);
+    }
+
     $wp_customize->add_setting('restatify_footer_title', [
         'default'           => __('Strategie, die mit Ihrem Unternehmen mitwächst.', 'restatify-base'),
         'sanitize_callback' => 'sanitize_text_field',
