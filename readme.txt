@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.6
+Version: 1.0.7
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,7 @@ Included custom blocks:
 * Contact
 * Clients
 * Oracle
+* Timer
 
 
 == Oracle Block ==
@@ -47,6 +48,21 @@ Configurable options include:
 * Word colors, glow color, and shell gradient colors.
 * Optional fallback logo image (used when no site logo is detected).
 * Standard background/layout controls (background image, overlay, parallax, fullscreen).
+
+
+== Timer Block ==
+
+Timer is a target-date countdown section with automatic unit logic and calendar-accurate year/month calculations.
+
+Configurable options include:
+
+* Target date and time via date-time picker.
+* Optional title, subtitle, and description.
+* Automatic unit visibility based on remaining time:
+	* years/months/days/hours/minutes/seconds when relevant
+	* smooth reflow animation when a leading unit drops out.
+* Proper singular/plural unit labels in German.
+* CI-aligned colors with dedicated editor contrast handling.
 
 
 == Installation ==
@@ -108,6 +124,13 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.7 =
+* Added new Timer custom block with target date-time picker.
+* Added calendar-accurate countdown decomposition including years and months.
+* Added automatic unit visibility (years to seconds) with animated unit reflow.
+* Added German singular/plural labels for all countdown units.
+* Improved block editor preview contrast for Timer in dark and light designer contexts.
 
 = 1.0.6 =
 * Added robust LightStart template integration to switch header/footer by maintenance status.

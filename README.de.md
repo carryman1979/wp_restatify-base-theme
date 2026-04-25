@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.6, getestet bis WordPress 6.9.
+Stand: Version 1.0.7, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -21,6 +21,7 @@ Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte La
 - Contact
 - Clients
 - Oracle
+- Timer
 
 ## Oracle Block
 
@@ -35,6 +36,19 @@ Konfigurierbar sind unter anderem:
 - Wortfarben, Glow-Farbe und Shell-Gradientfarben.
 - Optionales Fallback-Logo (wenn kein Site-Logo erkannt wird).
 - Standard-Background/Layout-Optionen (Bild, Overlay, Parallax, Fullscreen).
+
+## Timer Block
+
+Timer ist ein Zielzeitpunkt-Countdown mit automatischer Einheitenlogik und kalendergenauer Berechnung.
+
+Konfigurierbar sind unter anderem:
+
+- Zielzeitpunkt per Date-Time-Picker.
+- Optionaler Titel, Untertitel und Beschreibung.
+- Automatische Anzeige der passenden Einheiten je nach Restzeit (Jahre bis Sekunden).
+- Weiche Reflow-Animation beim Wegfall einer fuehrenden Einheit.
+- Singular/Plural je Einheit (z. B. 1 Jahr vs. 2 Jahre).
+- CI-konforme Farben inkl. verbesserter Lesbarkeit im Block-Editor.
 
 ## Installation
 
@@ -88,6 +102,14 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.7
+
+- Neuer Timer-Block mit Zielzeitpunkt per Date-Time-Picker hinzugefuegt.
+- Kalendergenaue Countdown-Berechnung inkl. Jahre und Monate umgesetzt.
+- Automatische Sichtbarkeitslogik fuer Einheiten und Reflow-Animation beim Wechsel ergaenzt.
+- Singular-/Plural-Labels je Einheit (DE) in Editor und Frontend hinzugefuegt.
+- Lesbarkeit des Timer-Blocks im Designer fuer Light-/Dark-Kontext verbessert.
 
 ### 1.0.6
 

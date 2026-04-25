@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.6, getestet bis WordPress 6.9.
+Stand: Version 1.0.7, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -51,8 +51,10 @@ Das Theme enthält aktuell:
 - Contact
 - Clients
 - Oracle
+- Timer
 
-Der Oracle-Block ergänzt die Bibliothek um eine futuristische Wortpaar-Animation mit periodischem Logo-Overlay und erweiterten Layout-Optionen.
+Der Oracle-Block ergaenzt die Bibliothek um eine futuristische Wortpaar-Animation mit periodischem Logo-Overlay und erweiterten Layout-Optionen.
+Der Timer-Block ergaenzt die Bibliothek um einen zielzeitpunktbasierten Countdown mit kalendergenauer Anzeige (Jahre bis Sekunden).
 
 ---
 
@@ -220,6 +222,14 @@ Prüfen:
 
 ---
 
+## Letzte Aenderungen (1.0.7)
+
+- Neuer Timer-Block mit Date-Time-Picker fuer den Zielzeitpunkt.
+- Kalendergenaue Differenzlogik fuer Jahre/Monate/Tage/Stunden/Minuten/Sekunden.
+- Automatische Einheiten-Sichtbarkeit mit Reflow-Animation beim Wegfall einer fuehrenden Einheit.
+- Singular-/Plural-Labels je Einheit in Deutsch ergaenzt.
+- Verbesserte Lesbarkeit des Timer-Blocks im Block-Editor (Designer) bei dunklen Hintergruenden.
+
 ## Letzte Aenderungen (1.0.6)
 
 - LightStart-Wartungsvorlage schaltet jetzt korrekt zwischen Minimal- und Voll-Theme-Chrome.
@@ -242,6 +252,8 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.7](Release-1.0.7)
+- [Release 1.0.6](Release-1.0.6)
 - [Release 1.0.5](Release-1.0.5)
 
 ---

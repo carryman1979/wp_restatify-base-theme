@@ -1,0 +1,44 @@
+.restatify-timer-block {
+  outline: 1px dashed color-mix(in srgb, var(--rs-color-primary, #ff6b00) 40%, transparent);
+}
+
+/* Keep timer preview readable in the block editor regardless of editor/theme chrome. */
+.editor-styles-wrapper .restatify-timer-block {
+  --rs-timer-text: #0b1221;
+  --rs-timer-panel: rgba(255, 255, 255, 0.94);
+  --rs-timer-border: rgba(11, 18, 33, 0.14);
+  --rs-timer-item-border: rgba(11, 18, 33, 0.12);
+  --rs-timer-item-bg: rgba(255, 255, 255, 0.74);
+  --rs-timer-shadow: rgba(11, 18, 33, 0.12);
+  --rs-timer-value-color: color-mix(in srgb, var(--rs-color-primary, #ff6b00) 62%, var(--rs-timer-text) 38%);
+}
+
+@media (prefers-color-scheme: dark) {
+  .editor-styles-wrapper .restatify-timer-block {
+    --rs-timer-text: #e2e8f0;
+    --rs-timer-panel: rgba(11, 18, 33, 0.9);
+    --rs-timer-border: rgba(226, 232, 240, 0.22);
+    --rs-timer-item-border: rgba(226, 232, 240, 0.18);
+    --rs-timer-item-bg: rgba(11, 18, 33, 0.74);
+    --rs-timer-shadow: rgba(0, 0, 0, 0.5);
+    --rs-timer-value-color: color-mix(in srgb, var(--rs-color-primary, #60a5fa) 76%, var(--rs-timer-text) 24%);
+  }
+}
+
+.block-editor-block-inspector .restatify-timer-datetime-fix .components-datetime {
+  width: 100%;
+}
+
+.block-editor-block-inspector .restatify-timer-datetime-fix .components-datetime__time {
+  align-items: flex-end;
+}
+
+.block-editor-block-inspector .restatify-timer-datetime-fix .components-datetime__time-field {
+  margin-bottom: 0;
+}
+
+.block-editor-block-inspector .restatify-timer-datetime-fix .components-datetime__time-field input,
+.block-editor-block-inspector .restatify-timer-datetime-fix .components-datetime__time-field select {
+  min-height: 32px;
+  line-height: 1.2;
+}

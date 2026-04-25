@@ -1,0 +1,33 @@
+{
+  "apiVersion": 2,
+  "name": "restatify/timer",
+  "title": "Countdown Timer",
+  "category": "design",
+  "icon": "clock",
+  "description": "Configurable countdown section with optional title, subtitle, and description.",
+  "keywords": ["timer", "countdown", "launch"],
+  "version": "1.0.0",
+  "textdomain": "restatify-base",
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageEnabled": { "type": "boolean", "default": true },
+    "backgroundImageUrl": { "type": "string", "default": "" },
+    "overlayEnabled": { "type": "boolean", "default": false },
+    "overlayColor": { "type": "string", "default": "#0b1221" },
+    "overlayOpacity": { "type": "number", "default": 20 },
+    "parallax": { "type": "boolean", "default": false },
+    "fullscreen": { "type": "boolean", "default": false },
+
+    "title": { "type": "string", "default": "Countdown" },
+    "showTitle": { "type": "boolean", "default": true },
+    "subtitle": { "type": "string", "default": "Bis zum Start" },
+    "showSubtitle": { "type": "boolean", "default": true },
+    "description": { "type": "string", "default": "Setze einen Zielzeitpunkt, der Timer zeigt automatisch die passenden Einheiten." },
+    "showDescription": { "type": "boolean", "default": true },
+
+    "targetDateTime": { "type": "string", "default": "" }
+  }
+}
