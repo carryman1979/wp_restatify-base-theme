@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.7, getestet bis WordPress 6.9.
+Stand: Version 1.0.8, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -102,6 +102,12 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.8
+
+- Bugfix fuer Scroll-Lock im Wartungsmodus: anonyme Nutzer werden nicht mehr in einem Consent-Pending-Lock festgehalten, wenn der Cookie-Banner absichtlich ausgeblendet ist.
+- Darstellungsfehler bei Gutenberg-Standardbuttons mit mehrzeiligem Label im Frontend behoben.
+- Robuste finale CSS-Overrides fuer Button-Pseudo-Elemente ergaenzt, um Kollisionen mit Legacy-Styles zu vermeiden.
 
 ### 1.0.7
 

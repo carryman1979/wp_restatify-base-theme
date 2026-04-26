@@ -19,9 +19,28 @@ function restatify_get_cookie_consent_state() {
     return 'pending';
 }
 
+function restatify_get_cookie_consent_ui_state() {
+    $state = restatify_get_cookie_consent_state();
+
+    // In maintenance mode, the banner can be intentionally suppressed.
+    // Avoid applying the pending-state page lock when no banner is rendered.
+    if (
+        $state === 'pending'
+        && function_exists('restatify_is_lightstart_maintenance_request')
+        && restatify_is_lightstart_maintenance_request()
+        && function_exists('restatify_should_show_cookie_banner_in_maintenance')
+        && ! restatify_should_show_cookie_banner_in_maintenance()
+    ) {
+        return 'accepted';
+    }
+
+    return $state;
+}
+
 function restatify_theme_assets() {
     $uri = get_template_directory_uri() . '/assets';
     $consent_state = restatify_get_cookie_consent_state();
+    $consent_ui_state = restatify_get_cookie_consent_ui_state();
 
     // Styles (Mobirise order)
     wp_enqueue_style('mobirise-icons', $uri . '/web/assets/mobirise-icons2/mobirise2.css', [], null);
@@ -73,7 +92,7 @@ function restatify_theme_assets() {
     }
 
     wp_localize_script('restatify-cookie-consent', 'restatifyCookieConsent', [
-        'state' => $consent_state,
+        'state' => $consent_ui_state,
         'title' => $cookie_title,
         'message' => $cookie_message,
         'acceptText' => $accept_text,
@@ -83,7 +102,7 @@ function restatify_theme_assets() {
     ]);
 
     $GLOBALS['restatify_cookie_banner_data'] = [
-        'state' => $consent_state,
+        'state' => $consent_ui_state,
         'title' => $cookie_title,
         'message' => $cookie_message,
         'accept_text' => $accept_text,
@@ -93,7 +112,7 @@ function restatify_theme_assets() {
 add_action('wp_enqueue_scripts', 'restatify_theme_assets');
 
 function restatify_cookie_consent_body_class($classes) {
-    $state = restatify_get_cookie_consent_state();
+    $state = restatify_get_cookie_consent_ui_state();
     $classes[] = 'restatify-consent-' . $state;
     return $classes;
 }

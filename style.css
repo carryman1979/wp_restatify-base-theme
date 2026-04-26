@@ -7,7 +7,7 @@ Description: The base theme of the Restatify UG (haftungsbeschränkt) company.
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.7
+Version: 1.0.8
 License: GNU General Public License v2 or later
 Text Domain: restatify-base
 */
@@ -714,7 +714,7 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
   }
 }
 
-/* --- Desktop layout: left logo | centered nav | right actions ---
+/* --- Desktop layout: left logo | centered nav | right actions --- */
 @media (min-width: 992px) {
   .menu01.integrationm5 .content-wrap {
     display: flex;
@@ -1321,4 +1321,37 @@ body.restatify-consent-pending > *:not(#restatify-cookie-backdrop):not(#restatif
     flex-direction: column;
     gap: 0.35rem;
   }
+}
+
+/* Keep multiline Gutenberg buttons readable despite legacy global anchor styles. */
+.wp-block-button .wp-block-button__link,
+a.wp-element-button {
+  display: inline-flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  height: auto !important;
+  min-height: auto !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.wp-block-button .wp-block-button__link::before,
+.wp-block-button .wp-block-button__link::after,
+a.wp-element-button::before,
+a.wp-element-button::after {
+  content: none !important;
+  display: none !important;
+}
+
+.wp-block-button .wp-block-button__link br,
+a.wp-element-button br {
+  display: block;
 }
