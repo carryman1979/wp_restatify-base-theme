@@ -43,12 +43,12 @@ function restatify_theme_assets() {
     $consent_ui_state = restatify_get_cookie_consent_ui_state();
 
     // Styles (Mobirise order)
-    wp_enqueue_style('mobirise-icons', $uri . '/web/assets/mobirise-icons2/mobirise2.css', [], null);
-    wp_enqueue_style('icon54-v2', $uri . '/icon54-v2/style.css', [], null);
+    wp_enqueue_style('mobirise-icons', $uri . '/web/assets/mobirise-icons2/mobirise2.css', [], filemtime(get_template_directory() . '/assets/web/assets/mobirise-icons2/mobirise2.css'));
+    wp_enqueue_style('icon54-v2', $uri . '/icon54-v2/style.css', [], filemtime(get_template_directory() . '/assets/icon54-v2/style.css'));
     wp_enqueue_style('iconsmind', $uri . '/iconsMind/style.css', [], filemtime(get_template_directory() . '/assets/iconsMind/style.css'));
     wp_enqueue_style('bootstrap', $uri . '/bootstrap/css/bootstrap.min.css', [], null);
     wp_enqueue_style('dropdown', $uri . '/dropdown/css/style.css', ['bootstrap'], null);
-    wp_enqueue_style('socicon', $uri . '/socicon/css/styles.css', [], null);
+    wp_enqueue_style('socicon', $uri . '/socicon/css/styles.css', [], filemtime(get_template_directory() . '/assets/socicon/css/styles.css'));
     wp_enqueue_style('mobirise-main', $uri . '/theme/css/style.css', [], null);
     wp_enqueue_style('mobirise-additional', $uri . '/mobirise/css/mbr-additional.css', ['mobirise-main'], null);
 

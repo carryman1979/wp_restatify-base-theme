@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.8
+Version: 1.0.9
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,10 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.9 =
+* Fixed icon placeholder squares for anonymous users by adding cache-busting versions to icon font stylesheets.
+* Fixed typo in IconsMind EOT font filename to match shipped font assets.
 
 = 1.0.8 =
 * Fixed maintenance-mode no-scroll regression for anonymous users when the cookie banner is intentionally hidden.

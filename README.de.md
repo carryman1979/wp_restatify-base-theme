@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.8, getestet bis WordPress 6.9.
+Stand: Version 1.0.9, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -102,6 +102,11 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.9
+
+- Platzhalter-Quadrate bei Icon-Fonts fuer anonyme Nutzer behoben, indem Cache-Busting-Versionen fuer Icon-Stylesheets gesetzt wurden.
+- Tippfehler im IconsMind-EOT-Fontpfad korrigiert, damit Dateiname und ausgelieferte Assets uebereinstimmen.
 
 ### 1.0.8
 
