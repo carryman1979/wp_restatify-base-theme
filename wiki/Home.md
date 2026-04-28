@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.7, getestet bis WordPress 6.9.
+Stand: Version 1.0.9, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -220,7 +220,27 @@ Prüfen:
 2. Changelog pflegen.
 3. Produktionsbuild validieren:
 
+```bash
+npm run build
+```
+
+4. Release-ZIP erzeugen:
+
+```bash
+npm run package
+```
+
+5. Smoke-Test in externer WordPress-Testinstanz durchfuehren.
+6. Commit, Tag und Push ausfuehren.
+7. GitHub Release Notes ergaenzen.
+
 ---
+
+## Letzte Aenderungen (1.0.9)
+
+- Platzhalter-Quadrate bei Symbolen fuer anonyme Nutzer behoben.
+- Cache-Busting-Versionen fuer Icon-Stylesheets (`mobirise2.css`, `icon54-v2/style.css`, `socicon/css/styles.css`) ergaenzt.
+- Tippfehler im IconsMind-EOT-Fontpfad korrigiert (`icons-mind.eot`).
 
 ## Letzte Aenderungen (1.0.7)
 
@@ -236,22 +256,10 @@ Prüfen:
 - Doppelte Head-/Localize-Ausgaben in Block-Themes bei deaktivierter Wartung wurden entfernt.
 - Wartungsbezogene Rechtsseiten/Fallbacks wurden in Theme und Doku vereinheitlicht.
 - Release- und Wiki-Dokumentation fuer den Wartungs-Workflow wurde erweitert.
-```bash
-npm run build
-```
-
-4. Release-ZIP erzeugen:
-
-```bash
-npm run package
-```
-
-5. Smoke-Test in externer WordPress-Testinstanz durchführen.
-6. Commit, Tag und Push ausführen.
-7. GitHub Release Notes ergänzen.
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.9](Release-1.0.9)
 - [Release 1.0.7](Release-1.0.7)
 - [Release 1.0.6](Release-1.0.6)
 - [Release 1.0.5](Release-1.0.5)
