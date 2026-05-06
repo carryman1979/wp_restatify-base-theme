@@ -50,8 +50,8 @@ function Edit({ attributes, setAttributes }) {
         <div className="container"><div className="row justify-content-center"><div className="col-12 col-lg-8">
           <div className="content-wrapper card-wrap">
             {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading}</strong></h2>}
-            {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-1"><strong>{subheading}</strong></h3>}
-            {showText !== false && <p className="mbr-text mbr-fonts-style display-4">{text}</p>}
+            {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-4"><strong>{subheading}</strong></h3>}
+            {showText !== false && <p className="mbr-text mbr-fonts-style display-4" style={{ whiteSpace: 'pre-line' }}>{text}</p>}
           </div>
           {showImage !== false && (
             <div className="image-wrapper">
@@ -78,8 +78,8 @@ function Save({ attributes }) {
       <div className="container"><div className="row justify-content-center"><div className="col-12 col-lg-8">
         <div className="content-wrapper card-wrap">
           {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading}</strong></h2>}
-          {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-1"><strong>{subheading}</strong></h3>}
-          {showText !== false && <p className="mbr-text mbr-fonts-style display-4">{text}</p>}
+          {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-4"><strong>{subheading}</strong></h3>}
+          {showText !== false && <p className="mbr-text mbr-fonts-style display-4" style={{ whiteSpace: 'pre-line' }}>{text}</p>}
         </div>
         {showImage !== false && <div className="image-wrapper">{imageUrl && <img src={imageUrl} alt="" loading="lazy" />}</div>}
       </div></div></div>
