@@ -236,6 +236,14 @@ npm run package
 
 ---
 
+## Letzte Aenderungen (1.0.10)
+
+- Metrics-Block: Fullscreen- und Parallax-Modus im Frontend stabilisiert.
+- Neue konfigurierbare Zahlenanimation im Metrics-Block: kein Effekt oder Count-Up.
+- Count-Up-Dauer konfigurierbar (Default 1500 ms).
+- Count-Up startet nur einmal und erst wenn alle Zahlen gleichzeitig sichtbar sind.
+- Konsistente Release-Versionierung auf 1.0.10 inklusive neuem ZIP-Artefakt.
+
 ## Letzte Aenderungen (1.0.9)
 
 - Platzhalter-Quadrate bei Symbolen fuer anonyme Nutzer behoben.
@@ -259,6 +267,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.10](Release-1.0.10)
 - [Release 1.0.9](Release-1.0.9)
 - [Release 1.0.7](Release-1.0.7)
 - [Release 1.0.6](Release-1.0.6)
