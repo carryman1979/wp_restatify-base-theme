@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.8
+Version: 1.0.10
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,12 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.10 =
+* Fixed Metrics block fullscreen/parallax behavior so layout modes apply reliably in frontend output.
+* Added configurable Metrics number animation modes (none or count-up) with adjustable duration (default: 1500 ms).
+* Added viewport-aware one-time Metrics count-up trigger that starts only when all metric numbers are visible.
+* Added Mission block compatibility improvements for subtitle hierarchy and preserved line breaks.
 
 = 1.0.9 =
 * Fixed icon placeholder squares for anonymous users by adding cache-busting versions to icon font stylesheets.

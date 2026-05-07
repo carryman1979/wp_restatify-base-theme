@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.8, getestet bis WordPress 6.9.
+Stand: Version 1.0.10, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -102,6 +102,14 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.10
+
+- Metrics-Block korrigiert: Fullscreen- und Parallax-Modus greifen im Frontend jetzt zuverlaessig.
+- Konfigurierbare Zahlenanimation fuer Metrics hinzugefuegt: kein Effekt oder Count-Up.
+- Animationsdauer fuer Count-Up einstellbar gemacht (Standard: 1500 ms).
+- Count-Up startet genau einmal und erst dann, wenn alle Zahlen gleichzeitig im sichtbaren Bereich sind.
+- Mission-Block-Verbesserungen fuer Subheading-Hierarchie und Zeilenumbruch-Darstellung ergaenzt.
 
 ### 1.0.9
 
