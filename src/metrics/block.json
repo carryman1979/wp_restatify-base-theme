@@ -9,6 +9,7 @@
   "version": "1.0.0",
   "textdomain": "restatify-base",
   "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
   "editorStyle": "file:./index.css",
   "style": "file:./style-index.css",
   "attributes": {
@@ -23,6 +24,8 @@
     "showHeading": { "type": "boolean", "default": true },
     "text": { "type": "string", "default": "A Business Consultant provides strategic insight, objective analysis, and practical solutions." },
     "showText": { "type": "boolean", "default": true },
+    "animationMode": { "type": "string", "default": "count-up" },
+    "animationDuration": { "type": "number", "default": 1500 },
     "m1Number": { "type": "string", "default": "+35%" },
     "m1Label": { "type": "string", "default": "Revenue Growth" },
     "m2Number": { "type": "string", "default": "−25%" },
