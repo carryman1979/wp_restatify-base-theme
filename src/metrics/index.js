@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, ToggleControl } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, ToggleControl, SelectControl, RangeControl } from '@wordpress/components';
 import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
 import { BackgroundLayoutPanel, getBackgroundStyle, getOverlayStyle } from '../shared/background-layout-controls';
@@ -8,18 +8,177 @@ import './editor.css';
 import './style.css';
 
 function Edit({ attributes, setAttributes }) {
-  const { backgroundImageEnabled, backgroundImageUrl, overlayEnabled, overlayColor, overlayOpacity, parallax, fullscreen, heading, showHeading, text, showText, m1Number, m1Label, m2Number, m2Label, m3Number, m3Label, m4Number, m4Label } = attributes;
+  const {
+    backgroundImageEnabled,
+    backgroundImageUrl,
+    overlayEnabled,
+    overlayColor,
+    overlayOpacity,
+    parallax,
+    fullscreen,
+    heading,
+    showHeading,
+    text,
+    showText,
+    animationMode,
+    animationDuration,
+    m1Number,
+    m1Label,
+    m2Number,
+    m2Label,
+    m3Number,
+    m3Label,
+    m4Number,
+    m4Label
+  } = attributes;
   const className = ['restatify-metrics-block', backgroundImageEnabled !== false && parallax ? 'is-parallax' : '', fullscreen ? 'is-fullscreen' : ''].join(' ');
   const style = getBackgroundStyle(backgroundImageEnabled, backgroundImageUrl);
   const overlayStyle = getOverlayStyle(overlayEnabled, overlayColor, overlayOpacity);
-  return <div {...useBlockProps()}><InspectorControls><BackgroundLayoutPanel attributes={attributes} setAttributes={setAttributes} /><PanelBody title={__('Content','restatify-base')} initialOpen={false}><TextControl label={__('Heading','restatify-base')} value={heading} onChange={(v)=>setAttributes({heading:v})}/><TextareaControl label={__('Text','restatify-base')} value={text} onChange={(v)=>setAttributes({text:v})}/></PanelBody><PanelBody title={__('Metrics','restatify-base')} initialOpen={false}><TextControl label={__('Metric 1 number','restatify-base')} value={m1Number} onChange={(v)=>setAttributes({m1Number:v})}/><TextControl label={__('Metric 1 label','restatify-base')} value={m1Label} onChange={(v)=>setAttributes({m1Label:v})}/><TextControl label={__('Metric 2 number','restatify-base')} value={m2Number} onChange={(v)=>setAttributes({m2Number:v})}/><TextControl label={__('Metric 2 label','restatify-base')} value={m2Label} onChange={(v)=>setAttributes({m2Label:v})}/><TextControl label={__('Metric 3 number','restatify-base')} value={m3Number} onChange={(v)=>setAttributes({m3Number:v})}/><TextControl label={__('Metric 3 label','restatify-base')} value={m3Label} onChange={(v)=>setAttributes({m3Label:v})}/><TextControl label={__('Metric 4 number','restatify-base')} value={m4Number} onChange={(v)=>setAttributes({m4Number:v})}/><TextControl label={__('Metric 4 label','restatify-base')} value={m4Label} onChange={(v)=>setAttributes({m4Label:v})}/></PanelBody><PanelBody title={__('Content visibility','restatify-base')} initialOpen={false}><ToggleControl label={__('Show heading','restatify-base')} checked={showHeading!==false} onChange={(v)=>setAttributes({showHeading:!!v})}/><ToggleControl label={__('Show text','restatify-base')} checked={showText!==false} onChange={(v)=>setAttributes({showText:!!v})}/></PanelBody></InspectorControls><div className={className} style={style}>{backgroundImageEnabled!==false&&overlayEnabled&&<div className="restatify-metrics-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}<div className="container"><div className="row justify-content-center"><div className="col-12 col-lg-11"><div className="card-wrapper"><div className="row content-wrap"><div className="col-12 col-lg-5">{showHeading!==false&&<h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading}</strong></h2>}{showText!==false&&<p className="mbr-text mbr-fonts-style display-7">{text}</p>}</div><div className="col-12 col-lg-6"><div className="items-wrapper">{[[m1Number,m1Label],[m2Number,m2Label],[m3Number,m3Label],[m4Number,m4Label]].map((x,i)=><div className="item" key={i}><div className="item-wrapper"><p className="item-number mbr-fonts-style display-1"><strong>{x[0]}</strong></p><h4 className="item-title mbr-fonts-style display-4">{x[1]}</h4></div></div>)}</div></div></div></div></div></div></div></div></div>;
+  return (
+    <div {...useBlockProps()}>
+      <InspectorControls>
+        <BackgroundLayoutPanel attributes={attributes} setAttributes={setAttributes} />
+
+        <PanelBody title={__('Content', 'restatify-base')} initialOpen={false}>
+          <TextControl label={__('Heading', 'restatify-base')} value={heading} onChange={(v) => setAttributes({ heading: v })} />
+          <TextareaControl label={__('Text', 'restatify-base')} value={text} onChange={(v) => setAttributes({ text: v })} />
+        </PanelBody>
+
+        <PanelBody title={__('Metrics', 'restatify-base')} initialOpen={false}>
+          <TextControl label={__('Metric 1 number', 'restatify-base')} value={m1Number} onChange={(v) => setAttributes({ m1Number: v })} />
+          <TextControl label={__('Metric 1 label', 'restatify-base')} value={m1Label} onChange={(v) => setAttributes({ m1Label: v })} />
+          <TextControl label={__('Metric 2 number', 'restatify-base')} value={m2Number} onChange={(v) => setAttributes({ m2Number: v })} />
+          <TextControl label={__('Metric 2 label', 'restatify-base')} value={m2Label} onChange={(v) => setAttributes({ m2Label: v })} />
+          <TextControl label={__('Metric 3 number', 'restatify-base')} value={m3Number} onChange={(v) => setAttributes({ m3Number: v })} />
+          <TextControl label={__('Metric 3 label', 'restatify-base')} value={m3Label} onChange={(v) => setAttributes({ m3Label: v })} />
+          <TextControl label={__('Metric 4 number', 'restatify-base')} value={m4Number} onChange={(v) => setAttributes({ m4Number: v })} />
+          <TextControl label={__('Metric 4 label', 'restatify-base')} value={m4Label} onChange={(v) => setAttributes({ m4Label: v })} />
+        </PanelBody>
+
+        <PanelBody title={__('Number animation', 'restatify-base')} initialOpen={false}>
+          <SelectControl
+            label={__('Animation mode', 'restatify-base')}
+            value={animationMode || 'count-up'}
+            options={[
+              { label: __('No animation', 'restatify-base'), value: 'none' },
+              { label: __('Count up', 'restatify-base'), value: 'count-up' }
+            ]}
+            onChange={(value) => setAttributes({ animationMode: value || 'count-up' })}
+          />
+          {(animationMode || 'count-up') === 'count-up' && (
+            <RangeControl
+              label={__('Duration (ms)', 'restatify-base')}
+              value={Number(animationDuration) || 1500}
+              onChange={(value) => setAttributes({ animationDuration: Number(value) || 1500 })}
+              min={300}
+              max={5000}
+              step={100}
+            />
+          )}
+        </PanelBody>
+
+        <PanelBody title={__('Content visibility', 'restatify-base')} initialOpen={false}>
+          <ToggleControl label={__('Show heading', 'restatify-base')} checked={showHeading !== false} onChange={(v) => setAttributes({ showHeading: !!v })} />
+          <ToggleControl label={__('Show text', 'restatify-base')} checked={showText !== false} onChange={(v) => setAttributes({ showText: !!v })} />
+        </PanelBody>
+      </InspectorControls>
+
+      <div className={className} style={style} data-animation-mode={animationMode || 'count-up'} data-animation-duration={Number(animationDuration) || 1500}>
+        {backgroundImageEnabled !== false && overlayEnabled && <div className="restatify-metrics-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-lg-11">
+              <div className="card-wrapper">
+                <div className="row content-wrap">
+                  <div className="col-12 col-lg-5">
+                    {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading}</strong></h2>}
+                    {showText !== false && <p className="mbr-text mbr-fonts-style display-7">{text}</p>}
+                  </div>
+                  <div className="col-12 col-lg-6">
+                    <div className="items-wrapper">
+                      {[[m1Number, m1Label], [m2Number, m2Label], [m3Number, m3Label], [m4Number, m4Label]].map((x, i) => (
+                        <div className="item" key={i}>
+                          <div className="item-wrapper">
+                            <p className="item-number mbr-fonts-style display-1"><strong>{x[0]}</strong></p>
+                            <h4 className="item-title mbr-fonts-style display-4">{x[1]}</h4>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Save({ attributes }) {
-  const { backgroundImageEnabled, backgroundImageUrl, overlayEnabled, overlayColor, overlayOpacity, parallax, fullscreen, heading, showHeading, text, showText, m1Number, m1Label, m2Number, m2Label, m3Number, m3Label, m4Number, m4Label } = attributes;
+  const {
+    backgroundImageEnabled,
+    backgroundImageUrl,
+    overlayEnabled,
+    overlayColor,
+    overlayOpacity,
+    parallax,
+    fullscreen,
+    heading,
+    showHeading,
+    text,
+    showText,
+    animationMode,
+    animationDuration,
+    m1Number,
+    m1Label,
+    m2Number,
+    m2Label,
+    m3Number,
+    m3Label,
+    m4Number,
+    m4Label
+  } = attributes;
   const overlayStyle = getOverlayStyle(overlayEnabled, overlayColor, overlayOpacity);
-  const blockProps = useBlockProps.save({ className: ['restatify-metrics-block', backgroundImageEnabled !== false && parallax ? 'is-parallax' : '', fullscreen ? 'is-fullscreen' : ''].join(' '), style: getBackgroundStyle(backgroundImageEnabled, backgroundImageUrl) });
-  return <div {...blockProps}>{backgroundImageEnabled!==false&&overlayEnabled&&<div className="restatify-metrics-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}<div className="container"><div className="row justify-content-center"><div className="col-12 col-lg-11"><div className="card-wrapper"><div className="row content-wrap"><div className="col-12 col-lg-5">{showHeading!==false&&<h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading}</strong></h2>}{showText!==false&&<p className="mbr-text mbr-fonts-style display-7">{text}</p>}</div><div className="col-12 col-lg-6"><div className="items-wrapper">{[[m1Number,m1Label],[m2Number,m2Label],[m3Number,m3Label],[m4Number,m4Label]].map((x,i)=><div className="item" key={i}><div className="item-wrapper"><p className="item-number mbr-fonts-style display-1"><strong>{x[0]}</strong></p><h4 className="item-title mbr-fonts-style display-4">{x[1]}</h4></div></div>)}</div></div></div></div></div></div></div></div>;
+  const blockProps = useBlockProps.save({
+    className: ['restatify-metrics-block', backgroundImageEnabled !== false && parallax ? 'is-parallax' : '', fullscreen ? 'is-fullscreen' : ''].join(' '),
+    style: getBackgroundStyle(backgroundImageEnabled, backgroundImageUrl),
+    'data-animation-mode': animationMode || 'count-up',
+    'data-animation-duration': Number(animationDuration) || 1500
+  });
+
+  return (
+    <div {...blockProps}>
+      {backgroundImageEnabled !== false && overlayEnabled && <div className="restatify-metrics-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-11">
+            <div className="card-wrapper">
+              <div className="row content-wrap">
+                <div className="col-12 col-lg-5">
+                  {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading}</strong></h2>}
+                  {showText !== false && <p className="mbr-text mbr-fonts-style display-7">{text}</p>}
+                </div>
+                <div className="col-12 col-lg-6">
+                  <div className="items-wrapper">
+                    {[[m1Number, m1Label], [m2Number, m2Label], [m3Number, m3Label], [m4Number, m4Label]].map((x, i) => (
+                      <div className="item" key={i}>
+                        <div className="item-wrapper">
+                          <p className="item-number mbr-fonts-style display-1"><strong>{x[0]}</strong></p>
+                          <h4 className="item-title mbr-fonts-style display-4">{x[1]}</h4>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 registerBlockType(metadata.name, { ...metadata, edit: Edit, save: Save });

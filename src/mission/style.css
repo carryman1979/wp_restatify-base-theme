@@ -24,6 +24,18 @@
 .restatify-mission-block .mbr-section-subtitle,
 .restatify-mission-block .mbr-text { margin-top: 0.75rem; }
 
+/* Keep subtitle visually distinct even for already-saved blocks using display-1 markup. */
+.restatify-mission-block .mbr-section-subtitle {
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+/* Preserve manual line breaks entered in the Mission text field. */
+.restatify-mission-block .mbr-text {
+  white-space: pre-line;
+}
+
 .restatify-mission-block .image-wrapper { margin-top: 1rem; }
 .restatify-mission-block .image-wrapper img,
 .restatify-mission-block .image-placeholder {
