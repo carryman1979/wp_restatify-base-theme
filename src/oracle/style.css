@@ -127,10 +127,10 @@
   font-family: var(--wp--preset--font-family--heading, inherit);
   font-weight: 800;
   text-transform: uppercase;
-  text-wrap: balance;
+  white-space: nowrap;
   letter-spacing: 0.07em;
   line-height: 1.02;
-  font-size: clamp(1.5rem, 5vw, 4.2rem);
+  font-size: var(--rs-oracle-word-size, clamp(1.5rem, 5vw, 4.2rem));
   text-shadow:
     0 0 8px color-mix(in srgb, var(--rs-oracle-glow) 54%, transparent),
     0 0 26px color-mix(in srgb, var(--rs-oracle-shell-start) 48%, transparent),

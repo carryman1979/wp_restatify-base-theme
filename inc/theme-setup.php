@@ -24,11 +24,50 @@ function restatify_setup() {
 
     // Menü-Registrierung (Zentralisiert)
     register_nav_menus([
+        'primary_menu' => 'Header Hauptmenü',
         'cta_button_menu' => 'Header Aktions-Button (Start Now Ersatz)',
         'header_social_menu' => 'Header Social Links'
     ]);
 }
 add_action('after_setup_theme', 'restatify_setup');
+
+/**
+ * Show admin notice when no primary header menu is assigned.
+ */
+function restatify_primary_menu_admin_notice() {
+    if (! is_admin() || ! current_user_can('manage_options')) {
+        return;
+    }
+
+    if (wp_doing_ajax()) {
+        return;
+    }
+
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
+    if ($screen && in_array($screen->base, ['update', 'plugins'], true)) {
+        return;
+    }
+
+    $locations = get_nav_menu_locations();
+    $menu_id = isset($locations['primary_menu']) ? (int) $locations['primary_menu'] : 0;
+    if ($menu_id > 0 && wp_get_nav_menu_object($menu_id) instanceof WP_Term) {
+        return;
+    }
+
+    $menu_url = admin_url('nav-menus.php?action=locations');
+
+    echo '<div class="notice notice-warning is-dismissible">';
+    echo '<p>';
+    echo wp_kses_post(
+        sprintf(
+            __('Dem Header-Hauptmenue ist noch kein WordPress-Menue zugewiesen. Bitte ordne unter <a href="%s">Design > Menues > Menuepositionen</a> ein Menue der Position "Header Hauptmenue" zu.', 'restatify-base'),
+            esc_url($menu_url)
+        )
+    );
+    echo '</p>';
+    echo '</div>';
+}
+add_action('admin_notices', 'restatify_primary_menu_admin_notice');
 
 /**
  * Allow SVG uploads for administrators.

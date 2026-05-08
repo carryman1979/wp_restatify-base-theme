@@ -49,6 +49,49 @@ function randomPairIndex(pairs, currentIndex) {
     return nextIndex;
 }
 
+function fitWordSize(wordElement, reserveRatio) {
+    const minFontPx = 13;
+    const maxReductionSteps = 6;
+
+    wordElement.style.removeProperty('font-size');
+
+    const availableWidth = wordElement.clientWidth;
+
+    if (!availableWidth) {
+        return;
+    }
+
+    const targetWidth = availableWidth * reserveRatio;
+    const baseSize = parseFloat(window.getComputedStyle(wordElement).fontSize) || 16;
+    const firstScale = wordElement.scrollWidth > 0 ? Math.min(1, targetWidth / wordElement.scrollWidth) : 1;
+    let nextSize = Math.max(minFontPx, baseSize * firstScale * 0.985);
+
+    wordElement.style.fontSize = `${nextSize.toFixed(2)}px`;
+
+    for (let step = 0; step < maxReductionSteps; step += 1) {
+        const overflow = wordElement.scrollWidth - targetWidth;
+
+        if (overflow <= 1) {
+            break;
+        }
+
+        const reductionFactor = Math.max(0.86, Math.min(0.985, targetWidth / (targetWidth + overflow + 2)));
+        const reducedSize = Math.max(minFontPx, nextSize * reductionFactor);
+
+        if (Math.abs(reducedSize - nextSize) < 0.15) {
+            break;
+        }
+
+        nextSize = reducedSize;
+        wordElement.style.fontSize = `${nextSize.toFixed(2)}px`;
+    }
+}
+
+function fitPairWords(leftWord, rightWord) {
+    fitWordSize(leftWord, 0.9);
+    fitWordSize(rightWord, 0.88);
+}
+
 function initOracleStage(stage) {
     const pairs = parsePairs(stage.dataset.wordPairs || '');
 
@@ -79,6 +122,7 @@ function initOracleStage(stage) {
     let pairIndex = Math.floor(Math.random() * pairs.length);
     let rightTimer = null;
     let logoHideTimer = null;
+    let resizeRaf = null;
 
     const randomOffset = () => {
         const x = ((Math.random() * 2) - 1) * driftRange;
@@ -92,6 +136,7 @@ function initOracleStage(stage) {
         randomOffset();
         leftWord.textContent = pair[0];
         rightWord.textContent = pair[1];
+        fitPairWords(leftWord, rightWord);
         leftWord.classList.add('is-visible');
         rightWord.classList.remove('is-visible');
 
@@ -108,6 +153,16 @@ function initOracleStage(stage) {
         } else {
             pairIndex = (pairIndex + 1) % pairs.length;
         }
+    };
+
+    const handleResize = () => {
+        if (resizeRaf) {
+            window.cancelAnimationFrame(resizeRaf);
+        }
+
+        resizeRaf = window.requestAnimationFrame(() => {
+            fitPairWords(leftWord, rightWord);
+        });
     };
 
     const hidePair = () => {
@@ -160,6 +215,8 @@ function initOracleStage(stage) {
     };
 
     showLogo();
+    handleResize();
+    window.addEventListener('resize', handleResize);
     window.setTimeout(() => {
         showPair();
         window.setInterval(cyclePair, cycleMs);

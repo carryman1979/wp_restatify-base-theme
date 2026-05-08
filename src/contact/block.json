@@ -21,6 +21,15 @@
     "fullscreen": { "type": "boolean", "default": false },
     "label": { "type": "string", "default": "GET IN TOUCH" },
     "heading": { "type": "string", "default": "Connect with Your Business Consultant Today" },
+    "text": { "type": "string", "default": "" },
+    "details": {
+      "type": "array",
+      "default": [
+        { "title": "Phone", "text": "+1 234 567 8901", "mode": "text", "url": "" },
+        { "title": "Email", "text": "mobirise@email.com", "mode": "text", "url": "" },
+        { "title": "Location", "text": "125 Business Avenue, NY 10001, USA", "mode": "text", "url": "" }
+      ]
+    },
     "phoneLabel": { "type": "string", "default": "Phone" },
     "phoneValue": { "type": "string", "default": "+1 234 567 8901" },
     "emailLabel": { "type": "string", "default": "Email" },

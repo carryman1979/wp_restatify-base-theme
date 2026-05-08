@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.9, getestet bis WordPress 6.9.
+Stand: Version 1.0.11, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -236,6 +236,15 @@ npm run package
 
 ---
 
+## Letzte Aenderungen (1.0.11)
+
+- Header-Hauptnavigation auf zuweisbares WordPress-Menue umgestellt (`primary_menu`) statt automatischer Top-Level-Seitenliste.
+- Neue Menueposition `Header Hauptmenue` in den Theme-Menuepositionen registriert.
+- Admin-Hinweis integriert, falls fuer `Header Hauptmenue` noch kein Menue zugewiesen ist.
+- Navigation-Walker auf `Walker_Nav_Menu` migriert, damit Menueeintraege, aktive Zustande und Dropdowns robust verarbeitet werden.
+- Contact-Block erweitert um flexible Detailelemente mit Modus Text/Link/Button, inkl. Reihenfolge und Legacy-Migration.
+- Oracle-Block verbessert mit dynamischer Wortgroessen-Anpassung und Resize-Reflow fuer lange Begriffe.
+
 ## Letzte Aenderungen (1.0.10)
 
 - Metrics-Block: Fullscreen- und Parallax-Modus im Frontend stabilisiert.
@@ -267,6 +276,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.11](Release-1.0.11)
 - [Release 1.0.10](Release-1.0.10)
 - [Release 1.0.9](Release-1.0.9)
 - [Release 1.0.7](Release-1.0.7)
