@@ -3,43 +3,77 @@
  * Navigation walker.
  */
 
-class Restatify_Walker_Nav_Menu extends Walker_Page {
-    public function start_lvl(&$output, $depth = 0, $args = []) {
-        $output .= "\n<ul class=\"dropdown-menu\">\n";
+class Restatify_Walker_Nav_Menu extends Walker_Nav_Menu {
+    public function start_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "\n{$indent}<ul class=\"dropdown-menu\">\n";
     }
 
-    public function end_lvl(&$output, $depth = 0, $args = []) {
-        $output .= "</ul>\n";
+    public function end_lvl(&$output, $depth = 0, $args = null) {
+        $indent = str_repeat("\t", $depth);
+        $output .= "{$indent}</ul>\n";
     }
 
-    public function start_el(&$output, $page, $depth = 0, $args = [], $current_page = 0) {
-        $has_children = !empty($args['pages_with_children'][$page->ID]);
+    public function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $classes = empty($item->classes) ? [] : (array) $item->classes;
+        $has_children = in_array('menu-item-has-children', $classes, true);
 
         $li_classes = ['nav-item'];
         if ($depth === 0 && $has_children) {
             $li_classes[] = 'dropdown';
         }
-        if (!empty($current_page) && (int) $page->ID === (int) $current_page) {
+        if (in_array('current-menu-item', $classes, true) || in_array('current-menu-ancestor', $classes, true) || in_array('current_page_item', $classes, true)) {
             $li_classes[] = 'active';
         }
 
-        $output .= '<li class="' . esc_attr(implode(' ', $li_classes)) . '">';
+        $output .= '<li class="' . esc_attr(implode(' ', array_unique($li_classes))) . '">';
 
-        $link_class = $depth === 0 ? 'nav-link link text-success display-4' : 'dropdown-item';
-        $atts = '';
+        $link_classes = $depth === 0 ? ['nav-link', 'link', 'text-success', 'display-4'] : ['dropdown-item'];
         if ($depth === 0 && $has_children) {
-            $link_class .= ' dropdown-toggle';
-            $atts .= ' data-bs-toggle="dropdown" aria-expanded="false"';
+            $link_classes[] = 'dropdown-toggle';
         }
 
-        $output .= '<a class="' . esc_attr($link_class) . '" href="' . esc_url(get_permalink($page->ID)) . '"' . $atts . '>';
-
-        if ($depth === 0 && ($page->post_name === 'home' || (int) $page->ID === (int) get_option('page_on_front'))) {
-            $output .= '<span class="socicon socicon-homes mbr-iconfont mbr-iconfont-btn"></span> ';
+        if (in_array('current-menu-item', $classes, true) || in_array('current-menu-ancestor', $classes, true) || in_array('current_page_item', $classes, true)) {
+            $link_classes[] = 'active';
         }
 
-        $output .= esc_html(apply_filters('the_title', $page->post_title, $page->ID));
-        $output .= '</a>';
+        $atts = [
+            'class' => implode(' ', array_unique($link_classes)),
+            'href'  => !empty($item->url) ? $item->url : '#',
+        ];
+
+        if ($depth === 0 && $has_children) {
+            $atts['data-bs-toggle'] = 'dropdown';
+            $atts['aria-expanded'] = 'false';
+            $atts['role'] = 'button';
+        }
+
+        if (!empty($item->target)) {
+            $atts['target'] = $item->target;
+        }
+        if (!empty($item->xfn)) {
+            $atts['rel'] = $item->xfn;
+        }
+        if (!empty($item->attr_title)) {
+            $atts['title'] = $item->attr_title;
+        }
+
+        $attr_html = '';
+        foreach ($atts as $name => $value) {
+            if ($value === '') {
+                continue;
+            }
+
+            $escaped_value = $name === 'href' ? esc_url($value) : esc_attr($value);
+            $attr_html .= ' ' . $name . '="' . $escaped_value . '"';
+        }
+
+        $title = apply_filters('the_title', $item->title, $item->ID);
+        $output .= '<a' . $attr_html . '>' . esc_html($title) . '</a>';
+    }
+
+    public function end_el(&$output, $item, $depth = 0, $args = null) {
+        $output .= "</li>\n";
     }
 }
 

@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.10, getestet bis WordPress 6.9.
+Stand: Version 1.0.11, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -102,6 +102,16 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.11
+
+- Header-Navigation auf ein zuweisbares WordPress-Menue umgestellt, statt Seiten automatisch aus der Top-Level-Struktur zu ziehen.
+- Neue Menueposition fuer das Hauptmenue hinzugefuegt (`Header Hauptmenue`).
+- Admin-Hinweis ergaenzt, wenn fuer das Hauptmenue noch kein Menue zugewiesen ist.
+- Navigation-Walker von `Walker_Page` auf `Walker_Nav_Menu` umgestellt fuer saubere Menue- und Dropdown-Ausgabe.
+- Contact-Block erweitert: flexible Detailliste (Text/Link/Button), Reihenfolge-Aenderung, optionaler Beschreibungstext und Legacy-Migration alter Kontaktfelder.
+- Contact-Block-Styling fuer Links/Buttons und mehrzeilige Texte verbessert.
+- Oracle-Block verbessert: responsive Wortgroessen-Anpassung, damit lange Woerter stabil einzeilig bleiben (inklusive Resize-Reflow).
 
 ### 1.0.10
 

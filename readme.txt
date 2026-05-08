@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.10
+Version: 1.0.11
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -124,6 +124,15 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.11 =
+* Changed header primary navigation to use an assigned WordPress menu location instead of auto-listing top-level pages.
+* Added a dedicated primary header menu location (Header Hauptmenue) in theme setup.
+* Added admin warning notice when no menu is assigned to the primary header menu location.
+* Updated navigation walker from page-based to nav-menu-based rendering for robust menu item/dropdown handling.
+* Extended Contact block editor with flexible details list (text/link/button), reordering, optional body text, and legacy field migration support.
+* Improved Contact block frontend/editor styles for optional links, button rendering, and multiline text.
+* Improved Oracle block word fitting to keep long words on one line with responsive font fitting on initial render and window resize.
 
 = 1.0.10 =
 * Fixed Metrics block fullscreen/parallax behavior so layout modes apply reliably in frontend output.

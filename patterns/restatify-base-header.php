@@ -156,16 +156,17 @@ if (!empty($dark_logo_src)) {
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                    <?php
-                    wp_list_pages([
-                        'title_li'    => '',
-                        'depth'       => 2,
-                        'sort_column' => 'menu_order,post_title',
-                        'walker'      => class_exists('Restatify_Walker_Nav_Menu') ? new Restatify_Walker_Nav_Menu() : '',
-                    ]);
-                    ?>
-                </ul>
+                <?php
+                wp_nav_menu([
+                    'theme_location' => 'primary_menu',
+                    'container'      => false,
+                    'depth'          => 2,
+                    'menu_class'     => 'navbar-nav nav-dropdown nav-right',
+                    'items_wrap'     => '<ul id="%1$s" class="%2$s" data-app-modern-menu="true">%3$s</ul>',
+                    'fallback_cb'    => false,
+                    'walker'         => class_exists('Restatify_Walker_Nav_Menu') ? new Restatify_Walker_Nav_Menu() : null,
+                ]);
+                ?>
 
                 <?php if (!empty($social_menu_html)) : ?>
                     <div class="icons-menu">
