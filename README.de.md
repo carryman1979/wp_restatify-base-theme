@@ -1,10 +1,17 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.11, getestet bis WordPress 6.9.
+Stand: Version 1.0.12, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
-Das Theme bringt eine eigene Gutenberg-Blockbibliothek und abschnittsbasierte Layouts fuer moderne Business-Websites mit.
+Das Theme folgt bewusst den Standard-WordPress-Mechanismen:
+
+- Core-Blocks fuer Inhalte,
+- Block-Patterns fuer wiederverwendbare Sektionen,
+- Templates und Template Parts fuer die Seitenstruktur,
+- theme.json fuer globale Styles und Design-Tokens.
+
+Ergaenzend bringt das Theme eine gezielte eigene Gutenberg-Blockbibliothek fuer erweiterte, markenspezifische Sektionen mit.
 
 ## Enthaltene Custom Blocks
 
@@ -102,6 +109,13 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.12
+
+- Neue Pattern-Kategorie `Restatify Blog` fuer den Blog-Workflow hinzugefuegt.
+- Neue Core-basierte Blog-Starter-Patterns bereitgestellt: Blog Hero, Blog Post Grid und Related Posts.
+- Einheitliches Query-Loop-Card-Styling im Restatify-Stil fuer Blog-Listen und Related-Posts ergaenzt.
+- Theme-/Readme-/Wiki-Beschreibungen auf den Standard-WordPress-Ansatz (Core-Blocks, Patterns, Templates, theme.json) konkretisiert.
 
 ### 1.0.11
 

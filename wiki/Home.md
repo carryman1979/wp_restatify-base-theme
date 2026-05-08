@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.11, getestet bis WordPress 6.9.
+Stand: Version 1.0.12, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -22,11 +22,15 @@ Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklu
 
 ## Zweck und Architektur
 
-Restatify Base ist ein Custom-WordPress-Theme mit Fokus auf Gutenberg, Site Editor und einer eigenen section-basierten Blockbibliothek.
+Restatify Base ist ein Custom-WordPress-Theme mit Fokus auf Gutenberg und Site Editor. Die redaktionelle Basis nutzt Standard-WordPress-Mechanismen (Core-Blocks, Patterns, Templates/Template Parts, theme.json) und wird fuer Spezialfaelle durch eigene Blocks ergaenzt.
 
 Technische Eckpunkte:
 
 - Blockbasierte Architektur über `/src` für Quellen und `/build` für kompilierte Assets
+- Core-Block-first-Ansatz fuer typische Seiten- und Blog-Inhalte
+- Wiederverwendbare Block-Patterns fuer standardisierte Sektionen im Restatify-Stil
+- Template- und Template-Part-Struktur fuer Blog- und Seitentypen
+- Globale Designsteuerung ueber `theme.json` (Farben, Typografie, Spacing, Tokens)
 - Automatische Block-Registrierung über `inc/blocks.php`
 - Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
 - Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
@@ -236,6 +240,13 @@ npm run package
 
 ---
 
+## Letzte Aenderungen (1.0.12)
+
+- Neue Pattern-Kategorie `Restatify Blog` fuer editorseitige Blog-Layouts hinzugefuegt.
+- Neue Blog-Starter-Patterns auf Core-Block-Basis ergaenzt: Blog Hero, Blog Post Grid und Related Posts.
+- Einheitliches Query-Loop-Card-System im Restatify-Stil fuer Bloglisten und Related-Posts integriert.
+- Theme-/Readme-/Wiki-Beschreibungen klar auf den Standard-WordPress-Ansatz ausgerichtet (Core-Blocks, Patterns, Templates, theme.json).
+
 ## Letzte Aenderungen (1.0.11)
 
 - Header-Hauptnavigation auf zuweisbares WordPress-Menue umgestellt (`primary_menu`) statt automatischer Top-Level-Seitenliste.
@@ -276,6 +287,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.12](Release-1.0.12)
 - [Release 1.0.11](Release-1.0.11)
 - [Release 1.0.10](Release-1.0.10)
 - [Release 1.0.9](Release-1.0.9)

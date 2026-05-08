@@ -32,6 +32,24 @@ function restatify_setup() {
 add_action('after_setup_theme', 'restatify_setup');
 
 /**
+ * Register custom pattern categories.
+ */
+function restatify_register_pattern_categories() {
+    if (! function_exists('register_block_pattern_category')) {
+        return;
+    }
+
+    register_block_pattern_category(
+        'restatify-blog',
+        [
+            'label' => __('Restatify Blog', 'restatify-base'),
+            'description' => __('Blog-focused layout patterns for core WordPress blocks.', 'restatify-base'),
+        ]
+    );
+}
+add_action('init', 'restatify_register_pattern_categories');
+
+/**
  * Show admin notice when no primary header menu is assigned.
  */
 function restatify_primary_menu_admin_notice() {
