@@ -15,7 +15,14 @@ Tags: custom-blocks, full-site-editing, business
 
 Restatify Base is the custom WordPress base theme for Restatify UG (haftungsbeschraenkt).
 
-The theme ships with a custom Gutenberg block library and section-focused layouts for modern business pages.
+The theme is designed around standard WordPress mechanisms:
+
+* Core blocks for content authoring.
+* Block patterns for reusable section layouts.
+* Templates and template parts for site structure.
+* theme.json for global style control.
+
+It additionally ships with a selected custom Gutenberg block library for advanced, brand-specific sections.
 
 Included custom blocks:
 

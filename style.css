@@ -3,7 +3,7 @@ Theme Name: Restatify Base
 Theme URI:
 Author: Thomas Hoffermann
 Author URI:
-Description: The base theme of the Restatify UG (haftungsbeschränkt) company.
+Description: Restatify base theme built around standard WordPress mechanisms (core blocks, patterns, templates, theme.json) plus selected custom blocks.
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
@@ -1375,5 +1375,168 @@ a.wp-element-button br {
 
   .restatify-metrics-block.is-parallax {
     background-attachment: scroll;
+  }
+}
+
+/* --- BLOG PATTERNS / QUERY CARD SYSTEM --- */
+.restatify-blog-hero {
+  margin-top: clamp(2.4rem, 4vw, 4rem);
+  margin-bottom: clamp(1.4rem, 2.8vw, 2.2rem);
+}
+
+.restatify-blog-hero__kicker {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--rs-color-primary);
+}
+
+.restatify-blog-hero__title {
+  margin: 0.5rem 0 0;
+  color: var(--rs-color-text);
+}
+
+.restatify-blog-hero__text {
+  margin: 0.8rem 0 0;
+  color: color-mix(in srgb, var(--rs-color-text) 82%, transparent);
+  max-width: 70ch;
+}
+
+.restatify-blog-query {
+  margin-top: 1.4rem;
+}
+
+.restatify-blog-query .wp-block-post-template {
+  gap: 1rem;
+}
+
+.restatify-blog-card {
+  height: 100%;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--rs-color-text) 12%, transparent);
+  background: var(--rs-color-menu-panel);
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.restatify-blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.13);
+  border-color: color-mix(in srgb, var(--rs-color-primary) 28%, transparent);
+}
+
+.restatify-blog-card .restatify-blog-card__image {
+  margin: 0;
+}
+
+.restatify-blog-card .restatify-blog-card__image img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+.restatify-blog-card__content {
+  padding: 1rem;
+}
+
+.restatify-blog-card__terms {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.restatify-blog-card__terms a {
+  color: var(--rs-color-primary);
+  text-decoration: none;
+}
+
+.restatify-blog-card__title {
+  margin: 0;
+  line-height: 1.3;
+}
+
+.restatify-blog-card__title a {
+  color: var(--rs-color-text);
+  text-decoration: none;
+}
+
+.restatify-blog-card__title a:hover {
+  color: var(--rs-color-primary);
+}
+
+.restatify-blog-card__excerpt {
+  margin-top: 0.7rem;
+  color: color-mix(in srgb, var(--rs-color-text) 84%, transparent);
+}
+
+.restatify-blog-card__meta {
+  margin-top: 0.8rem;
+  font-size: 0.84rem;
+  color: color-mix(in srgb, var(--rs-color-text) 72%, transparent);
+}
+
+.restatify-blog-related {
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.restatify-blog-related__title {
+  margin-bottom: 1rem;
+}
+
+.restatify-blog-card--compact {
+  padding-bottom: 0.75rem;
+}
+
+.restatify-blog-card--compact .restatify-blog-card__title,
+.restatify-blog-card--compact .restatify-blog-card__date {
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
+}
+
+.restatify-blog-card--compact .restatify-blog-card__title {
+  margin-top: 0.85rem;
+}
+
+.restatify-blog-card--compact .restatify-blog-card__date {
+  margin-top: 0.45rem;
+  font-size: 0.84rem;
+  color: color-mix(in srgb, var(--rs-color-text) 72%, transparent);
+}
+
+.restatify-blog-query .wp-block-query-pagination {
+  margin-top: 1.25rem;
+  gap: 0.4rem;
+}
+
+.restatify-blog-query .wp-block-query-pagination a,
+.restatify-blog-query .wp-block-query-pagination span {
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--rs-color-text) 16%, transparent);
+  background: color-mix(in srgb, var(--rs-color-background) 88%, transparent);
+  padding: 0.3rem 0.72rem;
+  text-decoration: none;
+}
+
+.restatify-blog-query .wp-block-query-pagination .current {
+  border-color: var(--rs-color-primary);
+  background: color-mix(in srgb, var(--rs-color-primary) 18%, transparent);
+}
+
+@media (max-width: 990px) {
+  .restatify-blog-query .wp-block-post-template {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .restatify-blog-query .wp-block-post-template {
+    grid-template-columns: 1fr;
+  }
+
+  .restatify-blog-hero {
+    margin-top: 1.65rem;
   }
 }

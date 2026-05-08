@@ -22,11 +22,15 @@ Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklu
 
 ## Zweck und Architektur
 
-Restatify Base ist ein Custom-WordPress-Theme mit Fokus auf Gutenberg, Site Editor und einer eigenen section-basierten Blockbibliothek.
+Restatify Base ist ein Custom-WordPress-Theme mit Fokus auf Gutenberg und Site Editor. Die redaktionelle Basis nutzt Standard-WordPress-Mechanismen (Core-Blocks, Patterns, Templates/Template Parts, theme.json) und wird fuer Spezialfaelle durch eigene Blocks ergaenzt.
 
 Technische Eckpunkte:
 
 - Blockbasierte Architektur über `/src` für Quellen und `/build` für kompilierte Assets
+- Core-Block-first-Ansatz fuer typische Seiten- und Blog-Inhalte
+- Wiederverwendbare Block-Patterns fuer standardisierte Sektionen im Restatify-Stil
+- Template- und Template-Part-Struktur fuer Blog- und Seitentypen
+- Globale Designsteuerung ueber `theme.json` (Farben, Typografie, Spacing, Tokens)
 - Automatische Block-Registrierung über `inc/blocks.php`
 - Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
 - Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
