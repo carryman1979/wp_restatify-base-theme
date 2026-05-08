@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.11, getestet bis WordPress 6.9.
+Stand: Version 1.0.12, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -109,6 +109,13 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.0.12
+
+- Neue Pattern-Kategorie `Restatify Blog` fuer den Blog-Workflow hinzugefuegt.
+- Neue Core-basierte Blog-Starter-Patterns bereitgestellt: Blog Hero, Blog Post Grid und Related Posts.
+- Einheitliches Query-Loop-Card-Styling im Restatify-Stil fuer Blog-Listen und Related-Posts ergaenzt.
+- Theme-/Readme-/Wiki-Beschreibungen auf den Standard-WordPress-Ansatz (Core-Blocks, Patterns, Templates, theme.json) konkretisiert.
 
 ### 1.0.11
 
