@@ -263,10 +263,88 @@ function restatify_customize_register($wp_customize) {
         'description' => __('Optionale Social-Links, Trust-Badges und vCard-Einstellungen.', 'restatify-base'),
     ]);
 
+    $wp_customize->add_section('restatify_cookie_consent', [
+        'title'       => __('Cookie-Consent', 'restatify-base'),
+        'priority'    => 34,
+        'description' => __('Texte und Linkziel für den Cookie-Banner. In der Nachricht ist HTML erlaubt (z.B. Link-Tag). Du kannst optional %privacy_url% als Platzhalter verwenden.', 'restatify-base'),
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_privacy_url', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_footer_url',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_privacy_url', [
+        'label'       => __('Datenschutz-Link', 'restatify-base'),
+        'description' => __('Leer lassen = WordPress-Datenschutzseite/Fallback.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'url',
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_title', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_title', [
+        'label'       => __('Banner-Titel', 'restatify-base'),
+        'description' => __('Leer lassen = Theme-Standard je Sprache.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_message', [
+        'default'           => '',
+        'sanitize_callback' => 'restatify_sanitize_cookie_message',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_message', [
+        'label'       => __('Banner-Nachricht (HTML erlaubt)', 'restatify-base'),
+        'description' => __('Leer lassen = Theme-Standard je Sprache. Hinweis: %privacy_url% wird automatisch ersetzt.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'textarea',
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_accept_text', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_accept_text', [
+        'label'       => __('Buttontext Akzeptieren', 'restatify-base'),
+        'description' => __('Leer lassen = Theme-Standard je Sprache.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_reject_text', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_reject_text', [
+        'label'       => __('Buttontext Ablehnen', 'restatify-base'),
+        'description' => __('Leer lassen = Theme-Standard je Sprache.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'text',
+    ]);
+
+    $wp_customize->add_setting('restatify_cookie_manage_text', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control('restatify_cookie_manage_text', [
+        'label'       => __('Text Cookie-Einstellungen-Link', 'restatify-base'),
+        'description' => __('Leer lassen = Theme-Standard je Sprache.', 'restatify-base'),
+        'section'     => 'restatify_cookie_consent',
+        'type'        => 'text',
+    ]);
+
     if (function_exists('restatify_is_lightstart_available') && restatify_is_lightstart_available()) {
         $wp_customize->add_section('restatify_maintenance_mode', [
             'title'       => __('Wartungsmodus', 'restatify-base'),
-            'priority'    => 34,
+            'priority'    => 35,
             'description' => __('Texte und rechtliche Angaben für den minimalen Header/Footer auf der LightStart-Wartungsseite. Link-Felder akzeptieren absolute URLs (https://...) und relative Pfade (z.B. /impressum, impressum.html, wp-content/uploads/datei.pdf).', 'restatify-base'),
         ]);
 

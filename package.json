@@ -1,12 +1,14 @@
 {
   "name": "wp_restatify-base-theme",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Custom WordPress Theme with Gutenberg Block Library",
   "main": "index.js",
   "scripts": {
     "build": "wp-scripts build",
     "start": "wp-scripts start",
-    "package": "pwsh -NoProfile -ExecutionPolicy Bypass -File ./scripts/create-release-zip.ps1"
+    "package": "pwsh -NoProfile -ExecutionPolicy Bypass -File ./scripts/create-release-zip.ps1",
+    "test:unit:js": "wp-scripts test-unit-js",
+    "test:unit:js:watch": "wp-scripts test-unit-js --watch"
   },
   "overrides": {
     "serialize-javascript": "^7.0.0",

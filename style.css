@@ -7,7 +7,7 @@ Description: Restatify base theme built around standard WordPress mechanisms (co
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.12
+Version: 1.0.13
 License: GNU General Public License v2 or later
 Text Domain: restatify-base
 */
@@ -69,6 +69,14 @@ body {
   --rs-color-menu-idle-border: rgba(255, 255, 255, 0.24);
   --rs-color-menu-active-surface: rgba(255, 255, 255, 0.82);
   --rs-color-menu-panel: rgba(255, 255, 255, 0.88);
+
+  /* Keep Gutenberg utility color classes aligned in explicit light mode. */
+  --wp--preset--color--primary: #ff6b00;
+  --wp--preset--color--primary-hover: #a84700;
+  --wp--preset--color--secondary: #00c2ff;
+  --wp--preset--color--secondary-hover: #0080a8;
+  --wp--preset--color--background: #f8fafc;
+  --wp--preset--color--text: #0b1221;
 }
 
 :root[data-rs-theme="dark"] {
@@ -84,6 +92,42 @@ body {
   --rs-color-menu-idle-border: rgba(148, 163, 184, 0.28);
   --rs-color-menu-active-surface: rgba(148, 163, 184, 0.2);
   --rs-color-menu-panel: rgba(11, 18, 33, 0.9);
+
+  /* Keep Gutenberg utility color classes aligned in explicit dark mode. */
+  --wp--preset--color--primary: #60a5fa;
+  --wp--preset--color--primary-hover: #93c5fd;
+  --wp--preset--color--secondary: #2dd4bf;
+  --wp--preset--color--secondary-hover: #5eead4;
+  --wp--preset--color--background: #0b1221;
+  --wp--preset--color--text: #e2e8f0;
+}
+
+/* Standard Gutenberg wrappers should follow active theme colors. */
+.wp-site-blocks,
+.wp-site-blocks .wp-block-group,
+.wp-site-blocks .wp-block-post-content,
+.wp-site-blocks .entry-content {
+  color: var(--rs-color-text);
+}
+
+:root[data-rs-theme="dark"] .wp-site-blocks,
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-group,
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-post-content,
+:root[data-rs-theme="dark"] .wp-site-blocks .entry-content {
+  background-color: var(--rs-color-background) !important;
+}
+
+/* Mobirise sets white section backgrounds globally; force Custom HTML blocks to follow dark theme. */
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-post-content .wp-block-html,
+:root[data-rs-theme="dark"] .wp-site-blocks .entry-content .wp-block-html,
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-post-content .wp-block-html > section,
+:root[data-rs-theme="dark"] .wp-site-blocks .entry-content .wp-block-html > section,
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-post-content .wp-block-html section,
+:root[data-rs-theme="dark"] .wp-site-blocks .entry-content .wp-block-html section,
+:root[data-rs-theme="dark"] .wp-site-blocks .wp-block-post-content section:not([class]),
+:root[data-rs-theme="dark"] .wp-site-blocks .entry-content section:not([class]) {
+  background-color: var(--rs-color-background) !important;
+  color: var(--rs-color-text);
 }
 
 /* Keep WP admin bar above all */

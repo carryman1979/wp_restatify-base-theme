@@ -173,6 +173,10 @@ function restatify_is_plugin_active(string $plugin_relative_path): bool {
         return false;
     }
 
+    if (class_exists('\\Restatify\\Shared\\Runtime\\PluginState', false)) {
+        return \Restatify\Shared\Runtime\PluginState::isPluginActive($plugin_relative_path);
+    }
+
     $active_plugins = (array) get_option('active_plugins', []);
     if (in_array($plugin_relative_path, $active_plugins, true)) {
         return true;

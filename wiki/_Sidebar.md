@@ -1,6 +1,7 @@
 ## Restatify Base Theme
 
 - [Home](Home)
+- [Release 1.0.13](Release-1.0.13)
 - [Release 1.0.12](Release-1.0.12)
 - [Release 1.0.11](Release-1.0.11)
 - [Release 1.0.10](Release-1.0.10)

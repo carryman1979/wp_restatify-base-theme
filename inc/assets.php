@@ -19,7 +19,56 @@ function restatify_get_cookie_consent_state() {
     return 'pending';
 }
 
+function restatify_get_cookie_privacy_url() {
+    $privacy_url = trim((string) get_theme_mod('restatify_cookie_privacy_url', ''));
+
+    if ($privacy_url === '') {
+        $privacy_url = get_privacy_policy_url();
+    }
+
+    if (empty($privacy_url)) {
+        $privacy_url = home_url('/privacy-policy/');
+    }
+
+    return (string) $privacy_url;
+}
+
+function restatify_normalize_path_for_compare($path) {
+    $path = rawurldecode((string) $path);
+    $path = trim($path);
+
+    if ($path === '') {
+        return '/';
+    }
+
+    $path = '/' . ltrim($path, '/');
+    $normalized = untrailingslashit($path);
+
+    return $normalized === '' ? '/' : $normalized;
+}
+
+function restatify_is_cookie_privacy_request() {
+    if (is_admin()) {
+        return false;
+    }
+
+    $request_uri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+    $request_path = wp_parse_url($request_uri, PHP_URL_PATH);
+    $request_path = restatify_normalize_path_for_compare($request_path);
+
+    $privacy_url = restatify_get_cookie_privacy_url();
+    $privacy_path = wp_parse_url($privacy_url, PHP_URL_PATH);
+    $privacy_path = restatify_normalize_path_for_compare($privacy_path);
+
+    return $request_path === $privacy_path;
+}
+
 function restatify_get_cookie_consent_ui_state() {
+    if (restatify_is_cookie_privacy_request()) {
+        // Privacy page must remain reachable without prior consent.
+        return 'rejected';
+    }
+
     $state = restatify_get_cookie_consent_state();
 
     // In maintenance mode, the banner can be intentionally suppressed.
@@ -41,6 +90,11 @@ function restatify_theme_assets() {
     $uri = get_template_directory_uri() . '/assets';
     $consent_state = restatify_get_cookie_consent_state();
     $consent_ui_state = restatify_get_cookie_consent_ui_state();
+
+    if (restatify_is_cookie_privacy_request()) {
+        $consent_state = 'rejected';
+        $consent_ui_state = 'rejected';
+    }
 
     // Styles (Mobirise order)
     wp_enqueue_style('mobirise-icons', $uri . '/web/assets/mobirise-icons2/mobirise2.css', [], filemtime(get_template_directory() . '/assets/web/assets/mobirise-icons2/mobirise2.css'));
@@ -68,27 +122,51 @@ function restatify_theme_assets() {
 
     wp_enqueue_script('restatify-cookie-consent', $uri . '/theme/js/cookie-consent.js', [], filemtime(get_template_directory() . '/assets/theme/js/cookie-consent.js'), true);
 
-    $privacy_url = get_privacy_policy_url();
-    if (empty($privacy_url)) {
-        $privacy_url = home_url('/privacy-policy/');
-    }
+    $privacy_url = esc_url(restatify_get_cookie_privacy_url());
 
     $current_lang = function_exists('pll_current_language') ? pll_current_language('slug') : '';
     $locale = strtolower((string) get_locale());
     $is_german = $current_lang === 'de' || strpos($locale, 'de') === 0;
 
     if ($is_german) {
-        $cookie_title = 'Cookie-Einstellungen';
-        $cookie_message = sprintf('Wir verwenden optionale Cookies für dynamische Inhalte. Bei Ablehnung bleiben nur technisch notwendige Funktionen aktiv. Details in der <a href="%s">Datenschutzerklärung</a>.', esc_url($privacy_url));
-        $accept_text = 'Akzeptieren';
-        $reject_text = 'Ablehnen';
-        $manage_text = 'Cookie-Einstellungen';
+        $default_cookie_title = 'Cookie-Einstellungen';
+        $default_cookie_message = sprintf('Wir verwenden optionale Cookies für dynamische Inhalte. Bei Ablehnung bleiben nur technisch notwendige Funktionen aktiv. Details in der <a href="%s">Datenschutzerklärung</a>.', $privacy_url);
+        $default_accept_text = 'Akzeptieren';
+        $default_reject_text = 'Ablehnen';
+        $default_manage_text = 'Cookie-Einstellungen';
     } else {
-        $cookie_title = 'Cookie Preferences';
-        $cookie_message = sprintf('We use optional cookies for dynamic content. If you reject, only technically required functions remain active. Details in our <a href="%s">privacy policy</a>.', esc_url($privacy_url));
-        $accept_text = 'Accept';
-        $reject_text = 'Reject';
-        $manage_text = 'Cookie settings';
+        $default_cookie_title = 'Cookie Preferences';
+        $default_cookie_message = sprintf('We use optional cookies for dynamic content. If you reject, only technically required functions remain active. Details in our <a href="%s">privacy policy</a>.', $privacy_url);
+        $default_accept_text = 'Accept';
+        $default_reject_text = 'Reject';
+        $default_manage_text = 'Cookie settings';
+    }
+
+    $cookie_title = trim((string) get_theme_mod('restatify_cookie_title', ''));
+    if ($cookie_title === '') {
+        $cookie_title = $default_cookie_title;
+    }
+
+    $cookie_message = trim((string) get_theme_mod('restatify_cookie_message', ''));
+    if ($cookie_message === '') {
+        $cookie_message = $default_cookie_message;
+    } else {
+        $cookie_message = str_replace('%privacy_url%', $privacy_url, $cookie_message);
+    }
+
+    $accept_text = trim((string) get_theme_mod('restatify_cookie_accept_text', ''));
+    if ($accept_text === '') {
+        $accept_text = $default_accept_text;
+    }
+
+    $reject_text = trim((string) get_theme_mod('restatify_cookie_reject_text', ''));
+    if ($reject_text === '') {
+        $reject_text = $default_reject_text;
+    }
+
+    $manage_text = trim((string) get_theme_mod('restatify_cookie_manage_text', ''));
+    if ($manage_text === '') {
+        $manage_text = $default_manage_text;
     }
 
     wp_localize_script('restatify-cookie-consent', 'restatifyCookieConsent', [
@@ -129,6 +207,10 @@ function restatify_render_cookie_banner() {
         && function_exists('restatify_should_show_cookie_banner_in_maintenance')
         && !restatify_should_show_cookie_banner_in_maintenance()
     ) {
+        return;
+    }
+
+    if (restatify_is_cookie_privacy_request()) {
         return;
     }
 

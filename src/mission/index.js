@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck, PlainText } from '@wordpress/block-editor';
 import { PanelBody, TextControl, TextareaControl, ToggleControl, Button } from '@wordpress/components';
 import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
@@ -49,9 +49,9 @@ function Edit({ attributes, setAttributes }) {
         {backgroundImageEnabled !== false && overlayEnabled && <div className="restatify-mission-bg-overlay" style={overlayStyle} aria-hidden="true"></div>}
         <div className="container"><div className="row justify-content-center"><div className="col-12 col-lg-8">
           <div className="content-wrapper card-wrap">
-            {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading}</strong></h2>}
-            {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-4"><strong>{subheading}</strong></h3>}
-            {showText !== false && <p className="mbr-text mbr-fonts-style display-4" style={{ whiteSpace: 'pre-line' }}>{text}</p>}
+            {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong><PlainText tagName="span" value={heading || ''} onChange={(v) => setAttributes({ heading: v })} placeholder={__('Heading', 'restatify-base')} /></strong></h2>}
+            {showSubheading !== false && <h3 className="mbr-section-subtitle mbr-fonts-style display-4"><strong><PlainText tagName="span" value={subheading || ''} onChange={(v) => setAttributes({ subheading: v })} placeholder={__('Subheading', 'restatify-base')} /></strong></h3>}
+            {showText !== false && <PlainText tagName="p" className="mbr-text mbr-fonts-style display-4" value={text || ''} onChange={(v) => setAttributes({ text: v })} placeholder={__('Text', 'restatify-base')} />}
           </div>
           {showImage !== false && (
             <div className="image-wrapper">

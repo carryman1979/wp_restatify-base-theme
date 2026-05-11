@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, PlainText } from '@wordpress/block-editor';
 import { PanelBody, TextControl, TextareaControl, ToggleControl, SelectControl, RangeControl } from '@wordpress/components';
 import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
@@ -91,8 +91,8 @@ function Edit({ attributes, setAttributes }) {
               <div className="card-wrapper">
                 <div className="row content-wrap">
                   <div className="col-12 col-lg-5">
-                    {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading}</strong></h2>}
-                    {showText !== false && <p className="mbr-text mbr-fonts-style display-7">{text}</p>}
+                    {showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-2"><strong><PlainText tagName="span" value={heading || ''} onChange={(v) => setAttributes({ heading: v })} placeholder={__('Heading', 'restatify-base')} /></strong></h2>}
+                    {showText !== false && <PlainText tagName="p" className="mbr-text mbr-fonts-style display-7" value={text || ''} onChange={(v) => setAttributes({ text: v })} placeholder={__('Text', 'restatify-base')} />}
                   </div>
                   <div className="col-12 col-lg-6">
                     <div className="items-wrapper">

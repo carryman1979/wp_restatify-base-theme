@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.12, getestet bis WordPress 6.9.
+Stand: Version 1.0.13, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
