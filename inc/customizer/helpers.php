@@ -60,6 +60,10 @@ function restatify_sanitize_optional_line_height($value) {
     return restatify_sanitize_line_height($value);
 }
 
+function restatify_sanitize_cookie_message($value) {
+    return wp_kses_post((string) $value);
+}
+
 function restatify_sanitize_footer_url($value) {
     return esc_url_raw(trim((string) $value));
 }
@@ -151,6 +155,10 @@ function restatify_sanitize_checkbox($value) {
 }
 
 function restatify_is_lightstart_available(): bool {
+    if (class_exists('\\Restatify\\Shared\\Runtime\\PluginState', false)) {
+        return \Restatify\Shared\Runtime\PluginState::isLightstartAvailable();
+    }
+
     if (! defined('WP_PLUGIN_DIR')) {
         return false;
     }

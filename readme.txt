@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.12
+Version: 1.0.13
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -131,6 +131,11 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.0.13 =
+* Added JS unit test baseline for shared link utility behavior.
+* Added repository-level AGENTS and Copilot instruction files linked to central shared guidance.
+* Updated release docs/wiki for the current maintenance release.
 
 = 1.0.12 =
 * Added a dedicated Restatify Blog block-pattern category.

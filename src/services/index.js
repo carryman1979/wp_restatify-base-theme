@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import {
 	useBlockProps,
 	InspectorControls,
+	PlainText,
 	MediaUpload,
 	MediaUploadCheck,
 	__experimentalLinkControl as LinkControl
@@ -281,12 +282,18 @@ function Edit({ attributes, setAttributes }) {
 										<div className="title-wrapper">
 											{showLabel !== false && (
 												<div className="label-wrapper">
-													<p className="mbr-label mbr-fonts-style display-4">{label || __('PROFESSIONAL SERVICES', 'restatify-base')}</p>
+													<PlainText
+														tagName="p"
+														className="mbr-label mbr-fonts-style display-4"
+														value={label || ''}
+														onChange={(v) => setAttributes({ label: v })}
+														placeholder={__('PROFESSIONAL SERVICES', 'restatify-base')}
+													/>
 												</div>
 											)}
 											{showHeading !== false && (
 												<div className="title-wrap">
-													<h2 className="mbr-section-title mbr-fonts-style display-2"><strong>{heading || __('Add heading', 'restatify-base')}</strong></h2>
+													<h2 className="mbr-section-title mbr-fonts-style display-2"><strong><PlainText tagName="span" value={heading || ''} onChange={(v) => setAttributes({ heading: v })} placeholder={__('Add heading', 'restatify-base')} /></strong></h2>
 												</div>
 											)}
 										</div>

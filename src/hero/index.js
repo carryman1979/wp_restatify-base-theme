@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
+import { useBlockProps, InspectorControls, PlainText, __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 import {
 	PanelBody,
 	TextControl,
@@ -141,13 +141,25 @@ function Edit({ attributes, setAttributes }) {
 										<div className="title-wrap">
 											{showTagline !== false && (
 												<div className="desc-wrapper">
-													<p className="mbr-desc card-wrap mbr-fonts-style display-4">{tagline || __('Add your tagline', 'restatify-base')}</p>
+													<PlainText
+														tagName="p"
+														className="mbr-desc card-wrap mbr-fonts-style display-4"
+														value={tagline || ''}
+														onChange={(v) => setAttributes({ tagline: v })}
+														placeholder={__('Add your tagline', 'restatify-base')}
+													/>
 												</div>
 											)}
-											{showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong>{heading || __('Hero heading', 'restatify-base')}</strong></h2>}
+											{showHeading !== false && <h2 className="mbr-section-title mbr-fonts-style display-1"><strong><PlainText tagName="span" value={heading || ''} onChange={(v) => setAttributes({ heading: v })} placeholder={__('Hero heading', 'restatify-base')} /></strong></h2>}
 											{showText !== false && (
 												<div className="text-wrapper">
-													<p className="mbr-text mbr-fonts-style display-7">{text || __('Add a short supporting text for your offer.', 'restatify-base')}</p>
+													<PlainText
+														tagName="p"
+														className="mbr-text mbr-fonts-style display-7"
+														value={text || ''}
+														onChange={(v) => setAttributes({ text: v })}
+														placeholder={__('Add a short supporting text for your offer.', 'restatify-base')}
+													/>
 												</div>
 											)}
 											<div className="frame-wrapper card-bg middle-radius frame_1"><div className="frame-wrap"></div></div>
