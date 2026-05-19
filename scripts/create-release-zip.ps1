@@ -59,6 +59,30 @@ if (Test-Path $zipPath) {
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
+function Test-ThemeReleaseArchive {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$ArchivePath
+    )
+
+    $archive = [System.IO.Compression.ZipFile]::OpenRead($ArchivePath)
+    try {
+        $entries = $archive.Entries | Select-Object -ExpandProperty FullName
+        $entriesWithBackslash = $entries | Where-Object { $_ -match '\\' }
+
+        if ($entriesWithBackslash.Count -gt 0) {
+            throw "Invalid ZIP entry separators found. Use '/' in archive entries only."
+        }
+
+        if (-not ($entries -contains 'wp_restatify-base-theme/style.css')) {
+            throw "Invalid theme package layout: missing wp_restatify-base-theme/style.css in archive root."
+        }
+    }
+    finally {
+        $archive.Dispose()
+    }
+}
+
 $stagingRoot = Join-Path $tempRoot 'wp_restatify-base-theme'
 $files = Get-ChildItem -Path $stagingRoot -Recurse -File
 
@@ -78,6 +102,8 @@ try {
 finally {
     $zipArchive.Dispose()
 }
+
+Test-ThemeReleaseArchive -ArchivePath $zipPath
 
 Remove-Item $tempRoot -Recurse -Force
 
