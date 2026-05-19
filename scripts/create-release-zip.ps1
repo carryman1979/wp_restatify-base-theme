@@ -68,7 +68,7 @@ function Test-ThemeReleaseArchive {
     $archive = [System.IO.Compression.ZipFile]::OpenRead($ArchivePath)
     try {
         $entries = $archive.Entries | Select-Object -ExpandProperty FullName
-        $entriesWithBackslash = $entries | Where-Object { $_ -like '*\\*' }
+        $entriesWithBackslash = $entries | Where-Object { $_ -match '\\' }
 
         if ($entriesWithBackslash.Count -gt 0) {
             throw "Invalid ZIP entry separators found. Use '/' in archive entries only."
