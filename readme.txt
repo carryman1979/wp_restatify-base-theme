@@ -132,6 +132,11 @@ The ZIP is created in /release.
 
 == Changelog ==
 
+= 1.0.14 =
+* Hotfix rebuild without version bump: replaced defective 1.0.14 release package.
+* Added theme-safe shared runtime resolver for `PluginState` using versioned central path and legacy fallback.
+* Added packaged shared install payload in release ZIP to ensure legal notice shared dependency remains resolvable during installs.
+
 = 1.0.13 =
 * Added JS unit test baseline for shared link utility behavior.
 * Added repository-level AGENTS and Copilot instruction files linked to central shared guidance.
