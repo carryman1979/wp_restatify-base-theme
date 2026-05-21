@@ -3,6 +3,24 @@
  * Customizer settings and controls.
  */
 
+if (class_exists('WP_Customize_Control') && !class_exists('Restatify_Customize_Group_Divider_Control')) {
+    class Restatify_Customize_Group_Divider_Control extends WP_Customize_Control {
+        public $type = 'restatify_group_divider';
+
+        public function render_content() {
+            if (!empty($this->label)) {
+                echo '<span class="customize-control-title" style="margin-top:10px;display:block;">' . esc_html($this->label) . '</span>';
+            }
+
+            if (!empty($this->description)) {
+                echo '<span class="description customize-control-description" style="display:block;margin-bottom:8px;">' . esc_html($this->description) . '</span>';
+            }
+
+            echo '<hr style="margin:10px 0 12px;border:0;border-top:1px solid #dcdcde;" />';
+        }
+    }
+}
+
 function restatify_customize_register($wp_customize) {
     $wp_customize->add_section('restatify_typography', [
         'title'       => __('Typografie', 'restatify-base'),
@@ -251,16 +269,10 @@ function restatify_customize_register($wp_customize) {
         'type'        => 'text',
     ]);
 
-    $wp_customize->add_section('restatify_footer_core', [
-        'title'       => __('Footer Kernbereich (empfohlen)', 'restatify-base'),
-        'priority'    => 32,
-        'description' => __('Hier starten: Slogan und primäre Kontaktinformationen, die im Footer prominent verwendet werden.', 'restatify-base'),
-    ]);
-
     $wp_customize->add_section('restatify_footer', [
-        'title'       => __('Footer Experteneinstellungen (optional)', 'restatify-base'),
-        'priority'    => 33,
-        'description' => __('Optionale Social-Links, Trust-Badges und vCard-Einstellungen.', 'restatify-base'),
+        'title'       => __('Footer Konfiguration', 'restatify-base'),
+        'priority'    => 32,
+        'description' => __('Slogan, Kontaktspalte, drei Linkspalten sowie optionale Social-Links, Trust-Badges und vCard in einem Bereich.', 'restatify-base'),
     ]);
 
     $wp_customize->add_section('restatify_cookie_consent', [
@@ -504,7 +516,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_title', [
         'label'       => __('Footer-Slogan', 'restatify-base'),
         'description' => __('Hauptüberschrift im Footer-Titelbereich.', 'restatify-base'),
-        'section'     => 'restatify_footer_core',
+        'section'     => 'restatify_footer',
         'type'        => 'text',
     ]);
 
@@ -516,9 +528,21 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_description', [
         'label'       => __('Footer-Beschreibung', 'restatify-base'),
         'description' => __('Beschreibender Absatz unter dem Footer-Slogan.', 'restatify-base'),
-        'section'     => 'restatify_footer_core',
+        'section'     => 'restatify_footer',
         'type'        => 'textarea',
     ]);
+
+    $wp_customize->add_setting('restatify_footer_contact_divider', [
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ]);
+    $wp_customize->add_control(new Restatify_Customize_Group_Divider_Control($wp_customize, 'restatify_footer_contact_divider', [
+        'label'       => __('Kontaktspalte', 'restatify-base'),
+        'description' => __('Telefon, E-Mail und Fax fuer den Kontaktbereich im Footer.', 'restatify-base'),
+        'section'     => 'restatify_footer',
+        'settings'    => 'restatify_footer_contact_divider',
+    ]));
 
     $wp_customize->add_setting('restatify_footer_phone', [
         'default'           => '',
@@ -528,7 +552,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_phone', [
         'label'       => __('Telefon für Schnellkontakt', 'restatify-base'),
         'description' => __('Beispiel: +49 123 456789', 'restatify-base'),
-        'section'     => 'restatify_footer_core',
+        'section'     => 'restatify_footer',
         'type'        => 'text',
     ]);
 
@@ -540,7 +564,7 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_email', [
         'label'       => __('E-Mail für Schnellkontakt', 'restatify-base'),
         'description' => __('Beispiel: kontakt@example.com', 'restatify-base'),
-        'section'     => 'restatify_footer_core',
+        'section'     => 'restatify_footer',
         'type'        => 'email',
         'input_attrs' => [
             'required' => 'required',
@@ -556,9 +580,74 @@ function restatify_customize_register($wp_customize) {
     $wp_customize->add_control('restatify_footer_fax', [
         'label'       => __('Fax', 'restatify-base'),
         'description' => __('Beispiel: +49 123 456790', 'restatify-base'),
-        'section'     => 'restatify_footer_core',
+        'section'     => 'restatify_footer',
         'type'        => 'text',
     ]);
+
+    $footer_column_defaults = function_exists('restatify_get_footer_column_defaults')
+        ? restatify_get_footer_column_defaults()
+        : [];
+
+    for ($column_index = 1; $column_index <= 3; $column_index++) {
+        $divider_setting = 'restatify_footer_col_' . $column_index . '_divider';
+        $heading_setting = 'restatify_footer_col_' . $column_index . '_title';
+        $heading_default = (string) ($footer_column_defaults[$column_index]['title'] ?? '');
+
+        $wp_customize->add_setting($divider_setting, [
+            'default'           => '',
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control(new Restatify_Customize_Group_Divider_Control($wp_customize, $divider_setting, [
+            'label'       => sprintf(__('Linkspalte %d', 'restatify-base'), $column_index),
+            'description' => __('Überschrift und bis zu vier Links konfigurieren.', 'restatify-base'),
+            'section'     => 'restatify_footer',
+            'settings'    => $divider_setting,
+        ]));
+
+        $wp_customize->add_setting($heading_setting, [
+            'default'           => $heading_default,
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
+        ]);
+        $wp_customize->add_control($heading_setting, [
+            'label'       => sprintf(__('Spalte %d - Überschrift', 'restatify-base'), $column_index),
+            'description' => __('Leer lassen, um Theme-Standard zu verwenden.', 'restatify-base'),
+            'section'     => 'restatify_footer',
+            'type'        => 'text',
+        ]);
+
+        for ($link_index = 1; $link_index <= 4; $link_index++) {
+            $title_setting = 'restatify_footer_col_' . $column_index . '_link_' . $link_index . '_title';
+            $url_setting = 'restatify_footer_col_' . $column_index . '_link_' . $link_index . '_url';
+            $link_defaults = (array) ($footer_column_defaults[$column_index]['links'][$link_index - 1] ?? []);
+            $title_default = (string) ($link_defaults['title'] ?? '');
+            $url_default = (string) ($link_defaults['url'] ?? '');
+
+            $wp_customize->add_setting($title_setting, [
+                'default'           => $title_default,
+                'sanitize_callback' => 'sanitize_text_field',
+                'transport'         => 'refresh',
+            ]);
+            $wp_customize->add_control($title_setting, [
+                'label'       => sprintf(__('Spalte %1$d - Link %2$d Titel', 'restatify-base'), $column_index, $link_index),
+                'description' => __('Wenn leer, wird dieser Link im Footer ausgeblendet.', 'restatify-base'),
+                'section'     => 'restatify_footer',
+                'type'        => 'text',
+            ]);
+
+            $wp_customize->add_setting($url_setting, [
+                'default'           => $url_default,
+                'sanitize_callback' => 'restatify_sanitize_footer_url',
+                'transport'         => 'refresh',
+            ]);
+            $wp_customize->add_control($url_setting, [
+                'label'   => sprintf(__('Spalte %1$d - Link %2$d URL', 'restatify-base'), $column_index, $link_index),
+                'section' => 'restatify_footer',
+                'type'    => 'url',
+            ]);
+        }
+    }
 
     $wp_customize->add_setting('restatify_footer_social_linkedin', [
         'default'           => '',

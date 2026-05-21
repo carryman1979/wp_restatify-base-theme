@@ -150,6 +150,63 @@ function restatify_translate_polylang_string($value) {
     return $value;
 }
 
+function restatify_get_footer_column_defaults() {
+    $current_lang = function_exists('pll_current_language') ? (string) pll_current_language('slug') : '';
+    $locale = strtolower((string) get_locale());
+    $is_german = $current_lang === 'de' || strpos($locale, 'de') === 0;
+
+    $home_url = function_exists('pll_home_url') ? (string) pll_home_url() : home_url('/');
+    $home_url = $home_url !== '' ? $home_url : home_url('/');
+
+    $localize = static function (string $de, string $en) use ($is_german): string {
+        return $is_german ? $de : $en;
+    };
+
+    $build_local_url = static function (string $path) use ($home_url): string {
+        return trailingslashit($home_url) . ltrim($path, '/');
+    };
+
+    $contact_url = $build_local_url($is_german ? 'kontakt/' : 'contact/');
+    $about_url = $build_local_url($is_german ? 'ueber-uns/' : 'about/');
+    $services_url = $build_local_url($is_german ? 'leistungen/' : 'services/');
+    $imprint_url = $build_local_url($is_german ? 'impressum/' : 'imprint/');
+
+    $privacy_url = get_privacy_policy_url();
+    if (empty($privacy_url)) {
+        $privacy_url = $build_local_url($is_german ? 'datenschutz/' : 'privacy-policy/');
+    }
+
+    return [
+        1 => [
+            'title' => $localize('Unternehmen', 'Company'),
+            'links' => [
+                ['title' => $localize('Ueber uns', 'About'), 'url' => $about_url],
+                ['title' => $localize('Kontakt', 'Contact'), 'url' => $contact_url],
+                ['title' => '', 'url' => ''],
+                ['title' => '', 'url' => ''],
+            ],
+        ],
+        2 => [
+            'title' => $localize('Leistungen', 'Services'),
+            'links' => [
+                ['title' => $localize('Beratung', 'Consulting'), 'url' => $services_url],
+                ['title' => $localize('Startseite', 'Home'), 'url' => $home_url],
+                ['title' => '', 'url' => ''],
+                ['title' => '', 'url' => ''],
+            ],
+        ],
+        3 => [
+            'title' => $localize('Rechtliches', 'Legal'),
+            'links' => [
+                ['title' => $localize('Datenschutz', 'Privacy Policy'), 'url' => $privacy_url],
+                ['title' => $localize('Impressum', 'Imprint'), 'url' => $imprint_url],
+                ['title' => '', 'url' => ''],
+                ['title' => '', 'url' => ''],
+            ],
+        ],
+    ];
+}
+
 function restatify_sanitize_checkbox($value) {
     return !empty($value);
 }
