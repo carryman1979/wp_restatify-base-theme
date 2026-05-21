@@ -176,32 +176,59 @@ for ($badge_index = 1; $badge_index <= 3; $badge_index++) {
 }
 
 $sections = [
-    [
-        'title' => $localize('Unternehmen', 'Company'),
-        'items' => [
-            ['label' => $localize('Ueber uns', 'About'), 'url' => $about_url],
-            ['label' => $localize('Kontakt', 'Contact'), 'url' => $contact_url],
-        ],
-    ],
-    [
-        'title' => $localize('Leistungen', 'Services'),
-        'items' => [
-            ['label' => $localize('Beratung', 'Consulting'), 'url' => $services_url],
-            ['label' => $localize('Startseite', 'Home'), 'url' => $home_url],
-        ],
-    ],
-    [
-        'title' => $localize('Rechtliches', 'Legal'),
-        'items' => [
-            ['label' => $localize('Datenschutz', 'Privacy Policy'), 'url' => $privacy_url],
-            ['label' => $localize('Impressum', 'Imprint'), 'url' => $imprint_url],
-        ],
-    ],
-    [
+];
+
+$column_defaults = function_exists('restatify_get_footer_column_defaults')
+    ? restatify_get_footer_column_defaults()
+    : [];
+
+for ($column_index = 1; $column_index <= 3; $column_index++) {
+    $column_title_default = (string) ($column_defaults[$column_index]['title'] ?? '');
+    $column_title = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_title', $column_title_default));
+    if ($column_title === '') {
+        $column_title = $column_title_default;
+    }
+    $column_title = restatify_translate_polylang_string($column_title);
+
+    $column_items = [];
+    for ($link_index = 1; $link_index <= 4; $link_index++) {
+        $link_defaults = (array) (($column_defaults[$column_index]['links'][$link_index - 1] ?? []));
+        $default_link_title = (string) ($link_defaults['title'] ?? '');
+        $default_link_url = (string) ($link_defaults['url'] ?? '');
+
+        $link_title = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_link_' . $link_index . '_title', $default_link_title));
+        $link_title = restatify_translate_polylang_string($link_title);
+        if ($link_title === '') {
+            continue;
+        }
+
+        $link_url = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_link_' . $link_index . '_url', $default_link_url));
+        $link_url = restatify_translate_polylang_string($link_url);
+        $link_url = esc_url($link_url);
+        if ($link_url === '') {
+            continue;
+        }
+
+        $column_items[] = [
+            'label' => $link_title,
+            'url' => $link_url,
+        ];
+    }
+
+    if ($column_title !== '' && count($column_items) > 0) {
+        $sections[] = [
+            'title' => $column_title,
+            'items' => $column_items,
+        ];
+    }
+}
+
+if (count($contact_section_items) > 0) {
+    $sections[] = [
         'title' => $localize('Kontakt', 'Contact'),
         'items' => $contact_section_items,
-    ],
-];
+    ];
+}
 ?>
 <section data-bs-version="5.1" class="footer2 integrationm5 cid-v910uKC3F3" once="footers" id="footer02-0">
     <div class="container-fluid">

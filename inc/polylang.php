@@ -19,6 +19,24 @@ function restatify_register_polylang_strings() {
         'Footer Badge 3 URL' => trim((string) get_theme_mod('restatify_footer_trust_badge_3_url', '')),
     ];
 
+    $footer_column_defaults = function_exists('restatify_get_footer_column_defaults')
+        ? restatify_get_footer_column_defaults()
+        : [];
+
+    for ($column_index = 1; $column_index <= 3; $column_index++) {
+        $default_title = (string) ($footer_column_defaults[$column_index]['title'] ?? '');
+        $strings['Footer Column ' . $column_index . ' Title'] = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_title', $default_title));
+
+        for ($link_index = 1; $link_index <= 4; $link_index++) {
+            $default_link = (array) ($footer_column_defaults[$column_index]['links'][$link_index - 1] ?? []);
+            $default_link_title = (string) ($default_link['title'] ?? '');
+            $default_link_url = (string) ($default_link['url'] ?? '');
+
+            $strings['Footer Column ' . $column_index . ' Link ' . $link_index . ' Title'] = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_link_' . $link_index . '_title', $default_link_title));
+            $strings['Footer Column ' . $column_index . ' Link ' . $link_index . ' URL'] = trim((string) get_theme_mod('restatify_footer_col_' . $column_index . '_link_' . $link_index . '_url', $default_link_url));
+        }
+    }
+
     foreach ($strings as $name => $value) {
         if ($value !== '') {
             pll_register_string($name, $value, 'Restatify Theme');

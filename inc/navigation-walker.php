@@ -3,6 +3,86 @@
  * Navigation walker.
  */
 
+function restatify_normalize_menu_icon_token(string $token): string {
+    $token = trim(strtolower($token));
+    if ($token === '') {
+        return '';
+    }
+
+    if (preg_match('/^(socicon|imind|icon54-v2|mobi-mbri):([a-z0-9\-]+)$/', $token, $matches) === 1) {
+        return $matches[1] . '-' . $matches[2];
+    }
+
+    if (preg_match('/^(socicon|imind|icon54-v2|mobi-mbri)-[a-z0-9\-]+$/', $token) === 1) {
+        return $token;
+    }
+
+    return '';
+}
+
+function restatify_get_menu_item_icon_class($menu_item): string {
+    if (empty($menu_item) || empty($menu_item->classes) || !is_array($menu_item->classes)) {
+        return '';
+    }
+
+    foreach ($menu_item->classes as $class_name) {
+        $class_name = trim((string) $class_name);
+        if ($class_name === '') {
+            continue;
+        }
+
+        if (preg_match('/^icon:([a-z0-9\-:]+)$/', $class_name, $matches) === 1) {
+            $normalized = restatify_normalize_menu_icon_token($matches[1]);
+            if ($normalized !== '') {
+                return $normalized;
+            }
+        }
+    }
+
+    return '';
+}
+
+function restatify_extract_menu_icon_and_title(string $raw_title, $menu_item): array {
+    $raw_title = trim($raw_title);
+    $icon_class = restatify_get_menu_item_icon_class($menu_item);
+
+    if (preg_match('/^\[icon:([a-z0-9\-:]+)\]\s*(.*)$/i', $raw_title, $matches) === 1) {
+        $normalized = restatify_normalize_menu_icon_token($matches[1]);
+        if ($normalized !== '') {
+            $icon_class = $normalized;
+            $raw_title = trim((string) $matches[2]);
+        }
+    } elseif (preg_match('/^icon:([a-z0-9\-:]+)\|(.*)$/i', $raw_title, $matches) === 1) {
+        $normalized = restatify_normalize_menu_icon_token($matches[1]);
+        if ($normalized !== '') {
+            $icon_class = $normalized;
+            $raw_title = trim((string) $matches[2]);
+        }
+    }
+
+    if ($raw_title === '') {
+        $raw_title = __('Menu item', 'restatify-base');
+    }
+
+    return [
+        'icon_class' => $icon_class,
+        'title' => $raw_title,
+    ];
+}
+
+function restatify_render_menu_icon_span(string $icon_class): string {
+    if ($icon_class === '') {
+        return '';
+    }
+
+    $classes = ['mbr-iconfont', $icon_class];
+    if (str_starts_with($icon_class, 'socicon-')) {
+        $classes[] = 'socicon';
+    }
+
+    return '<span class="' . esc_attr(implode(' ', array_unique($classes))) . '" aria-hidden="true"></span>';
+}
+
 class Restatify_Walker_Nav_Menu extends Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = null) {
         $indent = str_repeat("\t", $depth);
@@ -68,8 +148,13 @@ class Restatify_Walker_Nav_Menu extends Walker_Nav_Menu {
             $attr_html .= ' ' . $name . '="' . $escaped_value . '"';
         }
 
-        $title = apply_filters('the_title', $item->title, $item->ID);
-        $output .= '<a' . $attr_html . '>' . esc_html($title) . '</a>';
+        $title = (string) apply_filters('the_title', $item->title, $item->ID);
+        $parts = restatify_extract_menu_icon_and_title($title, $item);
+
+        $output .= '<a' . $attr_html . '>';
+        $output .= restatify_render_menu_icon_span((string) ($parts['icon_class'] ?? ''));
+        $output .= esc_html((string) ($parts['title'] ?? $title));
+        $output .= '</a>';
     }
 
     public function end_el(&$output, $item, $depth = 0, $args = null) {

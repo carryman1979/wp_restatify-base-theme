@@ -20,6 +20,7 @@ $restatify_includes = [
     '/inc/assets.php',
     '/inc/maintenance-layout.php',
     '/inc/navigation-walker.php',
+    '/inc/icons-admin.php',
     '/inc/customizer.php',
     '/inc/polylang.php',
     '/inc/blocks.php', // Block-Registrierung
