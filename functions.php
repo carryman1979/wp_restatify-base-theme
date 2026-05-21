@@ -1,19 +1,9 @@
 <?php
 
-$restatify_theme_require_first = static function (array $paths): bool {
-    foreach ($paths as $path) {
-        if (is_string($path) && $path !== '' && file_exists($path)) {
-            require_once $path;
-            return true;
-        }
-    }
-
-    return false;
-};
-
-$restatify_theme_require_first([
-    dirname(get_template_directory(), 3) . '/wp_restatify-shared/src/php/Runtime/PluginState.php',
-]);
+require_once get_template_directory() . '/inc/shared-runtime.php';
+if (function_exists('restatify_theme_shared_bootstrap')) {
+    restatify_theme_shared_bootstrap();
+}
 
 $restatify_includes = [
     '/inc/theme-setup.php',
