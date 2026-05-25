@@ -6,6 +6,7 @@ Shared baseline:
 Repo-specific requirements:
 - Do not break block save/edit data shape compatibility.
 - Keep link handling and trigger URL plumbing stable.
+- Keep shared loader order stable: local root shared first for dev, otherwise exact versioned shared under plugins/mu-plugins, never mixed in one request.
 
 Required checks:
 - npm run test:unit:js
