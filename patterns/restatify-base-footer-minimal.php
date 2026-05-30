@@ -36,23 +36,8 @@ if (empty($privacy_url)) {
     $privacy_url = $build_local_url($is_german ? 'datenschutz/' : 'privacy-policy/');
 }
 
-$custom_imprint_url = trim((string) get_theme_mod('restatify_maintenance_imprint_url', ''));
-if ($custom_imprint_url !== '') {
-    if (function_exists('restatify_resolve_link_target')) {
-        $imprint_url = (string) restatify_resolve_link_target($custom_imprint_url);
-    } else {
-        $imprint_url = $custom_imprint_url;
-    }
-}
-
-$custom_privacy_url = trim((string) get_theme_mod('restatify_maintenance_privacy_url', ''));
-if ($custom_privacy_url !== '') {
-    if (function_exists('restatify_resolve_link_target')) {
-        $privacy_url = (string) restatify_resolve_link_target($custom_privacy_url);
-    } else {
-        $privacy_url = $custom_privacy_url;
-    }
-}
+$imprint_url = restatify_resolve_theme_mod_link_target('restatify_maintenance_imprint_url', $imprint_url);
+$privacy_url = restatify_resolve_theme_mod_link_target('restatify_maintenance_privacy_url', $privacy_url);
 
 $legacy_show_legal_links = ! empty(get_theme_mod('restatify_maintenance_show_legal_links', false));
 $show_imprint_link = ! empty(get_theme_mod('restatify_maintenance_show_imprint_link', false)) || $legacy_show_legal_links;
@@ -68,7 +53,7 @@ $register_info = trim((string) get_theme_mod('restatify_maintenance_register_inf
 $vat_id = trim((string) get_theme_mod('restatify_maintenance_vat_id', ''));
 $contact_email = sanitize_email((string) get_theme_mod('restatify_maintenance_contact_email', ''));
 $contact_phone = trim((string) get_theme_mod('restatify_maintenance_contact_phone', ''));
-$contact_phone_href = function_exists('restatify_get_tel_href') ? restatify_get_tel_href($contact_phone) : '';
+$contact_phone_href = restatify_get_tel_href($contact_phone);
 
 $has_imprint_data = $company_name !== ''
     || $represented_by !== ''
@@ -80,35 +65,7 @@ $has_imprint_data = $company_name !== ''
 
 $disclaimer_text = trim((string) get_theme_mod('restatify_maintenance_disclaimer', ''));
 
-$social_links = [];
-$social_candidates = [
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_linkedin', ''),
-        'icon' => 'socicon-linkedin',
-        'label' => 'LinkedIn',
-    ],
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_xing', ''),
-        'icon' => 'socicon-xing',
-        'label' => 'Xing',
-    ],
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_facebook', ''),
-        'icon' => 'socicon-facebook',
-        'label' => 'Facebook',
-    ],
-];
-
-foreach ($social_candidates as $candidate) {
-    $url = esc_url($candidate['url']);
-    if ($url !== '') {
-        $social_links[] = [
-            'url' => $url,
-            'icon' => $candidate['icon'],
-            'label' => $candidate['label'],
-        ];
-    }
-}
+$social_links = restatify_get_footer_social_links();
 
 $legal_links = [];
 if ($show_privacy_link) {

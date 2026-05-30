@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.14, getestet bis WordPress 6.9.
+Stand: Version 1.0.15, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -246,6 +246,12 @@ npm run package
 - Neue Blog-Starter-Patterns auf Core-Block-Basis ergaenzt: Blog Hero, Blog Post Grid und Related Posts.
 - Einheitliches Query-Loop-Card-System im Restatify-Stil fuer Bloglisten und Related-Posts integriert.
 - Theme-/Readme-/Wiki-Beschreibungen klar auf den Standard-WordPress-Ansatz ausgerichtet (Core-Blocks, Patterns, Templates, theme.json).
+
+## Release-Prep Status (2026-05-30)
+
+- Dokumentation fuer den laufenden 1.0.15-Hotfix-Stand ohne Versionssprung synchronisiert.
+- Footer-/Customizer-Refactorings und Look-and-Feel-/Dark-Theme-Polish fuer den Rollout konsolidiert.
+- Release-Notes und Build-/Packaging-Hinweise fuer den koordinierten Multi-Repo-Run aktualisiert.
 
 ## Letzte Aenderungen (1.0.13)
 

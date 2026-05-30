@@ -13,6 +13,14 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
     $Version = $packageJson.version
 }
 
+$functionsFilePath = Join-Path $themeRoot 'inc/shared-runtime.php'
+$sharedVersionMatch = [regex]::Match((Get-Content $functionsFilePath -Raw), "RESTATIFY_THEME_SHARED_VERSION'\s*,\s*'([^']+)'")
+if (-not $sharedVersionMatch.Success) {
+    throw 'Could not detect RESTATIFY_THEME_SHARED_VERSION from inc/shared-runtime.php'
+}
+
+$sharedVersion = $sharedVersionMatch.Groups[1].Value.Trim()
+
 npm run build
 
 $releaseDir = Join-Path $themeRoot 'release'
@@ -50,6 +58,16 @@ foreach ($item in $includeItems) {
         Copy-Item $sourcePath -Destination $stagingDir -Recurse -Force
     }
 }
+
+$sharedSourcePhpDir = Join-Path $themeRoot '../../../wp_restatify-shared/src/php'
+$sharedSourcePhpDir = [System.IO.Path]::GetFullPath($sharedSourcePhpDir)
+if (-not (Test-Path $sharedSourcePhpDir)) {
+    throw "Shared source directory not found: $sharedSourcePhpDir"
+}
+
+$sharedTargetPhpDir = Join-Path $stagingDir "shared-install/wp_restatify-shared/versions/$sharedVersion/src/php"
+New-Item -ItemType Directory -Path $sharedTargetPhpDir -Force | Out-Null
+Copy-Item (Join-Path $sharedSourcePhpDir '*') -Destination $sharedTargetPhpDir -Recurse -Force
 
 $zipPath = Join-Path $releaseDir ("wp_restatify-base-theme-$Version.zip")
 if (Test-Path $zipPath) {

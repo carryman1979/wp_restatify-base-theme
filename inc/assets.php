@@ -108,6 +108,7 @@ function restatify_theme_assets() {
 
     // Theme overrides LAST
     wp_enqueue_style('restatify-style', get_stylesheet_uri(), ['mobirise-additional'], filemtime(get_template_directory() . '/style.css'));
+    wp_enqueue_style('restatify-style-footer-cookie', $uri . '/theme/css/style-footer-cookie.css', ['restatify-style'], filemtime(get_template_directory() . '/assets/theme/css/style-footer-cookie.css'));
 
     // Scripts
     wp_enqueue_script('bootstrap-js', $uri . '/bootstrap/js/bootstrap.bundle.min.js', [], null, true);
