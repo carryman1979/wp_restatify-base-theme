@@ -1,6 +1,6 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.15, getestet bis WordPress 6.9.
+Stand: Version 1.0.16, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -206,3 +206,4 @@ Das ZIP liegt danach unter /release.
 Restatify Base WordPress Theme, (C) 2026 Thomas Hoffermann.
 
 Veroeffentlicht unter GPL v2 oder spaeter.
+

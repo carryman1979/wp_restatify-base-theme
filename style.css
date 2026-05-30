@@ -7,7 +7,7 @@ Description: Restatify base theme built around standard WordPress mechanisms (co
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.15
+Version: 1.0.16
 License: GNU General Public License v2 or later
 Text Domain: restatify-base
 */
@@ -989,3 +989,4 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
 }
 
 /* Footer, cookie banner, and legacy fallback rules moved to assets/theme/css/style-footer-cookie.css */
+
