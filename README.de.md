@@ -1,8 +1,13 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.14, getestet bis WordPress 6.9.
+Stand: Version 1.0.15, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
+
+Release-Prep-Status (2026-05-30):
+
+- Dokumentation auf den aktuellen 1.0.15-Hotfix-Stand ohne Versionssprung synchronisiert.
+- Footer-/Customizer-Refactorings und Look-and-Feel-/Dark-Theme-Polish fuer den Rollout konsolidiert.
 
 Das Theme folgt bewusst den Standard-WordPress-Mechanismen:
 

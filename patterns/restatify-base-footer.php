@@ -66,7 +66,7 @@ $cookie_settings_text = $localize('Cookie-Einstellungen', 'Cookie settings');
 
 $phone_raw = (string) get_theme_mod('restatify_footer_phone', '');
 $phone_display = restatify_sanitize_footer_phone($phone_raw);
-$phone_href = function_exists('restatify_get_tel_href') ? restatify_get_tel_href($phone_display) : '';
+$phone_href = restatify_get_tel_href($phone_display);
 
 $email_raw = trim((string) get_theme_mod('restatify_footer_email', ''));
 $email_sanitized = sanitize_email($email_raw);
@@ -74,7 +74,7 @@ $email_href = $email_sanitized !== '' ? 'mailto:' . $email_sanitized : '';
 
 $fax_raw = (string) get_theme_mod('restatify_footer_fax', '');
 $fax_display = restatify_sanitize_footer_phone($fax_raw);
-$fax_href = function_exists('restatify_get_tel_href') ? restatify_get_tel_href($fax_display) : '';
+$fax_href = restatify_get_tel_href($fax_display);
 
 $vcard_url = restatify_translate_polylang_string((string) get_theme_mod('restatify_footer_vcard_url', ''));
 $vcard_url = esc_url($vcard_url);
@@ -119,35 +119,7 @@ if ($vcard_url !== '') {
     ];
 }
 
-$social_links = [];
-$social_candidates = [
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_linkedin', ''),
-        'icon' => 'socicon-linkedin',
-        'label' => 'LinkedIn',
-    ],
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_xing', ''),
-        'icon' => 'socicon-xing',
-        'label' => 'Xing',
-    ],
-    [
-        'url' => (string) get_theme_mod('restatify_footer_social_facebook', ''),
-        'icon' => 'socicon-facebook',
-        'label' => 'Facebook',
-    ],
-];
-
-foreach ($social_candidates as $candidate) {
-    $url = esc_url($candidate['url']);
-    if ($url !== '') {
-        $social_links[] = [
-            'url' => $url,
-            'icon' => $candidate['icon'],
-            'label' => $candidate['label'],
-        ];
-    }
-}
+$social_links = restatify_get_footer_social_links();
 
 $trust_badges = [];
 for ($badge_index = 1; $badge_index <= 3; $badge_index++) {
@@ -178,9 +150,7 @@ for ($badge_index = 1; $badge_index <= 3; $badge_index++) {
 $sections = [
 ];
 
-$column_defaults = function_exists('restatify_get_footer_column_defaults')
-    ? restatify_get_footer_column_defaults()
-    : [];
+$column_defaults = restatify_get_footer_column_defaults();
 
 for ($column_index = 1; $column_index <= 3; $column_index++) {
     $column_title_default = (string) ($column_defaults[$column_index]['title'] ?? '');

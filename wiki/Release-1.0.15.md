@@ -9,6 +9,12 @@ Version 1.0.15 bringt die Shared-Aufloesung des Themes auf dieselbe Regelbasis w
 - Theme-Version in `style.css` und `package.json` auf `1.0.15` angehoben.
 - Copilot-Repo-Beschreibung auf Shared-Loader-Reihenfolge erweitert.
 
+## Release-prep refresh (2026-05-30)
+
+- Kein Versionssprung: Release-Prep verbleibt auf `1.0.15`.
+- Footer-/Customizer-Aufraeumarbeiten und Theme-Look-and-Feel-Polish konsolidiert.
+- Dark-Theme-nahe Feinanpassungen und Release-Build-Dokumentation fuer den Rollout nachgezogen.
+
 ## Kompatibilitaet
 
 - Theme-Version: `1.0.15`

@@ -4,9 +4,22 @@
  */
 
 if (class_exists('WP_Customize_Control') && !class_exists('Restatify_Customize_Group_Divider_Control')) {
+    /**
+     * Visual divider control for grouping related Customizer settings.
+     */
     class Restatify_Customize_Group_Divider_Control extends WP_Customize_Control {
+        /**
+         * Control type identifier.
+         *
+         * @var string
+         */
         public $type = 'restatify_group_divider';
 
+        /**
+         * Render divider output in the Customizer panel.
+         *
+         * @return void
+         */
         public function render_content() {
             if (!empty($this->label)) {
                 echo '<span class="customize-control-title" style="margin-top:10px;display:block;">' . esc_html($this->label) . '</span>';
@@ -21,6 +34,12 @@ if (class_exists('WP_Customize_Control') && !class_exists('Restatify_Customize_G
     }
 }
 
+/**
+ * Register theme Customizer settings and controls.
+ *
+ * @param WP_Customize_Manager $wp_customize WordPress Customizer manager.
+ * @return void
+ */
 function restatify_customize_register($wp_customize) {
     $wp_customize->add_section('restatify_typography', [
         'title'       => __('Typografie', 'restatify-base'),
@@ -353,7 +372,7 @@ function restatify_customize_register($wp_customize) {
         'type'        => 'text',
     ]);
 
-    if (function_exists('restatify_is_lightstart_available') && restatify_is_lightstart_available()) {
+    if (restatify_is_lightstart_available()) {
         $wp_customize->add_section('restatify_maintenance_mode', [
             'title'       => __('Wartungsmodus', 'restatify-base'),
             'priority'    => 35,
@@ -584,9 +603,7 @@ function restatify_customize_register($wp_customize) {
         'type'        => 'text',
     ]);
 
-    $footer_column_defaults = function_exists('restatify_get_footer_column_defaults')
-        ? restatify_get_footer_column_defaults()
-        : [];
+    $footer_column_defaults = restatify_get_footer_column_defaults();
 
     for ($column_index = 1; $column_index <= 3; $column_index++) {
         $divider_setting = 'restatify_footer_col_' . $column_index . '_divider';

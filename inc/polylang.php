@@ -19,9 +19,7 @@ function restatify_register_polylang_strings() {
         'Footer Badge 3 URL' => trim((string) get_theme_mod('restatify_footer_trust_badge_3_url', '')),
     ];
 
-    $footer_column_defaults = function_exists('restatify_get_footer_column_defaults')
-        ? restatify_get_footer_column_defaults()
-        : [];
+    $footer_column_defaults = restatify_get_footer_column_defaults();
 
     for ($column_index = 1; $column_index <= 3; $column_index++) {
         $default_title = (string) ($footer_column_defaults[$column_index]['title'] ?? '');

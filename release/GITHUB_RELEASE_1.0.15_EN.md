@@ -7,6 +7,12 @@
 - Theme version was bumped to `1.0.15` in `style.css` and `package.json`.
 - Copilot repo guidance was updated with the shared loader order policy.
 
+## Release-prep refresh (2026-05-30)
+
+- No version bump: release prep remains on `1.0.15`.
+- Footer/customizer refactors and look-and-feel polish were consolidated.
+- Dark-theme adjacent styling refinements and release-build documentation were refreshed.
+
 ## Compatibility
 
 - Theme version: `1.0.15`
