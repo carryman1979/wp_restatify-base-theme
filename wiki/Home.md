@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.15, getestet bis WordPress 6.9.
+Stand: Version 1.0.16, getestet bis WordPress 6.9.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -249,9 +249,9 @@ npm run package
 
 ## Release-Prep Status (2026-05-30)
 
-- Dokumentation fuer den laufenden 1.0.15-Hotfix-Stand ohne Versionssprung synchronisiert.
-- Footer-/Customizer-Refactorings und Look-and-Feel-/Dark-Theme-Polish fuer den Rollout konsolidiert.
-- Release-Notes und Build-/Packaging-Hinweise fuer den koordinierten Multi-Repo-Run aktualisiert.
+- Dokumentation und Release-Notizen auf Version 1.0.16 aktualisiert.
+- Footer-/Customizer-Refactorings und Look-and-Feel-Polish fuer den finalen Rollout konsolidiert.
+- Release-ZIP fuer 1.0.16 wurde neu gebaut und als aktueller Stand veroeffentlicht.
 
 ## Letzte Aenderungen (1.0.13)
 
@@ -300,6 +300,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.0.16](Release-1.0.16)
 - [Release 1.0.12](Release-1.0.12)
 - [Release 1.0.11](Release-1.0.11)
 - [Release 1.0.10](Release-1.0.10)
