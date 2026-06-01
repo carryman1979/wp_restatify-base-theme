@@ -1,6 +1,6 @@
 # Release 1.0.16
 
-Version 1.0.15 bringt die Shared-Aufloesung des Themes auf dieselbe Regelbasis wie die Plugins.
+Version 1.0.16 bringt die Shared-Aufloesung des Themes auf dieselbe Regelbasis wie die Plugins.
 
 ## Highlights
 
@@ -22,5 +22,5 @@ Version 1.0.15 bringt die Shared-Aufloesung des Themes auf dieselbe Regelbasis w
 
 ## Artefakt
 
-- `wp_restatify-base-theme-1.0.15.zip`
+- `wp_restatify-base-theme-1.0.16.zip`
 
