@@ -222,7 +222,7 @@
 .restatify-cookie-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 10055;
+  z-index: 100100;
   background: rgba(11, 18, 33, 0.56);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
@@ -238,7 +238,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: min(720px, calc(100vw - 32px));
-  z-index: 10060;
+  z-index: 100110;
   border-radius: 14px;
   border: 1px solid var(--rs-color-menu-border);
   background: var(--rs-color-menu-panel);

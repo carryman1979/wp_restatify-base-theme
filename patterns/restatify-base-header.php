@@ -168,74 +168,75 @@ if (!empty($dark_logo_src)) {
                 ]);
                 ?>
 
-                <?php if (!empty($social_menu_html)) : ?>
-                    <div class="icons-menu">
-                        <?php echo wp_kses_post($social_menu_html); ?>
-                    </div>
-                <?php endif; ?>
-
-                <div class="navbar-buttons mbr-section-btn restatify-cta">
-                    <?php if (!empty($cta_menu_html)) : ?>
-                        <button
-                            class="btn btn-white display-7 restatify-cta-toggle"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="restatify-cta-popup"
-                        >
-                            <?php echo esc_html($cta_button_label); ?>
-                        </button>
-                        <div id="restatify-cta-popup" class="restatify-cta-popup" hidden>
-                            <?php echo wp_kses_post($cta_menu_html); ?>
+                <div class="navbar-actions">
+                    <?php if (!empty($social_menu_html)) : ?>
+                        <div class="icons-menu">
+                            <?php echo wp_kses_post($social_menu_html); ?>
                         </div>
-                    <?php else : ?>
-                        <a class="btn btn-white display-7" href="#"><?php echo esc_html($cta_button_label); ?></a>
                     <?php endif; ?>
-                </div>
 
-                <details class="restatify-theme-switch">
-                    <summary class="restatify-theme-toggle" aria-label="<?php esc_attr_e('Theme appearance', 'restatify-base'); ?>">
-                        <span class="restatify-theme-current-icon imind imind-sun" data-theme-current-icon aria-hidden="true"></span>
-                        <span class="restatify-theme-caret" aria-hidden="true"></span>
-                        <span class="screen-reader-text"><?php esc_html_e('Change color theme', 'restatify-base'); ?></span>
-                    </summary>
-                    <div class="restatify-theme-menu" role="menu" aria-label="<?php esc_attr_e('Theme mode', 'restatify-base'); ?>">
-                        <button type="button" class="restatify-theme-option" data-theme-choice="auto" role="menuitemradio" aria-label="<?php esc_attr_e('Automatic theme', 'restatify-base'); ?>" aria-pressed="false">
-                            <span class="imind imind-auto-flash" aria-hidden="true"></span>
-                            <span class="screen-reader-text"><?php esc_html_e('Automatic theme', 'restatify-base'); ?></span>
-                        </button>
-                        <button type="button" class="restatify-theme-option" data-theme-choice="light" role="menuitemradio" aria-label="<?php esc_attr_e('Light theme', 'restatify-base'); ?>" aria-pressed="false">
-                            <span class="imind imind-sun" aria-hidden="true"></span>
-                            <span class="screen-reader-text"><?php esc_html_e('Light theme', 'restatify-base'); ?></span>
-                        </button>
-                        <button type="button" class="restatify-theme-option" data-theme-choice="dark" role="menuitemradio" aria-label="<?php esc_attr_e('Dark theme', 'restatify-base'); ?>" aria-pressed="false">
-                            <span class="imind imind-half-moon" aria-hidden="true"></span>
-                            <span class="screen-reader-text"><?php esc_html_e('Dark theme', 'restatify-base'); ?></span>
-                        </button>
+                    <div class="navbar-buttons mbr-section-btn restatify-cta">
+                        <?php if (!empty($cta_menu_html)) : ?>
+                            <button
+                                class="btn btn-white display-7 restatify-cta-toggle"
+                                type="button"
+                                aria-expanded="false"
+                                aria-controls="restatify-cta-popup"
+                            >
+                                <?php echo esc_html($cta_button_label); ?>
+                            </button>
+                            <div id="restatify-cta-popup" class="restatify-cta-popup" hidden>
+                                <?php echo wp_kses_post($cta_menu_html); ?>
+                            </div>
+                        <?php else : ?>
+                            <a class="btn btn-white display-7" href="#"><?php echo esc_html($cta_button_label); ?></a>
+                        <?php endif; ?>
                     </div>
-                </details>
-
-                <?php if (!empty($language_items)) : ?>
-                    <details class="restatify-lang-switch">
-                        <summary class="restatify-lang-toggle" aria-label="<?php esc_attr_e('Language switcher', 'restatify-base'); ?>">
-                            <span class="restatify-lang-current"><?php echo esc_html($current_language['slug']); ?></span>
-                            <span class="restatify-lang-caret" aria-hidden="true"></span>
+                    <details class="restatify-theme-switch">
+                        <summary class="restatify-theme-toggle" aria-label="<?php esc_attr_e('Theme appearance', 'restatify-base'); ?>">
+                            <span class="restatify-theme-current-icon imind imind-sun" data-theme-current-icon aria-hidden="true"></span>
+                            <span class="restatify-theme-caret" aria-hidden="true"></span>
+                            <span class="screen-reader-text"><?php esc_html_e('Change color theme', 'restatify-base'); ?></span>
                         </summary>
-                        <div class="restatify-lang-menu" role="listbox" aria-label="<?php esc_attr_e('Languages', 'restatify-base'); ?>">
-                            <?php foreach ($language_items as $lang_item) : ?>
-                                <a
-                                    class="restatify-lang-link<?php echo $lang_item['current'] ? ' is-active' : ''; ?>"
-                                    href="<?php echo esc_url($lang_item['url']); ?>"
-                                    hreflang="<?php echo esc_attr(strtolower($lang_item['slug'])); ?>"
-                                    lang="<?php echo esc_attr(strtolower($lang_item['slug'])); ?>"
-                                    aria-current="<?php echo $lang_item['current'] ? 'true' : 'false'; ?>"
-                                    aria-label="<?php echo esc_attr($lang_item['name']); ?>"
-                                >
-                                    <?php echo esc_html($lang_item['slug']); ?>
-                                </a>
-                            <?php endforeach; ?>
+                        <div class="restatify-theme-menu" role="menu" aria-label="<?php esc_attr_e('Theme mode', 'restatify-base'); ?>">
+                            <button type="button" class="restatify-theme-option" data-theme-choice="auto" role="menuitemradio" aria-label="<?php esc_attr_e('Automatic theme', 'restatify-base'); ?>" aria-pressed="false">
+                                <span class="imind imind-auto-flash" aria-hidden="true"></span>
+                                <span class="screen-reader-text"><?php esc_html_e('Automatic theme', 'restatify-base'); ?></span>
+                            </button>
+                            <button type="button" class="restatify-theme-option" data-theme-choice="light" role="menuitemradio" aria-label="<?php esc_attr_e('Light theme', 'restatify-base'); ?>" aria-pressed="false">
+                                <span class="imind imind-sun" aria-hidden="true"></span>
+                                <span class="screen-reader-text"><?php esc_html_e('Light theme', 'restatify-base'); ?></span>
+                            </button>
+                            <button type="button" class="restatify-theme-option" data-theme-choice="dark" role="menuitemradio" aria-label="<?php esc_attr_e('Dark theme', 'restatify-base'); ?>" aria-pressed="false">
+                                <span class="imind imind-half-moon" aria-hidden="true"></span>
+                                <span class="screen-reader-text"><?php esc_html_e('Dark theme', 'restatify-base'); ?></span>
+                            </button>
                         </div>
                     </details>
-                <?php endif; ?>
+
+                    <?php if (!empty($language_items)) : ?>
+                        <details class="restatify-lang-switch">
+                            <summary class="restatify-lang-toggle" aria-label="<?php esc_attr_e('Language switcher', 'restatify-base'); ?>">
+                                <span class="restatify-lang-current"><?php echo esc_html($current_language['slug']); ?></span>
+                                <span class="restatify-lang-caret" aria-hidden="true"></span>
+                            </summary>
+                            <div class="restatify-lang-menu" role="listbox" aria-label="<?php esc_attr_e('Languages', 'restatify-base'); ?>">
+                                <?php foreach ($language_items as $lang_item) : ?>
+                                    <a
+                                        class="restatify-lang-link<?php echo $lang_item['current'] ? ' is-active' : ''; ?>"
+                                        href="<?php echo esc_url($lang_item['url']); ?>"
+                                        hreflang="<?php echo esc_attr(strtolower($lang_item['slug'])); ?>"
+                                        lang="<?php echo esc_attr(strtolower($lang_item['slug'])); ?>"
+                                        aria-current="<?php echo $lang_item['current'] ? 'true' : 'false'; ?>"
+                                        aria-label="<?php echo esc_attr($lang_item['name']); ?>"
+                                    >
+                                        <?php echo esc_html($lang_item['slug']); ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </details>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </nav>

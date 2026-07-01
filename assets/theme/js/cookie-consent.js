@@ -122,11 +122,41 @@
     });
   }
 
+  function isBookingRequestedOrOpen() {
+    if (window.location.hash === '#restatify-booking') {
+      return true;
+    }
+
+    var activeOverlay = document.querySelector('.restatify-booking__overlay:not([hidden])');
+    return !!activeOverlay;
+  }
+
+  function dispatchConsentChanged(state) {
+    try {
+      document.dispatchEvent(new CustomEvent('restatify:cookie-consent-changed', {
+        detail: {
+          state: state,
+          accepted: state === 'accepted',
+          rejected: state === 'rejected',
+          pending: state === 'pending'
+        }
+      }));
+    } catch (error) {
+      // Keep consent flow resilient on browsers without CustomEvent support quirks.
+    }
+  }
+
   function handleDecision(state) {
     setConsent(state);
     updateBodyState(state);
+    dispatchConsentChanged(state);
 
     if (window.restatifyCookieConsent && window.restatifyCookieConsent.reloadOnDecision) {
+      if (isBookingRequestedOrOpen()) {
+        setBannerVisibility(false);
+        return;
+      }
+
       window.location.reload();
       return;
     }
@@ -170,5 +200,13 @@
     document.addEventListener('DOMContentLoaded', init, { once: true });
   } else {
     init();
+  }
+
+  if (typeof window !== 'undefined') {
+    // Test hooks for unit tests; no effect on production behavior.
+    window.__RS_COOKIE_CONSENT_TEST__ = {
+      isBookingRequestedOrOpen: isBookingRequestedOrOpen,
+      dispatchConsentChanged: dispatchConsentChanged
+    };
   }
 })();

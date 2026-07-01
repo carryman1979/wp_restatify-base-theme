@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.0.16, getestet bis WordPress 7.0.
+Stand: Version 1.1.0, getestet bis WordPress 7.0.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -240,18 +240,21 @@ npm run package
 
 ---
 
-## Letzte Aenderungen (1.0.12)
+## Letzte Aenderungen (1.1.0)
 
-- Neue Pattern-Kategorie `Restatify Blog` fuer editorseitige Blog-Layouts hinzugefuegt.
-- Neue Blog-Starter-Patterns auf Core-Block-Basis ergaenzt: Blog Hero, Blog Post Grid und Related Posts.
-- Einheitliches Query-Loop-Card-System im Restatify-Stil fuer Bloglisten und Related-Posts integriert.
-- Theme-/Readme-/Wiki-Beschreibungen klar auf den Standard-WordPress-Ansatz ausgerichtet (Core-Blocks, Patterns, Templates, theme.json).
+- Header-Hotfixs als zusammenhaengendes Release gebuendelt: verbesserte Brand/Nav/Actions-Aufteilung mit `navbar-actions` im Header-Pattern.
+- Tagline-Responsiveness korrigiert: sauberer Umbruch auf Desktop, kompaktere Typografie im Zwischenbereich und Ausblendung im Mobile-Header.
+- Kompaktmodus fuer 992-1220px eingefuehrt, damit Navigation/Social frueher in den Collapse-Kontext wechseln und kein Ueberlappen mehr entsteht.
+- Opera-Hamburger-Rendering abgesichert (Desktop und Mobile) durch robustes Pseudo-Element-Icon plus Sichtbarkeits-/Layering-Fallbacks.
+- Cookie-Consent + Booking-Overlay-Fix: kein erzwungener Reload bei offenem/angefordertem Booking; neues Event `restatify:cookie-consent-changed` fuer Integrationen.
+- Cookie-Banner-Z-Index ueber Booking-Overlay angehoben.
+- JS-Unit-Test fuer Cookie-Consent-Booking-Guard ergänzt.
 
-## Release-Prep Status (2026-05-30)
+## Release-Prep Status (2026-07-01)
 
-- Dokumentation fuer den laufenden 1.0.15-Hotfix-Stand ohne Versionssprung synchronisiert.
-- Footer-/Customizer-Refactorings und Look-and-Feel-/Dark-Theme-Polish fuer den Rollout konsolidiert.
-- Release-Notes und Build-/Packaging-Hinweise fuer den koordinierten Multi-Repo-Run aktualisiert.
+- Fremd-PR auf `main` vor Release-Vorbereitung gemerged und Hotfix-Branch auf aktualisierter Basis erstellt.
+- Versionsstand auf `1.1.0` in Theme-Metadaten und Paket-Metadaten synchronisiert.
+- README, Wiki und GitHub-Release-Notes fuer den gebuendelten Hotfix-Stand aktualisiert.
 
 ## Letzte Aenderungen (1.0.13)
 
