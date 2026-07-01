@@ -542,6 +542,15 @@ nav .mbr-section-btn {
 .menu .navbar-brand .navbar-caption-wrap {
   display: -webkit-flex;
 }
+.menu .navbar-brand .navbar-caption-wrap,
+.menu .navbar-brand .navbar-caption {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .menu .navbar-brand .navbar-logo img {
   display: -webkit-flex;
   width: auto;

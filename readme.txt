@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.14
+Version: 1.1.0
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -131,6 +131,16 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.1.0 =
+* Consolidated responsive header hotfix package: improved brand/nav/actions distribution and stable `navbar-actions` grouping in header pattern.
+* Fixed tagline behavior across breakpoints: wraps on desktop, tighter compact typography, hidden in mobile header.
+* Added compact header mode for 992-1220px to switch earlier to hamburger/collapse and avoid overlap between tagline and navigation.
+* Hardened hamburger icon rendering for Opera desktop/mobile via pseudo-element fallback and stronger toggler visibility/layering rules.
+* Fixed cookie consent + booking overlay interaction: prevent forced reload when booking overlay/hash booking is active.
+* Added consent change event `restatify:cookie-consent-changed` for integration listeners.
+* Raised cookie banner/backdrop z-index to stay actionable above booking overlay.
+* Added JS unit test coverage for cookie consent booking guard and test hooks.
 
 = 1.0.14 =
 * Hotfix rebuild without version bump: replaced defective 1.0.14 release package.

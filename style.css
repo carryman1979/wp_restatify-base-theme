@@ -7,7 +7,7 @@ Description: Restatify base theme built around standard WordPress mechanisms (co
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.0.16
+Version: 1.1.0
 License: GNU General Public License v2 or later
 Text Domain: restatify-base
 */
@@ -768,19 +768,31 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
 
   /* left side */
   .menu01.integrationm5 .navbar-brand {
-    flex: 0 0 380px;   /* fixed anchor width for centering */
-    max-width: 380px;
+    flex: 1 1 42%;
+    max-width: 42%;
+    min-width: 0;
     min-height: 44px;
     display: flex;
     align-items: center;
   }
 
   .menu01.integrationm5 .navbar-caption-wrap {
-    display: inline-block;
-    max-width: none;
+    display: block;
+    max-width: 100%;
     overflow: visible;
     text-overflow: clip;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    margin-left: 0.45rem;
+    line-height: 1.08 !important;
+  }
+
+  .menu01.integrationm5 .navbar-caption {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.08 !important;
   }
 
   /* middle + right in one row */
@@ -795,6 +807,8 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
 
   /* center nav */
   .menu01.integrationm5 .navbar-nav {
+    flex: 1 1 auto;
+    min-width: 0;
     margin: 0 auto !important;
     white-space: nowrap;
     position: static !important;
@@ -840,6 +854,99 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
   }
 }
 
+@media (min-width: 992px) and (max-width: 1220px) {
+  .menu01.integrationm5 .content-wrap {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+
+  .menu01.integrationm5 .navbar-brand {
+    flex: 1 1 auto;
+    max-width: calc(100% - 56px);
+  }
+
+  .menu01.integrationm5 .navbar-caption {
+    font-size: 0.84em;
+    line-height: 1.04 !important;
+  }
+
+  .menu01.integrationm5 .navbar-toggler {
+    display: block !important;
+    order: 2;
+    margin-left: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    align-self: center;
+    border: 0;
+    background: transparent;
+    color: var(--rs-color-text, #0b1221);
+    padding: 0.25rem;
+    min-width: 44px;
+    min-height: 44px;
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+  }
+
+  .menu01.integrationm5 .hamburger {
+    width: 28px;
+    height: 20px;
+    position: relative;
+    color: inherit;
+  }
+
+  .menu01.integrationm5 .hamburger::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 100% 2px;
+    background-position: 0 0, 0 6px, 0 12px, 0 18px;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  .menu01.integrationm5 .hamburger span {
+    display: none;
+  }
+
+  .menu01.integrationm5 .navbar-collapse {
+    display: none !important;
+    order: 3;
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--rs-color-menu-panel) !important;
+  }
+
+  .menu01.integrationm5 .navbar-collapse.show,
+  .menu01.integrationm5 .navbar-collapse.collapsing {
+    display: block !important;
+  }
+
+  .menu01.integrationm5 .navbar-nav {
+    white-space: normal !important;
+    flex-wrap: wrap !important;
+    gap: 0.3rem;
+  }
+
+  .menu01.integrationm5 .navbar-nav .nav-link {
+    padding: 0.34rem 0.72rem !important;
+    font-size: 0.9rem;
+  }
+
+  .menu01.integrationm5 .navbar-actions {
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+  }
+}
+
 /* --- Mobile --- */
 @media (max-width: 991.98px) {
   .menu01.integrationm5 .navbar.navbar-fixed-top {
@@ -865,16 +972,16 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
   .menu01.integrationm5 .navbar-brand {
     display: flex;
     align-items: center;
+    flex: 1 1 auto;
+    max-width: calc(100% - 56px);
     min-width: 0;
   }
 
   .menu01.integrationm5 .navbar-caption-wrap {
-    display: inline-block;
-    max-width: 170px;
+    display: none !important;
+    max-width: 0;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-left: 0.35rem;
+    margin-left: 0;
   }
 
   .menu01.integrationm5 .navbar-caption {
@@ -933,7 +1040,13 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
     align-self: center;
     border: 0;
     background: transparent;
+    color: var(--rs-color-text, #0b1221);
     padding: 0.25rem;
+    min-width: 44px;
+    min-height: 44px;
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
     display: block !important;
   }
 
@@ -941,21 +1054,28 @@ body.admin-bar .menu01.integrationm5 .navbar.navbar-fixed-top {
     width: 28px;
     height: 20px;
     position: relative;
+    color: inherit;
+  }
+
+  .menu01.integrationm5 .hamburger::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor),
+      linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-size: 100% 2px;
+    background-position: 0 0, 0 6px, 0 12px, 0 18px;
+    opacity: 1;
+    pointer-events: none;
   }
 
   .menu01.integrationm5 .hamburger span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: var(--rs-color-text);
-    border-radius: 2px;
+    display: none;
   }
-
-  .menu01.integrationm5 .hamburger span:nth-child(1) { top: 0; }
-  .menu01.integrationm5 .hamburger span:nth-child(2) { top: 6px; }
-  .menu01.integrationm5 .hamburger span:nth-child(3) { top: 12px; }
-  .menu01.integrationm5 .hamburger span:nth-child(4) { top: 18px; }
 
   .menu01.integrationm5 .navbar-collapse {
     background: var(--rs-color-menu-panel) !important;

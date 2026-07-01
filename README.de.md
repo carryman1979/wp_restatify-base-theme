@@ -1,13 +1,13 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.0.16, getestet bis WordPress 6.9.
+Stand: Version 1.1.0, getestet bis WordPress 6.9.
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
-Release-Prep-Status (2026-05-30):
+Release-Prep-Status (2026-07-01):
 
-- Dokumentation auf den aktuellen 1.0.15-Hotfix-Stand ohne Versionssprung synchronisiert.
-- Footer-/Customizer-Refactorings und Look-and-Feel-/Dark-Theme-Polish fuer den Rollout konsolidiert.
+- Header-Responsiveness-Hotfix fuer stabile Darstellung in Desktop-, Kompakt- und Mobile-Breakpoints zusammengefuehrt.
+- Cookie-Consent/Booking-Interaktion und Release-Artefakte fuer den Hotfix-Stand 1.1.0 synchronisiert.
 
 Das Theme folgt bewusst den Standard-WordPress-Mechanismen:
 
@@ -114,6 +114,16 @@ Release-ZIP erzeugen:
 Das ZIP liegt danach unter /release.
 
 ## Changelog
+
+### 1.1.0
+
+- Header-Layout in Pattern und Theme-CSS konsolidiert: neue `navbar-actions`-Gruppe, verbesserte Verteilung von Brand, Navigation und Actions.
+- Tagline/Caption-Verhalten stabilisiert: Umbruch auf Desktop, kompaktere Typografie bei engeren Breiten, Ausblendung im Mobile-Header.
+- Kompaktmodus (992-1220px) ergaenzt: Hamburger/Collapse greifen frueher, damit keine Ueberlagerung zwischen Tagline und Navigation entsteht.
+- Opera-Mobile/Opera-Desktop-Hamburger-Fix: robustes Icon-Rendering via Pseudo-Element, zusaetzliche Sichtbarkeits-/Layering-Sicherungen.
+- Cookie-Consent-Hotfix: Consent-Reload wird bei aktivem Booking-Overlay/hash-basiertem Booking unterdrueckt; Event `restatify:cookie-consent-changed` hinzugefuegt.
+- Cookie-Banner-Z-Index gegen Booking-Overlay angehoben, damit Consent-Aktionen wieder erreichbar sind.
+- JS-Unit-Test fuer Cookie-Consent-Hooks und Booking-Guard hinzugefuegt.
 
 ### 1.0.14
 
