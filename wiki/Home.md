@@ -269,6 +269,13 @@ npm run package
 - Release- und Wiki-Dokumentation fuer den finalen 1.0.13-Stand synchronisiert.
 - Packaging-Workflow fuer reproduzierbare finale Release-Builds verifiziert.
 
+## Letzte Aenderungen (1.0.13)
+
+- Finale Konsolidierung unveroeffentlichter lokaler Zwischenstaende seit 1.0.12.
+- Release-Artefakte oberhalb der letzten GitHub-Release-Version lokal bereinigt.
+- Release- und Wiki-Dokumentation fuer den finalen 1.0.13-Stand synchronisiert.
+- Packaging-Workflow fuer reproduzierbare finale Release-Builds verifiziert.
+
 ## Letzte Aenderungen (1.0.11)
 
 - Header-Hauptnavigation auf zuweisbares WordPress-Menue umgestellt (`primary_menu`) statt automatischer Top-Level-Seitenliste.
