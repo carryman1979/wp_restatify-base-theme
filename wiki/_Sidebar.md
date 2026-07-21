@@ -1,6 +1,8 @@
 ## Restatify Base Theme
 
 - [Home](Home)
+- [Custom Blocks Referenz](Custom-Blocks-Referenz)
+- [Release 1.1.1](Release-1.1.1)
 - [Release 1.1.0](Release-1.1.0)
 - [Release 1.0.16](Release-1.0.16)
 - [Release 1.0.15](Release-1.0.15)

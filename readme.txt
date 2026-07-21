@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 5.7
-Version: 1.1.0
+Version: 1.1.1
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -131,6 +131,10 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.1.1 =
+* Maintenance release consolidating current local theme updates and wiki refresh.
+* Synchronized theme metadata and package version for coordinated multi-repo publication.
 
 = 1.1.0 =
 * Consolidated responsive header hotfix package: improved brand/nav/actions distribution and stable `navbar-actions` grouping in header pattern.

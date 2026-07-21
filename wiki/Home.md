@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.1.0, getestet bis WordPress 7.0.
+Stand: Version 1.1.1, getestet bis WordPress 7.0.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -8,6 +8,7 @@ Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklu
 
 - Zweck und Architektur
 - Enthaltene Blöcke
+- Detaillierte Block-Referenz
 - Schnellstart Installation
 - Externe Installation mit Release-ZIP
 - Entwicklung lokal
@@ -59,6 +60,10 @@ Das Theme enthält aktuell:
 
 Der Oracle-Block ergaenzt die Bibliothek um eine futuristische Wortpaar-Animation mit periodischem Logo-Overlay und erweiterten Layout-Optionen.
 Der Timer-Block ergaenzt die Bibliothek um einen zielzeitpunktbasierten Countdown mit kalendergenauer Anzeige (Jahre bis Sekunden).
+
+Feldgenaue Dokumentation fuer alle Inspector-Einstellungen, Textfelder, Links und Button-Beschriftungen:
+
+- Siehe [Custom Blocks Referenz](Custom-Blocks-Referenz)
 
 ---
 
@@ -250,24 +255,18 @@ npm run package
 - Cookie-Banner-Z-Index ueber Booking-Overlay angehoben.
 - JS-Unit-Test fuer Cookie-Consent-Booking-Guard ergänzt.
 
-## Release-Prep Status (2026-07-01)
+## Release-Prep Status (2026-07-21)
 
-<<<<<<< HEAD
 - Fremd-PR auf `main` vor Release-Vorbereitung gemerged und Hotfix-Branch auf aktualisierter Basis erstellt.
 - Versionsstand auf `1.1.0` in Theme-Metadaten und Paket-Metadaten synchronisiert.
 - README, Wiki und GitHub-Release-Notes fuer den gebuendelten Hotfix-Stand aktualisiert.
-=======
 - Dokumentation und Release-Notizen auf Version 1.0.16 aktualisiert.
 - Footer-/Customizer-Refactorings und Look-and-Feel-Polish fuer den finalen Rollout konsolidiert.
 - Release-ZIP fuer 1.0.16 wurde neu gebaut und als aktueller Stand veroeffentlicht.
->>>>>>> release/2026-05-30-v1.0.16
 
-## Letzte Aenderungen (1.0.13)
-
-- Finale Konsolidierung unveroeffentlichter lokaler Zwischenstaende seit 1.0.12.
-- Release-Artefakte oberhalb der letzten GitHub-Release-Version lokal bereinigt.
-- Release- und Wiki-Dokumentation fuer den finalen 1.0.13-Stand synchronisiert.
-- Packaging-Workflow fuer reproduzierbare finale Release-Builds verifiziert.
+- Offene lokale Theme- und Wiki-Aenderungen als Maintenance-Release konsolidiert.
+- Versionsstand auf `1.1.1` in Theme-Metadaten und Paket-Metadaten synchronisiert.
+- README, Wiki und Release-Workflow fuer den koordinierten Mehr-Repo-Stand aktualisiert.
 
 ## Letzte Aenderungen (1.0.13)
 
@@ -316,6 +315,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.1.1](Release-1.1.1)
 - [Release 1.0.16](Release-1.0.16)
 - [Release 1.0.12](Release-1.0.12)
 - [Release 1.0.11](Release-1.0.11)
