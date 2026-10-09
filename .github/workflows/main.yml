@@ -12,6 +12,34 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  php-unit:
+    name: PHP Unit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout shared test fixture
+        uses: actions/checkout@v4
+        with:
+          repository: carryman1979/wp_restatify-shared
+          ref: 21d3d6caeb764e929b757e11407f3e218c36221c
+          path: .shared-test-fixture
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: phpunit:10.5
+          extensions: mbstring, dom, xml, xmlwriter
+      - name: Run PHP unit tests
+        run: phpunit --configuration phpunit.xml.dist
+        env:
+          RESTATIFY_SHARED_TEST_ROOT: ${{ github.workspace }}/.shared-test-fixture
+      - name: Verify theme-only shared bootstrap
+        run: |
+          php tests/php/shared-bootstrap-smoke.php . packaged
+          php tests/php/shared-bootstrap-smoke.php . local
+          php tests/php/shared-bootstrap-smoke.php . mu
+        env:
+          RESTATIFY_SHARED_TEST_ROOT: ${{ github.workspace }}/.shared-test-fixture
+
   js-unit:
     name: JS Unit
     runs-on: ubuntu-latest

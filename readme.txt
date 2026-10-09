@@ -3,8 +3,8 @@
 Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
-Requires PHP: 5.7
-Version: 1.1.1
+Requires PHP: 8.0
+Version: 1.2.0
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -132,6 +132,14 @@ The ZIP is created in /release.
 
 == Changelog ==
 
+= 1.2.0 =
+* Add single-post layout, article overview dialog and adjacent-post navigation.
+* Add blog-grid infinite scroll with retry handling and session caching.
+* Add configurable honeypot, reCAPTCHA v3 and Turnstile comment protection.
+* Bundle exact Shared 1.1.0 and install its runtime when no plugins are active.
+* Require PHP 8.0+ to match the shared runtime.
+* Fail packaging when the production build fails.
+
 = 1.1.1 =
 * Maintenance release consolidating current local theme updates and wiki refresh.
 * Synchronized theme metadata and package version for coordinated multi-repo publication.
@@ -238,4 +246,3 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
-

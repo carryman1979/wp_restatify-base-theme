@@ -1,8 +1,10 @@
 <?php
 
 if (!defined('RESTATIFY_BASE_THEME_SHARED_VERSION')) {
-    define('RESTATIFY_BASE_THEME_SHARED_VERSION', '1.0.2');
+    define('RESTATIFY_BASE_THEME_SHARED_VERSION', '1.1.0');
 }
+
+require_once get_template_directory() . '/inc/shared-library.php';
 
 $restatify_theme_require_first = static function (array $paths): bool {
     foreach ($paths as $path) {
@@ -41,11 +43,24 @@ if ($restatify_theme_use_local_latest_shared) {
     if ($restatify_theme_shared_base_path === '' && count($restatify_theme_versioned_roots) > 0) {
         $restatify_theme_shared_base_path = rtrim($restatify_theme_versioned_roots[0], '/') . '/versions/' . RESTATIFY_BASE_THEME_SHARED_VERSION;
     }
+
+    if ($restatify_theme_shared_base_path !== '') {
+        restatify_theme_install_shared_payload(
+            get_template_directory() . '/shared-install/wp_restatify-shared/versions/' . RESTATIFY_BASE_THEME_SHARED_VERSION,
+            $restatify_theme_shared_base_path
+        );
+    }
 }
 
 if (!class_exists('\\Restatify\\Shared\\Runtime\\PluginState', false)) {
     $restatify_theme_require_first([
         rtrim($restatify_theme_shared_base_path, '/') . '/src/php/Runtime/PluginState.php',
+    ]);
+}
+
+if (!class_exists('\\Restatify\\Shared\\Security\\CaptchaVerifier', false)) {
+    $restatify_theme_require_first([
+        rtrim($restatify_theme_shared_base_path, '/') . '/src/php/Security/CaptchaVerifier.php',
     ]);
 }
 
@@ -58,6 +73,8 @@ $restatify_includes = [
     '/inc/customizer.php',
     '/inc/polylang.php',
     '/inc/blocks.php', // Block-Registrierung
+    '/inc/blog-navigation.php',
+    '/inc/comment-security.php',
 ];
 
 foreach ($restatify_includes as $restatify_file) {
