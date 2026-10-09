@@ -159,6 +159,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
         expect(document.querySelector('[role="status"]').textContent).toBe('Failed');
         expect(document.querySelector('button').hidden).toBe(false);
         expect(errorLog).toHaveBeenCalledTimes(1);
+        expect(console).toHaveErrored();
         document.querySelector('button').click();
         await flush();
         expect(count()).toBe(3);
@@ -176,6 +177,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
         expect(count()).toBe(2);
         expect(document.querySelector('[role="status"]').textContent).toBe('Failed');
         expect(sessionStorage.getItem('restatify-blog-pages-v1')).toBeNull();
+        expect(console).toHaveErrored();
     });
 
     it('deduplicates posts when publication changes between page requests', async () => {
@@ -215,6 +217,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
         start();
         expect(window.fetch).not.toHaveBeenCalled();
         expect(document.querySelector('[role="status"]').textContent).toBe('Failed');
+        expect(console).toHaveErrored();
     });
 
     it('continues with in-memory prefetch caching if browser storage is blocked', async () => {
@@ -228,6 +231,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
         expect(count()).toBe(3);
         expect(window.fetch).toHaveBeenCalledTimes(1);
         expect(warningLog).toHaveBeenCalledTimes(1);
+        expect(console).toHaveWarned();
     });
 
     it('refetches invalid cached cards instead of trapping retries in the cache', async () => {
@@ -243,6 +247,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
         expect(window.fetch).toHaveBeenCalledTimes(1);
         expect(warningLog).toHaveBeenCalledTimes(1);
         expect(errorLog).not.toHaveBeenCalled();
+        expect(console).toHaveWarned();
     });
 
     it('aborts a stalled request after fifteen seconds and exposes retry', async () => {
@@ -258,6 +263,7 @@ describe('Restatify Blog Post Grid infinite scrolling', () => {
             expect(document.querySelector('[role="status"]').textContent).toBe('Failed');
             expect(document.querySelector('button').hidden).toBe(false);
             expect(count()).toBe(2);
+            expect(console).toHaveErrored();
         } finally {
             jest.useRealTimers();
         }
