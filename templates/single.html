@@ -1,0 +1,55 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"restatify-single-post-layout","layout":{"type":"constrained"}} -->
+<main class="wp-block-group restatify-single-post-layout">
+    <!-- wp:restatify/blog-navigation /-->
+
+    <!-- wp:group {"className":"restatify-single-post-heading","layout":{"type":"constrained"}} -->
+    <div class="wp-block-group restatify-single-post-heading">
+        <!-- wp:post-terms {"term":"category","className":"restatify-single-post-category"} /-->
+
+        <!-- wp:post-title {"level":1,"className":"restatify-single-post-title"} /-->
+
+        <!-- wp:group {"className":"restatify-single-post-meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+        <div class="wp-block-group restatify-single-post-meta">
+            <!-- wp:post-date /-->
+
+            <!-- wp:post-author-name /-->
+        </div>
+        <!-- /wp:group -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:post-featured-image {"aspectRatio":"16/9","className":"restatify-single-post-image"} /-->
+
+    <!-- wp:post-content {"layout":{"type":"constrained"}} /-->
+
+    <!-- wp:restatify/post-adjacent-navigation /-->
+
+    <!-- wp:comments -->
+    <div class="wp-block-comments restatify-post-comments"><!-- wp:comments-title /-->
+        <!-- wp:comment-template -->
+        <!-- wp:group {"className":"restatify-post-comments__item","layout":{"type":"constrained"}} -->
+        <div class="wp-block-group restatify-post-comments__item"><!-- wp:comment-author-name /-->
+            <!-- wp:comment-date /-->
+            <!-- wp:comment-content /-->
+            <!-- wp:comment-reply-link /-->
+        </div>
+        <!-- /wp:group -->
+        <!-- /wp:comment-template -->
+
+        <!-- wp:comments-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
+        <!-- wp:comments-pagination-previous /-->
+        <!-- wp:comments-pagination-numbers /-->
+        <!-- wp:comments-pagination-next /-->
+        <!-- /wp:comments-pagination -->
+
+        <!-- wp:post-comments-form /-->
+    </div>
+    <!-- /wp:comments -->
+
+    <!-- wp:pattern {"slug":"restatify-base-blog-related-posts"} /-->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

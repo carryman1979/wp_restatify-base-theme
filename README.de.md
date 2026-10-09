@@ -1,6 +1,24 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.1.0, getestet bis WordPress 6.9.
+Stand: Version 1.2.0, getestet bis WordPress 6.9. Erfordert PHP 8.0+.
+
+## Release 1.2.0
+
+- Single-Post-Template mit Artikeluebersicht, benachbarten Artikeln und Kommentaren.
+- Infinite Scroll fuer das Blog-Raster mit erneutem Laden bei Fehlern.
+- Kommentarschutz mit Honeypot, reCAPTCHA v3 oder Cloudflare Turnstile.
+- Exakte Shared-Abhaengigkeit `1.1.0`, im Update-ZIP enthalten und auch ohne aktive Plugins installiert.
+- Lokales Root-Shared bleibt vorrangig; andere installierte Shared-Versionen bleiben erhalten.
+- PHP-Mindestversion an die benoetigte Shared-Library angepasst.
+
+Pruefungen: `npm run test:unit:js -- --runInBand` sowie PHPUnit 10.5 mit
+`--configuration phpunit.xml.dist`. In diesem Multi-Repo-Workspace kann der
+PHPUnit-Runner aus `../../plugins/wp-restatify-forms/vendor/bin/phpunit`
+verwendet werden. CI pinnt die Shared-Test-Fixture auf den getesteten Commit.
+`RESTATIFY_SHARED_TEST_ROOT` kann alternativ deren absoluten Pfad festlegen.
+
+Theme-only Loader-Smoke-Tests:
+`php tests/php/shared-bootstrap-smoke.php . packaged` (auch `local` und `mu`).
 
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
@@ -216,4 +234,3 @@ Das ZIP liegt danach unter /release.
 Restatify Base WordPress Theme, (C) 2026 Thomas Hoffermann.
 
 Veroeffentlicht unter GPL v2 oder spaeter.
-

@@ -1,6 +1,11 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.1.1, getestet bis WordPress 7.0.
+Stand: Version 1.2.0, Release-Metadaten fuer WordPress 6.9, PHP 8.0+.
+
+Shared-Abhaengigkeit: exakt `1.1.0`. Das Theme installiert den enthaltenen
+PHP-Payload auch ohne aktive Plugins unter
+`wp-content/plugins/wp_restatify-shared/versions/1.1.0`.
+Lokales Root-Shared hat Vorrang; vorhandene andere Versionen werden nicht entfernt.
 
 Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklung, Betrieb und Release des Themes gedacht.
 
@@ -36,6 +41,30 @@ Technische Eckpunkte:
 - Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
 - Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
 - Klare Trennung zwischen inhaltlicher Block-Entwicklung und deploybaren Build-Artefakten
+
+## Blog-Lesebereich und Artikelnavigation
+
+Einzelne Blogbeiträge verwenden `templates/single.html`. Die Vorlage stellt Titel und Metadaten vor dem optionalen Beitragsbild dar und setzt den Inhalt in einen begrenzten, responsiven Lesebereich mit theme-abhängiger Oberfläche. Unter dem Artikel erscheinen Links zum vorherigen und nächsten Beitrag, danach der WordPress-Kommentarbereich und anschließend Related Articles. Kommentare müssen für den Beitrag beziehungsweise in den Diskussionseinstellungen aktiviert sein. Für öffentliche Diskussionen unter **Einstellungen > Diskussion** die Registrierungspflicht deaktivieren und **„Der Kommentarautor muss Name und E-Mail-Adresse ausfüllen“** aktivieren. WordPress prüft die E-Mail-Adresse auf ein gültiges Format, bestätigt damit aber nicht, dass sie dem Kommentierenden gehört. Die Schutzoptionen liegen unter **Einstellungen > Kommentarsicherheit**: Honeypot kann allein oder zusammen mit Google reCAPTCHA v3 beziehungsweise Cloudflare Turnstile genutzt werden. Die CAPTCHA-Schlüssel sind eigene Theme-Einstellungen und unabhängig von Restatify Forms. Fehlende Schlüssel, ein fehlendes Shared-Verifier-Modul, ungültige Tokens und nicht erreichbare Prüfserver blockieren den Kommentar. Die Datenschutzhinweise müssen die Übertragung von IP-Adresse und Prüfdaten an den gewählten Anbieter abdecken. Über den dynamischen Block `restatify/blog-navigation` führt der Übersichtslink zur in WordPress unter **Einstellungen > Lesen** festgelegten Beitragsseite. Ein schwebender Symbolbutton am linken Bildschirmrand öffnet eine seitliche Artikelliste mit veröffentlichten Beiträgen der aktiven Polylang-Sprache. Bei mehr als zehn Artikeln ist die Liste seitenweise navigierbar; der Dialog lässt sich per Schaltfläche, Escape-Taste und Klick auf den Hintergrund schließen. Die Blog-Grid-Vorlage nutzt Beitragsbilder, zentriert die Karten in einem begrenzten Raster mit höchstens drei Spalten und hält größere Abstände zwischen ihnen.
+
+### Endloses Scrollen im Restatify Blog Post Grid
+
+Nur das Pattern **Restatify Blog Post Grid** (`restatify-blog-query--grid`) lädt beim Scrollen weitere Artikel nach; die WordPress-Beitragsseite und Related Articles werden nicht verändert. Es gibt keine sichtbare Pagination. Der WordPress-Block „Abfrage-Paginierung > Nächste Seite“ bleibt als unsichtbarer technischer Seitenzeiger im Grid erhalten und darf im Editor nicht entfernt werden. Bestehende Grids mit der bisherigen Pagination werden ebenfalls automatisch umgestellt, ohne die gespeicherten Blockattribute zu verändern.
+
+Die erste Gruppe enthält standardmäßig sechs Artikel. Innerhalb von zwei Bildschirmhöhen vor dem Grid-Ende wird eine weitere Gruppe samt Bildern vorgeladen und ab 300 Pixeln vor dem Ende angehängt. Danach wird jeweils die nächste Gruppe vorgeladen, nicht die gesamte Artikelsammlung. Reihenfolge, Filter, Kartenvorlage und Polylang-Sprache bleiben durch die von WordPress erzeugten Folgeseiten erhalten. Bereits vorhandene Artikel werden nicht doppelt angehängt.
+
+Ein laufender beziehungsweise vorgeladener Abruf wird im Arbeitsspeicher wiederverwendet. Zusätzlich speichert `sessionStorage` bis zu sechs Kartengruppen für fünf Minuten im aktuellen Browser-Tab; es werden keine vollständigen Seiten oder Formulare gespeichert. Bilder nutzen den normalen Browser-HTTP-Cache. Bei gesperrtem Browser-Speicher funktioniert das Vorladen weiterhin im Arbeitsspeicher. Bei Ladefehlern bleiben vorhandene Karten erhalten und eine Fehlermeldung mit „Erneut versuchen“ erscheint. Am Ende werden keine weiteren Requests gestellt. Ohne JavaScript bleiben die initialen Artikel sichtbar und ein Hinweis erklärt, dass JavaScript für weitere Artikel benötigt wird; es gibt auch dann keine Pagination.
+
+Manuelle Integrationstests nach Änderungen am Blog-Styling:
+
+- Einzelbeitrag mit Titel, Metadaten, Beitragsbild und langen Absätzen auf Desktop und Mobilgeräten prüfen; auch einen Beitrag ohne Beitragsbild kontrollieren.
+- Übersichtslink auf die konfigurierte Beitragsseite und seine Tastaturbedienbarkeit prüfen.
+- Dialog mit Maus und Tastatur öffnen, per Escape und Hintergrundklick schließen sowie Fokus-Rückgabe und Tastaturbedienung der Artikellinks prüfen.
+- Schwebenden Symbolbutton am linken Bildschirmrand während des Scrollens und außerhalb des Chat-Popups prüfen; die Artikelliste mit aktuellem Beitrag und bei mehr als zehn Einträgen die Pagination kontrollieren; aktives Polylang berücksichtigen.
+- Einzelbeitrag mit Kommentaren geöffnet und geschlossen prüfen; Vor-/Nächster-Links am ältesten und neuesten Beitrag sowie Kommentarformular und Antworten kontrollieren.
+- In **Einstellungen > Kommentarsicherheit** Honeypot und beide Provider mit gültigen und fehlenden Schlüsseln testen; leere/ungültige Tokens und simulierte Provider-Ausfälle müssen Kommentare zuverlässig blockieren. Formular im eingeloggten und ausgeloggten Zustand prüfen.
+- Blog-Grid bei sechs und bei weniger Beiträgen auf zentrierte Darstellung, maximal drei Spalten, responsive Abstände sowie mit und ohne Beitragsbild prüfen.
+- Blog-Grid mit mindestens 13 Beiträgen: keine sichtbare Pagination, Vorladen ohne Anhängen, Anhängen beim Scrollen, genau ein paralleler Abruf je Grid und Ende ohne zusätzliche Abrufe prüfen. Bei erneuter Navigation im selben Tab muss der Fünf-Minuten-Cache verwendet werden; Cache-Grenze von sechs Gruppen, Fehler/Retry, mehrere Grids, Sprachfilter und deaktiviertes JavaScript prüfen.
+- Lesebereich, Artikelliste und Karten in Light-/Dark-Mode auf Kontrast prüfen; längere Übersetzungen und RTL-Darstellung mit Polylang testen.
 
 ---
 

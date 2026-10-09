@@ -109,6 +109,37 @@ function restatify_theme_assets() {
     // Theme overrides LAST
     wp_enqueue_style('restatify-style', get_stylesheet_uri(), ['mobirise-additional'], filemtime(get_template_directory() . '/style.css'));
     wp_enqueue_style('restatify-style-footer-cookie', $uri . '/theme/css/style-footer-cookie.css', ['restatify-style'], filemtime(get_template_directory() . '/assets/theme/css/style-footer-cookie.css'));
+    wp_enqueue_style('restatify-blog-layout', $uri . '/theme/css/blog-layout.css', ['restatify-style-footer-cookie'], filemtime(get_template_directory() . '/assets/theme/css/blog-layout.css'));
+
+    wp_enqueue_script(
+        'restatify-blog-infinite-scroll',
+        $uri . '/theme/js/blog-infinite-scroll.js',
+        [],
+        filemtime(get_template_directory() . '/assets/theme/js/blog-infinite-scroll.js'),
+        true
+    );
+    $blog_scroll_messages = [
+        'loading' => __('Weitere Artikel werden geladen …', 'restatify-base'),
+        'end' => __('Alle Artikel sind geladen.', 'restatify-base'),
+        'error' => __('Weitere Artikel konnten nicht geladen werden.', 'restatify-base'),
+        'retry' => __('Erneut versuchen', 'restatify-base'),
+        'unsupported' => __('Bitte verwende einen aktuellen Browser, um weitere Artikel automatisch zu laden.', 'restatify-base'),
+    ];
+    foreach ($blog_scroll_messages as $key => $message) {
+        $blog_scroll_messages[$key] = function_exists('pll__') ? pll__($message) : $message;
+    }
+    wp_localize_script('restatify-blog-infinite-scroll', 'RestatifyBlogScroll', $blog_scroll_messages);
+
+    if (is_singular('post')) {
+        $article_navigation_path = get_template_directory() . '/assets/theme/js/article-navigation.js';
+        wp_enqueue_script(
+            'restatify-article-navigation',
+            $uri . '/theme/js/article-navigation.js',
+            [],
+            file_exists($article_navigation_path) ? (string) filemtime($article_navigation_path) : null,
+            true
+        );
+    }
 
     // Scripts
     wp_enqueue_script('bootstrap-js', $uri . '/bootstrap/js/bootstrap.bundle.min.js', [], null, true);
@@ -232,3 +263,18 @@ function restatify_render_cookie_banner() {
     <?php
 }
 add_action('wp_footer', 'restatify_render_cookie_banner', 100);
+
+/**
+ * Explain the JavaScript requirement without exposing pagination controls.
+ */
+function restatify_blog_grid_noscript(string $content, array $block): string {
+    $classes = preg_split('/\s+/', trim((string) ($block['attrs']['className'] ?? '')));
+    if (!in_array('restatify-blog-query--grid', $classes, true)) {
+        return $content;
+    }
+
+    $message = __('Aktiviere JavaScript, um beim Scrollen weitere Blogartikel zu laden.', 'restatify-base');
+    $message = function_exists('pll__') ? pll__($message) : $message;
+    return $content . '<noscript><p class="restatify-blog-scroll">' . esc_html($message) . '</p></noscript>';
+}
+add_filter('render_block_core/query', 'restatify_blog_grid_noscript', 10, 2);

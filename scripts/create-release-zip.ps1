@@ -13,15 +13,24 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
     $Version = $packageJson.version
 }
 
-$functionsFilePath = Join-Path $themeRoot 'inc/shared-runtime.php'
-$sharedVersionMatch = [regex]::Match((Get-Content $functionsFilePath -Raw), "RESTATIFY_THEME_SHARED_VERSION'\s*,\s*'([^']+)'")
+$functionsFilePath = Join-Path $themeRoot 'functions.php'
+$sharedVersionMatch = [regex]::Match((Get-Content $functionsFilePath -Raw), "RESTATIFY_BASE_THEME_SHARED_VERSION'\s*,\s*'([^']+)'")
 if (-not $sharedVersionMatch.Success) {
-    throw 'Could not detect RESTATIFY_THEME_SHARED_VERSION from inc/shared-runtime.php'
+    throw 'Could not detect RESTATIFY_BASE_THEME_SHARED_VERSION from functions.php'
 }
 
 $sharedVersion = $sharedVersionMatch.Groups[1].Value.Trim()
 
+$sharedPackagePath = [System.IO.Path]::GetFullPath((Join-Path $themeRoot '../../../wp_restatify-shared/package.json'))
+$sharedPackage = Get-Content $sharedPackagePath -Raw | ConvertFrom-Json
+if ($sharedPackage.version -ne $sharedVersion) {
+    throw "Shared source version $($sharedPackage.version) does not match required version $sharedVersion"
+}
+
 npm run build
+if ($LASTEXITCODE -ne 0) {
+    throw "Theme production build failed with exit code $LASTEXITCODE"
+}
 
 $releaseDir = Join-Path $themeRoot 'release'
 New-Item -ItemType Directory -Path $releaseDir -Force | Out-Null
