@@ -6,8 +6,11 @@ import {
 	ToggleControl,
 	Button,
 	ColorPicker,
-	RangeControl
+	RangeControl,
+	SelectControl
 } from '@wordpress/components';
+import { getYouTubeVideoId } from './youtube-url';
+import './background-video-controls';
 
 export function clampOverlayOpacity(value) {
 	const numberValue = Number(value);
@@ -46,6 +49,8 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 	const {
 		backgroundImageEnabled,
 		backgroundImageUrl,
+		backgroundMediaType,
+		backgroundVideoUrl,
 		parallax,
 		fullscreen,
 		overlayEnabled,
@@ -57,7 +62,7 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 	return (
 		<PanelBody title={__('Background & layout', 'restatify-base')} initialOpen={true}>
 			<ToggleControl
-				label={__('Show background image', 'restatify-base')}
+				label={__('Enable background media', 'restatify-base')}
 				checked={backgroundImageEnabled !== false}
 				onChange={(v) => {
 					const isEnabled = !!v;
@@ -70,6 +75,28 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 			/>
 			{backgroundImageEnabled !== false && (
 				<>
+					<SelectControl
+						label={__('Background source', 'restatify-base')}
+						value={backgroundMediaType || 'image'}
+						options={[
+							{ label: __('Image', 'restatify-base'), value: 'image' },
+							{ label: __('YouTube video', 'restatify-base'), value: 'video' },
+						]}
+						onChange={(value) => setAttributes({ backgroundMediaType: value })}
+					/>
+					{backgroundMediaType === 'video' ? (
+						<>
+							<TextControl
+								label={__('YouTube URL', 'restatify-base')}
+								value={backgroundVideoUrl || ''}
+								onChange={(value) => setAttributes({ backgroundVideoUrl: value })}
+								help={backgroundVideoUrl && !getYouTubeVideoId(backgroundVideoUrl)
+									? __('Enter a valid HTTPS YouTube video URL (watch, shorts, embed or youtu.be).', 'restatify-base')
+									: __('Muted looping playback starts on the website only after cookie consent. The editor does not connect to YouTube. Reduced-motion visitors see the local fallback.', 'restatify-base')}
+							/>
+						</>
+					) : (
+						<>
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={(media) => setAttributes({ backgroundImageUrl: media?.url || '' })}
@@ -88,6 +115,8 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 						<Button variant="link" onClick={() => setAttributes({ backgroundImageUrl: '' })}>
 							{__('Use theme default background', 'restatify-base')}
 						</Button>
+					)}
+						</>
 					)}
 				</>
 			)}

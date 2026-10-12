@@ -1,4 +1,17 @@
 <?php
+/**
+ * Keep the server attribute schema in sync with the shared editor controls.
+ */
+function restatify_background_video_attributes(array $args, string $name): array {
+    if (strpos($name, 'restatify/') !== 0 || !isset($args['attributes']['backgroundImageEnabled'])) {
+        return $args;
+    }
+    $args['attributes']['backgroundMediaType'] = ['type' => 'string', 'default' => 'image'];
+    $args['attributes']['backgroundVideoUrl'] = ['type' => 'string', 'default' => ''];
+    return $args;
+}
+add_filter('register_block_type_args', 'restatify_background_video_attributes', 10, 2);
+
 // Register all built custom blocks from /build/*.
 add_action( 'init', function() {
     $build_root = __DIR__ . '/../build';

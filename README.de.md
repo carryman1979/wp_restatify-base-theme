@@ -1,6 +1,30 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.2.0, getestet bis WordPress 6.9. Erfordert PHP 8.0+.
+Stand: Version 1.2.1, getestet bis WordPress 6.9. Erfordert PHP 8.0+.
+
+## Release 1.2.1
+
+Alle Custom-Sektionsbloecke bieten unter **Background & layout > Background source**
+die Auswahl **Image** oder **YouTube video**. Bei Video eine HTTPS-URL von
+YouTube (watch/shorts/embed) oder youtu.be eintragen; Overlay-Farbe, Deckkraft,
+Parallax und Fullscreen funktionieren weiter. Bestehende Bildbloecke bleiben
+unveraendert. Die Auswahl speichert Bild und Video getrennt, zeigt aber nur
+den gewaehlten Typ.
+
+Der Editor verwendet eine lokale, statische Vorschau ohne YouTube-Verbindung.
+Auf der Website laden Videos erst nach Zustimmung im Cookie-Banner und beim
+Eintritt in den sichtbaren Bereich. Sie laufen stumm in Schleife und besitzen
+eine Pause-/Abspielen-Schaltflaeche. Widerruf entfernt das iframe sofort.
+Besucher mit reduzierter Bewegung sehen den lokalen Theme-Hintergrund statt
+Video und Parallax. Ohne Zustimmung oder bei Playerfehlern bleibt ebenfalls
+der lokale Theme-Hintergrund samt Overlay sichtbar.
+
+YouTube muss das Einbetten erlauben. Autoplay ist browserabhaengig; die offizielle
+Player-API hat ein Ladezeitlimit von 15 Sekunden, der anschliessende Videostart
+von 20 Sekunden. Fehler werden angezeigt und der Player entfernt.
+Nach Zustimmung koennen Besucherdaten an YouTube uebertragen werden, auch mit
+youtube-nocookie.com. Cookie-Banner und Datenschutzerklaerung muessen die
+Verwendung von YouTube abdecken. Es wird keine YouTube-API-Bibliothek vorab geladen.
 
 ## Release 1.2.0
 

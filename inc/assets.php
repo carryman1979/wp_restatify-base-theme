@@ -153,6 +153,18 @@ function restatify_theme_assets() {
     }
 
     wp_enqueue_script('restatify-cookie-consent', $uri . '/theme/js/cookie-consent.js', [], filemtime(get_template_directory() . '/assets/theme/js/cookie-consent.js'), true);
+    wp_enqueue_style('restatify-background-video', $uri . '/theme/css/background-video.css', ['restatify-style'], filemtime(get_template_directory() . '/assets/theme/css/background-video.css'));
+    wp_enqueue_script('restatify-background-video', $uri . '/theme/js/background-video.js', ['restatify-cookie-consent'], filemtime(get_template_directory() . '/assets/theme/js/background-video.js'), true);
+    $video_messages = [
+        'title' => __('Dekoratives Hintergrundvideo', 'restatify-base'),
+        'pause' => __('Hintergrundvideo pausieren', 'restatify-base'),
+        'play' => __('Hintergrundvideo abspielen', 'restatify-base'),
+        'error' => __('Das Hintergrundvideo konnte nicht abgespielt werden.', 'restatify-base'),
+    ];
+    foreach ($video_messages as $key => $message) {
+        $video_messages[$key] = function_exists('pll__') ? pll__($message) : $message;
+    }
+    wp_localize_script('restatify-background-video', 'RestatifyBackgroundVideo', $video_messages);
 
     $privacy_url = esc_url(restatify_get_cookie_privacy_url());
 

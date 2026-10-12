@@ -9,6 +9,10 @@ function restatify_register_polylang_strings() {
     }
 
     $strings = [
+        'Background Video Title' => __('Dekoratives Hintergrundvideo', 'restatify-base'),
+        'Background Video Pause' => __('Hintergrundvideo pausieren', 'restatify-base'),
+        'Background Video Play' => __('Hintergrundvideo abspielen', 'restatify-base'),
+        'Background Video Error' => __('Das Hintergrundvideo konnte nicht abgespielt werden.', 'restatify-base'),
         'Header CTA Label' => trim((string) get_theme_mod('restatify_cta_button_label', __('Start now', 'restatify-base'))),
         'Footer Slogan' => trim((string) get_theme_mod('restatify_footer_title', __('Strategie, die mit Ihrem Unternehmen mitwaechst.', 'restatify-base'))),
         'Footer Description' => trim((string) get_theme_mod('restatify_footer_description', __('Wir unterstuetzen Sie bei Positionierung, Wachstum und Umsetzung - strukturiert, messbar und hands-on.', 'restatify-base'))),

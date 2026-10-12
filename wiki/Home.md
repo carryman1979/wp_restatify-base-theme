@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.2.0, Release-Metadaten fuer WordPress 6.9, PHP 8.0+.
+Stand: Version 1.2.1, Release-Metadaten fuer WordPress 6.9, PHP 8.0+.
 
 Shared-Abhaengigkeit: exakt `1.1.0`. Das Theme installiert den enthaltenen
 PHP-Payload auch ohne aktive Plugins unter
@@ -41,6 +41,31 @@ Technische Eckpunkte:
 - Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
 - Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
 - Klare Trennung zwischen inhaltlicher Block-Entwicklung und deploybaren Build-Artefakten
+
+## YouTube-Hintergruende ab 1.2.1
+
+Die gemeinsame Hintergrundsteuerung aller 14 Custom-Sektionsbloecke bietet Bild
+oder YouTube-Video. Anleitung und Datenschutzgrenzen stehen in
+[README.de.md](../README.de.md#release-121). Die neuen Attribute
+`backgroundMediaType` (Standard `image`) und `backgroundVideoUrl` werden zentral
+im Editor und in der serverseitigen Blockregistrierung ergaenzt. Alte
+Bildbloecke behalten exakt ihre bisherige gespeicherte Ausgabe. Videoausgabe
+speichert nur eine validierte Video-ID, kein iframe und keine externe URL.
+Der Editor zeigt bewusst nur eine statische lokale Vorschau.
+
+Manuelle Integrationstests:
+
+- Alle 14 Blocktypen im Editor oeffnen; alte Bildbloecke duerfen keine
+  Validierungsfehler bekommen. Bild/Video wechseln, speichern und erneut laden.
+- Mit gueltiger YouTube-URL Overlay-Farbe und Deckkraft, Parallax sowie Fullscreen
+  pruefen; nach dem Wechsel zurueck zum Bild muss die Bildauswahl erhalten bleiben.
+- Vor Zustimmung/bei Ablehnung keine YouTube-Requests (auch keine Thumbnails).
+  Nach Zustimmung stumme Schleife pruefen; bei Widerruf darf kein Player verbleiben.
+- Pause/Abspielen mit Tastatur, Offscreen-Pause, mobilen Cover-Zuschnitt und
+  maximal 48 Pixel Parallax-Versatz pruefen. Reduzierte Bewegung unterbindet
+  Video und Parallax.
+- Ungueltige URL im Editor, gesperrtes Einbetten, Netzwerkausfall und blockiertes
+  Autoplay pruefen. Lokaler Hintergrund, Overlay und Inhalte bleiben erhalten.
 
 ## Blog-Lesebereich und Artikelnavigation
 
