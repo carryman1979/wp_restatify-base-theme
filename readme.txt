@@ -4,7 +4,7 @@ Contributors: Thomas Hoffermann
 Requires at least: 6.9
 Tested up to: 6.9
 Requires PHP: 8.0
-Version: 1.2.0
+Version: 1.2.2
 Text Domain: restatify-base
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -131,6 +131,12 @@ The ZIP is created in /release.
 
 
 == Changelog ==
+
+= 1.2.1 =
+* Add shared image/YouTube background selection to all custom section blocks.
+* Start muted looping videos only after existing cookie consent; remove players on withdrawal.
+* Preserve overlays and add bounded video parallax, pause controls and reduced-motion fallback.
+* Keep existing image block markup unchanged and report unavailable/background autoplay failures.
 
 = 1.2.0 =
 * Add single-post layout, article overview dialog and adjacent-post navigation.

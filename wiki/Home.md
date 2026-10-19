@@ -1,6 +1,6 @@
 # Restatify Base Theme - Wiki (DE)
 
-Stand: Version 1.2.0, Release-Metadaten fuer WordPress 6.9, PHP 8.0+.
+Stand: Version 1.2.2, Release-Metadaten fuer WordPress 6.9, PHP 8.0+.
 
 Shared-Abhaengigkeit: exakt `1.1.0`. Das Theme installiert den enthaltenen
 PHP-Payload auch ohne aktive Plugins unter
@@ -22,6 +22,7 @@ Diese Seite ist als zentrale One-Page-Dokumentation für Installation, Entwicklu
 - Customizer und Footer-Struktur
 - Troubleshooting
 - Release-Workflow
+- Release 1.2.2: Video-Ladebild
 - Verlinkte Projektdokumente
 
 ---
@@ -41,6 +42,59 @@ Technische Eckpunkte:
 - Einheitliche Background- und Layout-Steuerung über gemeinsame Block-Controls
 - Theme-kompatible CSS-Variablen für Light- und Dark-Mode sowie Oberflächen und Sektionen
 - Klare Trennung zwischen inhaltlicher Block-Entwicklung und deploybaren Build-Artefakten
+
+## YouTube-Hintergruende ab 1.2.1
+
+Die gemeinsame Hintergrundsteuerung aller 14 Custom-Sektionsbloecke bietet Bild
+oder YouTube-Video. Anleitung und Datenschutzgrenzen stehen in
+[README.de.md](../README.de.md#release-121). Die neuen Attribute
+`backgroundMediaType` (Standard `image`) und `backgroundVideoUrl` werden zentral
+im Editor und in der serverseitigen Blockregistrierung ergaenzt. Alte
+Bildbloecke behalten exakt ihre bisherige gespeicherte Ausgabe. Videoausgabe
+speichert nur eine validierte Video-ID, kein iframe und keine externe URL.
+Der Editor zeigt bewusst nur eine statische lokale Vorschau.
+
+Optional speichert `backgroundVideoPosterUrl` das eigene Ladebild aus der
+Mediathek. Die Auswahl erscheint nur bei aktivem Video-Hintergrund unter
+**Video loading image**. Es gilt auch als Fallback vor Zustimmung, bei Fehlern
+und reduzierter Bewegung. Ein Vordergrund auf der Videoebene zeigt das Ladebild
+bis zum Player-Ereignis `is-playing`; der Farboverlay liegt weiterhin darueber.
+Ohne Ladebild bleibt die bisherige gespeicherte Ausgabe unveraendert.
+
+Manuelle Integrationstests:
+
+- Alle 14 Blocktypen im Editor oeffnen; alte Bildbloecke duerfen keine
+  Validierungsfehler bekommen. Bild/Video wechseln, speichern und erneut laden.
+- Mit gueltiger YouTube-URL Overlay-Farbe und Deckkraft, Parallax sowie Fullscreen
+  pruefen; nach dem Wechsel zurueck zum Bild muss die Bildauswahl erhalten bleiben.
+- Vor Zustimmung/bei Ablehnung keine YouTube-Requests (auch keine Thumbnails).
+  Nach Zustimmung stumme Schleife pruefen; bei Widerruf darf kein Player verbleiben.
+- Pause/Abspielen mit Tastatur, Offscreen-Pause, mobilen Cover-Zuschnitt und
+  maximal 48 Pixel Parallax-Versatz pruefen. Reduzierte Bewegung unterbindet
+  Video und Parallax.
+- Ungueltige URL im Editor, gesperrtes Einbetten, Netzwerkausfall und blockiertes
+  Autoplay pruefen. Lokaler Hintergrund, Overlay und Inhalte bleiben erhalten.
+- Ladebild auswaehlen/ersetzen/entfernen, speichern und erneut oeffnen. Im Editor
+  und vor Zustimmung dasselbe Bild pruefen; bei gedrosseltem Netz muss es bis
+  zum Videostart sichtbar bleiben. Fehler, Widerruf und reduzierte Bewegung
+  muessen das Ladebild samt Overlay beibehalten. Wechsel zum Image-Modus darf
+  dessen bisherige Bildauswahl nicht veraendern.
+
+## Video-Ladebild ab 1.2.2
+
+Das optionale Blockattribut `backgroundVideoPosterUrl` speichert die URL eines
+Bildes aus der WordPress-Mediathek und hat als Standard den leeren String.
+Im Video-Modus kann das Bild unter **Background & layout > Video loading image**
+ausgewaehlt, ersetzt oder entfernt werden. Es ist im Editor lokal sichtbar und
+ueberdeckt den Video-Hintergrund auf der Website bis zum Player-Ereignis
+`is-playing`. Die vorhandenen Overlays liegen darueber. Ohne Bild ist das
+Ladebild-Pseudo-Element verborgen; bestehende Video- und Bildbloecke behalten
+damit ihre bisherige Ausgabe.
+
+Das Ladebild wird nicht als externer YouTube-Aufruf geladen. Es bleibt vor
+Cookie-Zustimmung, waehrend des Ladens, bei Playerfehlern und fuer reduzierte
+Bewegung sichtbar. Der separate Bildmodus und dessen gespeicherte Bildauswahl
+werden nicht veraendert.
 
 ## Blog-Lesebereich und Artikelnavigation
 
@@ -344,6 +398,7 @@ npm run package
 
 Aktuelle release-spezifische Zusammenfassung:
 
+- [Release 1.2.2](Release-1.2.2)
 - [Release 1.1.1](Release-1.1.1)
 - [Release 1.0.16](Release-1.0.16)
 - [Release 1.0.12](Release-1.0.12)
