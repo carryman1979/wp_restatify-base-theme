@@ -1,5 +1,5 @@
 import { getYouTubeVideoId } from '../youtube-url';
-import { extendBackgroundAttributes, getVideoBackgroundProps } from '../background-video-controls';
+import { extendBackgroundAttributes, getVideoBackgroundProps, getVideoPosterBackground } from '../background-video-controls';
 
 jest.mock('@wordpress/compose', () => ({
 	createHigherOrderComponent: (factory) => factory,
@@ -32,6 +32,7 @@ describe('YouTube background settings and saved markup compatibility', () => {
 			...attrs,
 			backgroundMediaType: { type: 'string', default: 'image' },
 			backgroundVideoUrl: { type: 'string', default: '' },
+			backgroundVideoPosterUrl: { type: 'string', default: '' },
 		});
 	});
 	it.each([{}, { backgroundMediaType: 'image' }, {
@@ -58,5 +59,24 @@ describe('YouTube background settings and saved markup compatibility', () => {
 		expect(getVideoBackgroundProps({}, {
 			backgroundMediaType: 'video', backgroundVideoUrl: 'https://evil.test/',
 		})['data-restatify-background-video']).toBe('');
+	});
+	it('uses a separate loading image without changing the image-mode background', () => {
+		const props = { style: { backgroundImage: 'url(image-mode.jpg)' } };
+		const attributes = {
+			backgroundMediaType: 'video',
+			backgroundVideoPosterUrl: 'https://example.test/loading.jpg',
+		};
+		const video = getVideoBackgroundProps(props, attributes);
+		expect(video.style.backgroundImage).toBe('url("https://example.test/loading.jpg")');
+		expect(video.style['--rs-video-loading-background']).toBe(video.style.backgroundImage);
+		expect(getVideoBackgroundProps(props, { ...attributes, backgroundMediaType: 'image' })).toBe(props);
+		expect(getVideoBackgroundProps(props, { ...attributes, backgroundImageEnabled: false })).toBe(props);
+		expect(getVideoBackgroundProps(props, { ...attributes, backgroundVideoPosterUrl: '' }).style).toEqual({});
+	});
+	it('quotes image URLs so parentheses and quotes cannot escape the CSS URL', () => {
+		const url = 'https://example.test/image (1)"test.jpg';
+		expect(getVideoPosterBackground(url)).toBe(`url(${JSON.stringify(url)})`);
+		expect(getVideoPosterBackground('  ')).toBeUndefined();
+		expect(getVideoPosterBackground(undefined)).toBeUndefined();
 	});
 });

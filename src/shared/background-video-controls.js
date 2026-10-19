@@ -15,8 +15,15 @@ export function extendBackgroundAttributes(settings, name = settings.name || '')
 			...settings.attributes,
 			backgroundMediaType: { type: 'string', default: 'image' },
 			backgroundVideoUrl: { type: 'string', default: '' },
+			backgroundVideoPosterUrl: { type: 'string', default: '' },
 		},
 	};
+}
+
+export function getVideoPosterBackground(url) {
+	return typeof url === 'string' && url.trim()
+		? `url(${JSON.stringify(url.trim())})`
+		: undefined;
 }
 
 export function getVideoBackgroundProps(props, attributes) {
@@ -24,8 +31,12 @@ export function getVideoBackgroundProps(props, attributes) {
 		return props;
 	}
 	const style = { ...props.style };
-	// In video mode only the local theme default remains as the consent/error fallback.
 	delete style.backgroundImage;
+	const poster = getVideoPosterBackground(attributes.backgroundVideoPosterUrl);
+	if (poster) {
+		style.backgroundImage = poster;
+		style['--rs-video-loading-background'] = poster;
+	}
 	return {
 		...props,
 		style,
@@ -44,9 +55,14 @@ if (!hasFilter('blocks.registerBlockType', namespace)) {
 			const video = props.name.startsWith('restatify/')
 				&& props.attributes.backgroundImageEnabled !== false
 				&& props.attributes.backgroundMediaType === 'video';
+			const poster = video ? getVideoPosterBackground(props.attributes.backgroundVideoPosterUrl) : undefined;
 			return <BlockListBlock {...props} wrapperProps={{
 				...props.wrapperProps,
 				...(video ? { 'data-restatify-video-preview': 'true' } : {}),
+				...(poster ? { style: {
+					...props.wrapperProps?.style,
+					'--rs-video-loading-background': poster,
+				} } : {}),
 			}} />;
 		}, 'withRestatifyVideoPreview'
 	));

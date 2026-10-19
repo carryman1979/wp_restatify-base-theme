@@ -35,6 +35,7 @@ describe('background video wiring across all custom sections', () => {
 		const block = getBlockType(`restatify/${name}`);
 		expect(block.attributes.backgroundMediaType.default).toBe('image');
 		expect(block.attributes.backgroundVideoUrl.default).toBe('');
+		expect(block.attributes.backgroundVideoPosterUrl.default).toBe('');
 		const attributes = Object.fromEntries(Object.entries(block.attributes).map(([key, schema]) =>
 			[key, schema.default]
 		));
@@ -58,5 +59,21 @@ describe('background video wiring across all custom sections', () => {
 		expect(video).not.toContain('background-image:url(');
 		expect(video).not.toContain('<iframe');
 		expect(video).not.toContain('youtu.be');
+		const poster = getSaveContent(block, {
+			...attributes, backgroundMediaType: 'video',
+			backgroundVideoUrl: 'https://youtu.be/dQw4w9WgXcQ',
+			backgroundVideoPosterUrl: 'https://example.test/loading.jpg',
+		});
+		const root = document.createElement('div');
+		root.innerHTML = poster;
+		expect(root.firstElementChild.style.backgroundImage).toContain('https://example.test/loading.jpg');
+		expect(root.firstElementChild.style.getPropertyValue('--rs-video-loading-background'))
+			.toBe('url("https://example.test/loading.jpg")');
+		expect(poster).toContain('opacity:0.35');
+		expect(poster).not.toContain('https://example.test/background.jpg');
+		expect(getSaveContent(block, {
+			...attributes, backgroundMediaType: 'image',
+			backgroundVideoPosterUrl: 'https://example.test/loading.jpg',
+		})).toBe(legacy);
 	});
 });

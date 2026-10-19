@@ -18,6 +18,7 @@ final class BackgroundVideoAttributesTest extends TestCase {
             $args = restatify_background_video_attributes($metadata, $metadata['name']);
             self::assertSame(['type' => 'string', 'default' => 'image'], $args['attributes']['backgroundMediaType']);
             self::assertSame(['type' => 'string', 'default' => ''], $args['attributes']['backgroundVideoUrl']);
+            self::assertSame(['type' => 'string', 'default' => ''], $args['attributes']['backgroundVideoPosterUrl']);
             self::assertSame($metadata['attributes']['backgroundImageEnabled'], $args['attributes']['backgroundImageEnabled']);
             $count++;
         }

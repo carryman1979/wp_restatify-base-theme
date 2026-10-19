@@ -51,6 +51,7 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 		backgroundImageUrl,
 		backgroundMediaType,
 		backgroundVideoUrl,
+		backgroundVideoPosterUrl,
 		parallax,
 		fullscreen,
 		overlayEnabled,
@@ -94,6 +95,27 @@ export function BackgroundLayoutPanel({ attributes, setAttributes }) {
 									? __('Enter a valid HTTPS YouTube video URL (watch, shorts, embed or youtu.be).', 'restatify-base')
 									: __('Muted looping playback starts on the website only after cookie consent. The editor does not connect to YouTube. Reduced-motion visitors see the local fallback.', 'restatify-base')}
 							/>
+							<p>{__('Video loading image', 'restatify-base')}</p>
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={(media) => setAttributes({ backgroundVideoPosterUrl: media?.url || '' })}
+									allowedTypes={['image']}
+									value={backgroundVideoPosterUrl}
+									render={({ open }) => (
+										<Button variant="secondary" onClick={open}>
+											{backgroundVideoPosterUrl
+												? __('Replace video loading image', 'restatify-base')
+												: __('Choose video loading image', 'restatify-base')}
+										</Button>
+									)}
+								/>
+							</MediaUploadCheck>
+							{backgroundVideoPosterUrl && (
+								<Button variant="link" onClick={() => setAttributes({ backgroundVideoPosterUrl: '' })}>
+									{__('Remove video loading image', 'restatify-base')}
+								</Button>
+							)}
+							<p>{__('Shown while the video loads, before cookie consent and when playback is unavailable. The background overlay also applies to this image.', 'restatify-base')}</p>
 						</>
 					) : (
 						<>

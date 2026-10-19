@@ -1,6 +1,18 @@
 # Restatify Base - Dokumentation (DE)
 
-Stand: Version 1.2.1, getestet bis WordPress 6.9. Erfordert PHP 8.0+.
+Stand: Version 1.2.2, getestet bis WordPress 6.9. Erfordert PHP 8.0+.
+
+## Release 1.2.2
+
+Im Video-Modus kann jetzt unter **Video loading image** ein eigenes Ladebild aus
+der Mediathek ausgewaehlt, ersetzt oder entfernt werden. Das Bild ist schon vor
+Cookie-Zustimmung sichtbar und bleibt waehrend des Ladens bis zum tatsaechlichen
+Videostart sowie bei Fehlern oder reduzierter Bewegung als Fallback sichtbar.
+Das bestehende Farboverlay gilt ebenfalls fuer das Ladebild; der Editor zeigt
+dieselbe lokale Vorschau. Ohne Ladebild bleibt die bisherige Videoausgabe
+unveraendert. Die Bildauswahl des separaten Image-Modus wird nicht veraendert.
+Das neue optionale Blockattribut `backgroundVideoPosterUrl` hat den Standardwert
+`''`, sodass vorhandene gespeicherte Bloecke kompatibel bleiben.
 
 ## Release 1.2.1
 

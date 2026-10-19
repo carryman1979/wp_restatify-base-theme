@@ -1,5 +1,5 @@
 .block-editor-block-list__block[data-restatify-video-preview] [class*="-block"] {
-	background-image: none !important;
+	background-image: var(--rs-video-loading-background, none) !important;
 }
 
 .block-editor-block-list__block[data-restatify-video-preview] {

@@ -20,6 +20,20 @@
     pointer-events: none;
 }
 
+.restatify-background-video::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: var(--rs-video-loading-background, none);
+    background-size: cover;
+    background-position: center;
+}
+
+.restatify-background-video.is-playing::after {
+    display: none;
+}
+
 .restatify-background-video__toggle,
 .restatify-background-video__notice {
     position: absolute;
