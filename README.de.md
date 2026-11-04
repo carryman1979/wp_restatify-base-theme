@@ -56,6 +56,15 @@ verwendet werden. CI pinnt die Shared-Test-Fixture auf den getesteten Commit.
 Theme-only Loader-Smoke-Tests:
 `php tests/php/shared-bootstrap-smoke.php . packaged` (auch `local` und `mu`).
 
+Build-Abhaengigkeiten (2026-11-04): kompatible Lockfile-Updates auf
+`body-parser` 1.20.9 und `zod` 4.6.7 beseitigen beide hohen Audit-Befunde.
+`npm run test:dependencies` prueft jetzt 13 Faelle. Es verbleiben
+33 moderate / 3 niedrige entwicklungsbezogene Audit-Eintraege aus
+Minimatch, Glob und Deepmerge; keine Warnung wird unterdrueckt.
+Details, Major-Upgrade-Grenzen und Pruefbefehle:
+[Build-Abhaengigkeiten pflegen](wiki/Home.md#build-abhaengigkeiten-pflegen).
+Keine Aenderung der Theme-Version 1.2.2 oder Deployment.
+
 Restatify Base ist das benutzerdefinierte WordPress-Basistheme der Restatify UG (haftungsbeschraenkt).
 
 Release-Prep-Status (2026-07-01):
