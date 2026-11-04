@@ -254,7 +254,7 @@ Die CLI importiert den benannten Export `minimatch` und benoetigt die
 upstream deklarierte 10er-API. Die bisherigen Overrides fuer
 `@istanbuljs/load-nyc-config` und `serialize-javascript` bleiben erhalten;
 das letztere erfordert mindestens `7.1.3`.
-Die neueste verfuegbare `@wordpress/scripts`-Version 36.1.0 behebt diese
+Die damals verwendete `@wordpress/scripts`-Version 36.1.0 behebt diese
 festgelegten Unterabhaengigkeiten noch nicht.
 
 `test:dependencies` prueft alle betroffenen Lockfile-Kopien, YAML-/TOML-Configs
@@ -269,11 +269,58 @@ CI fuehrt diese Pruefungen und den Produktionsbuild ebenfalls aus.
 ergaenzen die oben dokumentierten 18 Alerts; damit sind 20 Alerts durch
 versionsgebundene Lockfile-Eintraege abgedeckt.
 
-Die danach weiterhin offenen Alerts #191 (`deepmerge`, kein gepatchtes
-Upstream-Release) und #193 (`minimatch` ab 11.0.1, ein Major-Update ueber
-mehrere Build-Werkzeuge mit 10er-Abhaengigkeiten) werden nicht mit einem
-erzwungenen Major-Override verdeckt. Fuer #193 ist ein getestetes
-Toolchain-Update erforderlich.
+#### Weitere Haertung (Registry-Pruefung 2026-11-04)
+
+`npm update body-parser zod --package-lock-only --ignore-scripts` aktualisiert
+gezielt `body-parser` von 1.20.5 auf 1.20.9 und `zod` von 4.6.5 auf 4.6.7.
+Beide Updates liegen innerhalb der vorhandenen Upstream-Bereiche:
+Express 4.22.2 unter Webpack-Dev-Server 5.2.6 verlangt `~1.20.5`;
+React Hooks erlaubt Zod `^3.25.0 || ^4.0.0` und Chromium Bidi `^4.6.5`.
+Neue Overrides sind nicht erforderlich. Der doppelte
+`serialize-javascript`-Schluessel wurde entfernt; der bereits wirksame
+Bereich `^7.1.3` bleibt unveraendert. Theme-Version weiterhin 1.2.2.
+
+Die Dependency-Suite hat jetzt 13 Tests (vorher 11). Neu geprueft werden
+Express-JSON/Formulare, gzip, Groessenlimits, ungueltige Limits und komprimierte
+Eingaben sowie die weitere Erreichbarkeit nach einem Parserfehler. Zod muss
+zu grosse Arrays, Sets und Maps vor Element-Transformationen ablehnen und
+gueltige Transformationen erhalten. Lockfile-Pruefungen erfassen jede Kopie
+beider aktualisierter Pakete. HTTP-Smokes binden nur an `127.0.0.1`, verwenden
+zufaellige Ports und beenden ihre Server im Test; kein dauerhaft laufender
+oder oeffentlicher Dev-Server ist erforderlich.
+
+Validierung mit isoliertem Node 24.22.2 (keine globale Runtime-Aenderung):
+`npm ci`, 13 Dependency-Tests, 9 JS-Suites / 89 Tests, Produktionsbuild;
+PHPUnit 10.5 mit PHP 8.3: 10 Tests / 77 Assertions und die drei
+Shared-Bootstrap-Modi `packaged`, `local`, `mu`.
+
+Audit-Ergebnis gegen `https://registry.npmjs.org/`: **38 -> 36**
+betroffene Pakete, **2 high -> 0 high**, unveraendert **33 moderate / 3 low**,
+keine kritischen Befunde. Die Anzahl enthaelt abhaengige Metavulnerabilities,
+nicht 36 unabhaengige Sicherheitsluecken. `npm audit --omit=dev` meldet **0**.
+Die beiden hohen Befunde betrafen komprimierte Request-Bodies in
+`body-parser` (GHSA-27r3-jxmh-p828) und zu grosse Zod-Collections
+(GHSA-mrhx-c7xc-m3w5); das weitere niedrige Body-Parser-Advisory
+GHSA-v422-hmwv-36x6 ist ebenfalls durch 1.20.9 abgedeckt.
+
+Verbleibende Ursachen, nicht unterdrueckt oder als behoben ausgegeben:
+
+| Paket / Advisory | Verbleibender Bereich | Konkrete Grenze fuer einen sicheren Fix |
+| --- | --- | --- |
+| `minimatch`, GHSA-g3hv-75wg-m249, Dependabot #193 (medium) | 9.0.9 / 10.2.5 / 10.2.6; Patch ab 11.0.1 | 11 entfernt `makeRe`/`matchOne` und liefert Matcher statt RegExp in `Minimatch.set`. Installiertes Glob 10.5.0 unter `test-exclude` prueft dort `instanceof RegExp`; ein globaler Override waere nicht API-kompatibel. Auch Glob 13, ESLint, TypeScript-ESLint und Markdownlint deklarieren noch 9/10. |
+| `glob`, GHSA-3g3m-2fjr-6pw4 (moderate) | 10.5.0 / 13.0.6; Patch ab 14.0.2 | Abbruch per AbortSignal kann weitere Dateisystem-Traversierung zulassen. Jest 30.5.0 verlangt `^13.0.6`, `test-exclude` `^10.4.1`; 14 verlangt seinerseits Minimatch 11 und Path-Scurry 3. Gemeinsame Upstream-Migration statt isoliertem Major-Override erforderlich. |
+| `deepmerge`, GHSA-gcqx-w48m-w2h4, Dependabot #191 (low) | 4.3.1 | Registry bietet weiterhin nur 4.3.1, kein gepatchtes Upstream-Release. Jest und SVGR verlangen `^4.3.1`. Jest nutzt sowohl den CommonJS-Funktionsaufruf als auch `.all()`; etwa `deepmerge-ts` bietet eine andere Export-/Options-API und ist kein belegter Drop-in-Ersatz. Kein Alias, Downgrade oder eigener Adapter zur blossen Alert-Beseitigung. |
+
+`@wordpress/scripts` 37.1.0 ist inzwischen verfuegbar, erfordert jedoch unter
+anderem Webpack-Dev-Server 6 statt 5 und beseitigt die direkt installierte
+Jest-/Glob-Kette nicht. Dieses Major-Update ist deshalb keine vollstaendige
+oder notwendige Loesung fuer die zwei kompatiblen Patch-Fixes oben und bleibt
+ausserhalb dieses Changes. Die verbleibenden Matcher-/Glob-Migrationen
+benoetigen eine gesondert getestete Toolchain-Umstellung bzw. passende
+Upstream-Releases; Deepmerge benoetigt einen Upstream-Fix oder eine bewusst
+implementierte und getestete Ersatzintegration in seinen Verbrauchern.
+Nur lokaler Dev-Server reduziert die Netzwerk-Exposition, macht das
+Verarbeiten nicht vertrauenswuerdiger Dateien/Configs aber nicht risikofrei.
 
 `npm audit --json` separat pruefen: Keine der elf gepatchten Abhaengigkeiten
 darf in einem verwundbaren Lockfile-Bereich verbleiben.

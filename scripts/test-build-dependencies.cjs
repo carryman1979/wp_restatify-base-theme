@@ -1,9 +1,11 @@
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 const { createRequire } = require('node:module');
+const { createServer } = require('node:http');
 const path = require('node:path');
 const { test } = require('node:test');
 const { pathToFileURL } = require('node:url');
+const { gzipSync } = require('node:zlib');
 
 const scriptsRequire = createRequire(require.resolve('@wordpress/scripts/package.json'));
 const markdownRequire = createRequire(scriptsRequire.resolve('markdownlint-cli/package.json'));
@@ -12,10 +14,11 @@ const devServerRequire = createRequire(scriptsRequire.resolve('webpack-dev-serve
 const sockjsRequire = createRequire(devServerRequire.resolve('sockjs/package.json'));
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
-test('every locked copy of the alerted dependencies is patched and development-only', () => {
+test('every locked copy of the remediated dependencies is patched and development-only', () => {
     const { packages } = require('../package-lock.json');
     const { satisfies } = scriptsRequire('semver');
     const minimums = {
+        'body-parser': '>=1.20.9 <2',
         'fast-uri': '>=3.1.9',
         'follow-redirects': '>=1.16.1',
         'launch-editor': '>=2.14.2',
@@ -27,6 +30,7 @@ test('every locked copy of the alerted dependencies is patched and development-o
         'postcss-selector-parser': '>=7.1.6',
         'serialize-javascript': '>=7.1.3',
         uuid: '>=11.1.1',
+        zod: '>=4.6.6 <5',
     };
     for (const [name, range] of Object.entries(minimums)) {
         const copies = Object.entries(packages).filter(([location]) =>
@@ -37,6 +41,84 @@ test('every locked copy of the alerted dependencies is patched and development-o
             assert.ok(satisfies(metadata.version, range), `${location}: ${metadata.version}`);
             assert.equal(metadata.dev, true, `${location} must not become a runtime dependency`);
         }
+    }
+});
+
+test('Express body parsing preserves JSON, forms, compression and enforced limits', async () => {
+    const expressRequire = createRequire(devServerRequire.resolve('express/package.json'));
+    const parser = expressRequire('body-parser');
+    for (const method of ['json', 'urlencoded', 'text', 'raw']) {
+        assert.throws(() => parser[method]({ limit: 'invalid', extended: true }), /limit.*invalid/i);
+    }
+
+    const app = devServerRequire('express')();
+    app.use(parser.json({ limit: '64b' }));
+    app.use(parser.urlencoded({ extended: true, limit: '64b' }));
+    app.post('/', (request, response) => response.json(request.body));
+    app.use((error, request, response, next) => {
+        response.status(error.status || 500).json({ type: error.type });
+    });
+    const server = createServer(app);
+    try {
+        await new Promise((resolve, reject) => {
+            server.once('error', reject);
+            server.listen(0, '127.0.0.1', resolve);
+        });
+        const url = `http://127.0.0.1:${server.address().port}/`;
+        const post = (body, headers) => fetch(url, {
+            method: 'POST', body, headers, signal: AbortSignal.timeout(5000),
+        });
+        for (const headers of [
+            { 'content-type': 'application/json' },
+            { 'content-type': 'application/json', 'content-encoding': 'gzip' },
+        ]) {
+            const json = JSON.stringify({ item: 'one' });
+            const response = await post(headers['content-encoding'] ? gzipSync(json) : json, headers);
+            assert.equal(response.status, 200);
+            assert.deepEqual(await response.json(), { item: 'one' });
+        }
+        const form = await post('item[0]=one&item[1]=two', {
+            'content-type': 'application/x-www-form-urlencoded',
+        });
+        assert.equal(form.status, 200);
+        assert.deepEqual(await form.json(), { item: ['one', 'two'] });
+        const oversized = await post(gzipSync(JSON.stringify({ item: 'x'.repeat(65) })), {
+            'content-type': 'application/json', 'content-encoding': 'gzip',
+        });
+        assert.equal(oversized.status, 413);
+        assert.equal((await oversized.json()).type, 'entity.too.large');
+        const malformed = await post(Buffer.from('not gzip'), {
+            'content-type': 'application/json', 'content-encoding': 'gzip',
+        });
+        assert.equal(malformed.status, 400);
+        await malformed.json();
+        const following = await post('{"item":"still running"}', { 'content-type': 'application/json' });
+        assert.equal(following.status, 200);
+        assert.deepEqual(await following.json(), { item: 'still running' });
+    } finally {
+        await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
+    }
+});
+
+test('Zod rejects oversized collections before visiting elements and preserves valid transforms', () => {
+    const { z } = scriptsRequire('zod');
+    for (const kind of ['array', 'set', 'map']) {
+        let visits = 0;
+        const item = z.string().transform((value) => {
+            visits++;
+            return value.toUpperCase();
+        });
+        const schema = kind === 'array' ? z.array(item).max(2)
+            : kind === 'set' ? z.set(item).max(2) : z.map(z.string(), item).max(2);
+        const collection = (values) => kind === 'array' ? values
+            : kind === 'set' ? new Set(values) : new Map(values.map((value) => [value, value]));
+        const rejected = schema.safeParse(collection(['one', 'two', 'three']));
+        assert.equal(rejected.success, false);
+        assert.equal(rejected.error.issues[0].code, 'too_big');
+        assert.equal(visits, 0, `${kind} must enforce its cap before element transforms`);
+        const valid = schema.parse(collection(['one', 'two']));
+        assert.equal(visits, 2);
+        assert.deepEqual(kind === 'array' ? valid : [...valid.values()], ['ONE', 'TWO']);
     }
 });
 
