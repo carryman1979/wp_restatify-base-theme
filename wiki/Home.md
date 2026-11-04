@@ -231,7 +231,7 @@ npm run test:dependencies
 npm run build
 ```
 
-Die Dependency-Korrektur fuer die offenen Dependabot-Alerts #186 bis #172,
+Die erste Dependency-Korrektur fuer die damals offenen Dependabot-Alerts #186 bis #172,
 #102, #99 und #37 betrifft ausschliesslich Entwicklungswerkzeuge,
 nicht eine im WordPress-Frontend ausgelieferte JavaScript-Laufzeit:
 
@@ -241,16 +241,19 @@ nicht eine im WordPress-Frontend ausgelieferte JavaScript-Laufzeit:
 | `follow-redirects` | 1.16.2 | Schutz sensibler Header bei Cross-Origin-Redirects; Patch-Update |
 | `launch-editor` | 2.14.2 | Windows-Pfadpruefung und Argument-Escaping; Patch-Update |
 | `markdown-it` | 14.3.3 | Fixes fuer nichtlineare Laufzeit im HTML-/Referenz-Parsing; Patch-Update |
+| `qs` | 6.17.1 | Fix fuer nicht abfangbare Fehler bei der Komma-Array-Serialisierung; kompatibles Update innerhalb der 6er-Reihe |
 | `smol-toml` | 1.9.1 | Linearer TOML-Parser; Override nur unter `markdownlint-cli`, dessen `~1.7.0` den Fix ausschliesst |
 | `js-yaml` | 5.5.0 | Merge-Budget-Fix; Override nur unter `markdownlint-cli`, dessen `~5.2.1` den Fix ausschliesst; YAML-4-Nutzer bleiben unveraendert |
 | `katex` | 0.18.10 | Kein geerbtes `trust`; Override nur unter `micromark-extension-math`, dessen `^0.16.0` den Fix ausschliesst |
 | `postcss-selector-parser` | 7.1.6 | CPU-/Rekursions-Fixes; CSS-Modules innerhalb ihres vorhandenen 7er-Bereichs aktualisiert; Override auf 7 nur im alten `cssnano`-6-Unterbaum |
+| `serialize-javascript` | 7.1.4 | Fix fuer nicht maskierte `</script`-Endungen; kompatibles Update des bestehenden Overrides |
 | `uuid` | 11.1.1 | Buffer-Grenzpruefung; Override nur unter `sockjs`, dessen `^8.3.2` den Fix ausschliesst; 11 bietet weiterhin CommonJS und die dort verwendete `v4()`-API |
 
 Der fruehere `markdownlint-cli`-Override auf `minimatch` 3 wurde entfernt:
 Die CLI importiert den benannten Export `minimatch` und benoetigt die
 upstream deklarierte 10er-API. Die bisherigen Overrides fuer
-`@istanbuljs/load-nyc-config` und `serialize-javascript` bleiben erhalten.
+`@istanbuljs/load-nyc-config` und `serialize-javascript` bleiben erhalten;
+das letztere erfordert mindestens `7.1.3`.
 Die neueste verfuegbare `@wordpress/scripts`-Version 36.1.0 behebt diese
 festgelegten Unterabhaengigkeiten noch nicht.
 
@@ -261,8 +264,19 @@ Ein lokaler, zeitlich begrenzter Webpack-Dev-Server testet einen echten
 SockJS-Handshake samt UUID-Verbindungs-ID und wird danach beendet.
 CI fuehrt diese Pruefungen und den Produktionsbuild ebenfalls aus.
 
-`npm audit --json` separat pruefen: Keine der neun Abhaengigkeiten hinter den
-18 genannten Alerts darf in einem verwundbaren Lockfile-Bereich verbleiben.
+`test:dependencies` prueft zusaetzlich die gepatchten `qs`- und
+`serialize-javascript`-APIs. Die Patch-Fixes fuer Dependabot #189 und #190
+ergaenzen die oben dokumentierten 18 Alerts; damit sind 20 Alerts durch
+versionsgebundene Lockfile-Eintraege abgedeckt.
+
+Die danach weiterhin offenen Alerts #191 (`deepmerge`, kein gepatchtes
+Upstream-Release) und #193 (`minimatch` ab 11.0.1, ein Major-Update ueber
+mehrere Build-Werkzeuge mit 10er-Abhaengigkeiten) werden nicht mit einem
+erzwungenen Major-Override verdeckt. Fuer #193 ist ein getestetes
+Toolchain-Update erforderlich.
+
+`npm audit --json` separat pruefen: Keine der elf gepatchten Abhaengigkeiten
+darf in einem verwundbaren Lockfile-Bereich verbleiben.
 Andere Audit-Meldungen koennen weiterhin bestehen; daraus folgt weder eine
 produktive Ausnutzbarkeit noch ein vollstaendig bereinigter Dependency-Baum.
 GitHub schliesst die Alerts

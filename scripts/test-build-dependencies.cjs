@@ -20,10 +20,12 @@ test('every locked copy of the alerted dependencies is patched and development-o
         'follow-redirects': '>=1.16.1',
         'launch-editor': '>=2.14.2',
         'markdown-it': '>=14.3.3',
+        qs: '>=6.16.1',
         'smol-toml': '>=1.9.0',
         katex: '>=0.18.2',
         'js-yaml': '<5.0.0 || >=5.4.1',
         'postcss-selector-parser': '>=7.1.6',
+        'serialize-javascript': '>=7.1.3',
         uuid: '>=11.1.1',
     };
     for (const [name, range] of Object.entries(minimums)) {
@@ -36,6 +38,20 @@ test('every locked copy of the alerted dependencies is patched and development-o
             assert.equal(metadata.dev, true, `${location} must not become a runtime dependency`);
         }
     }
+});
+
+test('patched qs and serialize-javascript retain expected behavior', () => {
+    const qs = scriptsRequire('qs');
+    assert.equal(qs.parse('item=one').item, 'one');
+    const oddValue = Object.create(null);
+    oddValue.toString = undefined;
+    assert.doesNotThrow(() => qs.stringify({ item: [oddValue] }, { arrayFormat: 'comma' }));
+
+    const serialize = scriptsRequire('serialize-javascript');
+    const output = serialize(function closingTag() {
+        return '</script>';
+    });
+    assert.doesNotMatch(output, /<\/script/i);
 });
 
 test('markdownlint configuration parsers preserve YAML and TOML configuration', () => {
