@@ -58,3 +58,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test:unit:js
+
+      - name: Check build dependency compatibility
+        run: npm run test:dependencies
+
+      - name: Build production assets
+        run: npm run build

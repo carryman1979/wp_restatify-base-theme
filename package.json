@@ -7,6 +7,7 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "package": "pwsh -NoProfile -ExecutionPolicy Bypass -File ./scripts/create-release-zip.ps1",
+    "test:dependencies": "node --test scripts/test-build-dependencies.cjs",
     "test:unit:js": "wp-scripts test-unit-jest",
     "test:unit:js:watch": "wp-scripts test-unit-jest --watch"
   },
@@ -16,7 +17,21 @@
     },
     "serialize-javascript": "^7.0.0",
     "markdownlint-cli": {
-      "minimatch": "^3.1.5"
+      "js-yaml": "^5.4.1",
+      "smol-toml": "^1.9.0"
+    },
+    "fast-uri": "^3.1.9",
+    "follow-redirects": "^1.16.1",
+    "launch-editor": "^2.14.2",
+    "markdown-it": "^14.3.3",
+    "micromark-extension-math": {
+      "katex": "^0.18.2"
+    },
+    "cssnano": {
+      "postcss-selector-parser": "^7.1.6"
+    },
+    "sockjs": {
+      "uuid": "^11.1.1"
     }
   },
   "author": "",
